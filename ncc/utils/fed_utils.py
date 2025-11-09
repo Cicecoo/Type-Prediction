@@ -18,7 +18,7 @@ dtypes = {
     3: np.int16,
     4: np.int32,
     5: np.int64,
-    6: np.float,
+    6: np.float64,
     7: np.double,
 }
 
@@ -136,7 +136,7 @@ class IndexedDatasetBuilder(object):
         np.int16: 2,
         np.int32: 4,
         np.int64: 8,
-        np.float: 4,
+        np.float64: 4,
         np.double: 8
     }
 
@@ -242,7 +242,7 @@ class TeacherOutputDataset(IndexedCachedDataset):
         super().__init__(prefix, fix_lua_indexing=False)
 
     @staticmethod
-    def save_bin(prefix, data_list, dtype=np.float):
+    def save_bin(prefix, data_list, dtype=np.float64):
         bin_path = prefix + '.mmap'
         idx_path = prefix + '.idx'
         builder = TeacherOutputDatasetBuilder(bin_path, dtype)
@@ -363,7 +363,7 @@ def save_expert_outputs(args, task, trainer):
         path = os.path.join(args['task']['data'], '{}_{}_{}_topk_prob'.format(
             '_'.join(args['task']['programming_langs']), args['task']['source_lang'], args['task']['target_lang'])
                             )
-        TeacherOutputDataset.save_bin(path, [o[1] for o in expert_outputs], np.float)
+        TeacherOutputDataset.save_bin(path, [o[1] for o in expert_outputs], np.float64)
 
         LOGGER.info(
             "| Save expert@{}_{}_{}. Bleu.Json: {}, TopK.Idx/Prob: {}.".format(

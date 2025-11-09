@@ -106,7 +106,7 @@ def _main(args, output_file):
         TeacherOutDataset.save_bin(
             prefix=os.path.join(args['checkpoint']['save_dir'], f'{subset}.top{topk}_prob'),
             data_list=out_prob,
-            dtype=np.float,
+            dtype=np.float64,
         )
 
 
