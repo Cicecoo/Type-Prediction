@@ -11,6 +11,9 @@ from ncc.utils.file_ops.yaml_io import load_yaml
 from ncc.utils.logging import progress_bar
 
 
+results_path = './results/'
+
+
 class SimpleTypePredictor:
     """Run each model on the graph batch and (optionally) average logits."""
 
@@ -36,10 +39,10 @@ class SimpleTypePredictor:
 
 
 def main(args):
-    if args['eval']['results_path'] is not None:
-        os.makedirs(args['eval']['results_path'], exist_ok=True)
+    if results_path is not None:
+        os.makedirs(results_path, exist_ok=True)
         output_path = os.path.join(
-            args['eval']['results_path'], f"generate-{args['eval']['gen_subset']}.txt"
+            results_path, f"res.txt"
         )
         with open(output_path, 'w', buffering=1) as h:
             return _main(args, h)
@@ -184,6 +187,13 @@ def _main(args, _output_file):
 
         LOGGER.info('avg_loss: {}\t acc1: {}\t acc5: {}\t acc1_any: {}\t acc5_any: {}'.format(avg_loss, acc1, acc5, acc1_any, acc5_any))
 
+        # Write results to file
+        _output_file.write('avg_loss: {}\n'.format(avg_loss))
+        _output_file.write('acc1: {}\n'.format(acc1))
+        _output_file.write('acc5: {}\n'.format(acc5))
+        _output_file.write('acc1_any: {}\n'.format(acc1_any))
+        _output_file.write('acc5_any: {}\n'.format(acc5_any))
+        _output_file.close()
 
 def cli_main():
     parser = argparse.ArgumentParser(description='Typilus type prediction')
