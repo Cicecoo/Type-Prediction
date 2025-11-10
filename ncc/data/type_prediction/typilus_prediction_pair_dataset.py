@@ -30,6 +30,13 @@ def collate(
     tgt_ids = torch.cat(tgt_ids, dim=0)
     tgt_labels = torch.cat(tgt_labels, dim=0)
 
+    # adjacent_matrix = torch.zeros([len(tgt_cls), len(tgt_cls)]).float()
+    # for i in range(len(tgt_cls)):
+    #     for j in range(i + 1, len(tgt_cls)):
+    #         if tgt_cls[i] == tgt_cls[j]:
+    #             adjacent_matrix[i, j] = 1.
+    #             adjacent_matrix[j, i] = 1.
+
     batch = {
         'id': id,
         'nsentences': len(samples),

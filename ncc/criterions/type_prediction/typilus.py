@@ -32,6 +32,7 @@ class TypilusCriterion(NccCriterion):
 
     def compute_loss(self, model, net_output, sample, reduce=True):
         ce_loss, _ = self.cross_entropy.compute_loss(model, [net_output], sample, reduce)
+        # triple_loss, _ = self.triplet_loss.compute_loss(net_output, sample['target_equal_ids'])
         # Compute triplet loss using label ids directly (memory-efficient):
         triple_loss, _ = self.triplet_loss.compute_loss(net_output, sample.get('target_cls', sample['target']))
         sample_size = sample['target'].size(0)
