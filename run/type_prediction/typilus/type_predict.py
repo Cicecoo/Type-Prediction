@@ -6,10 +6,33 @@ import torch
 import torch.nn.functional as F
 
 from ncc import LOGGER, tasks
-from ncc.eval.inference.type_predictor import TypePredictor
 from ncc.utils import checkpoint_utils, utils
 from ncc.utils.file_ops.yaml_io import load_yaml
 from ncc.utils.logging import progress_bar
+
+
+class SimpleTypePredictor:
+    """Run each model on the graph batch and (optionally) average logits."""
+
+    def __call__(self, models, sample):
+        return self.predict(models, sample)
+
+    def predict(self, models, sample):
+        outputs = [model(**sample['net_input']) for model in models]
+        if len(outputs) == 1:
+            return outputs[0]
+
+        first = outputs[0]
+        if isinstance(first, torch.Tensor):
+            stacked = torch.stack(outputs).mean(0)
+            return stacked
+
+        if isinstance(first, (tuple, list)) and isinstance(first[0], torch.Tensor):
+            avg_logits = torch.stack([out[0] for out in outputs]).mean(0)
+            rest = first[1:]
+            return (avg_logits, *rest)
+
+        return first
 
 
 def main(args):
@@ -101,7 +124,7 @@ def _main(args, _output_file):
     )
 
     # Typilus 推理
-    type_predictor = TypePredictor()
+    type_predictor = SimpleTypePredictor()
     tgt_dict = task.target_dictionary(key='supernodes.annotation.type')
     no_type_idx = tgt_dict.indices.get('O', -100)
     any_type_idx = tgt_dict.indices.get('$any$', None)
