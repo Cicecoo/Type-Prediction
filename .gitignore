@@ -24,3 +24,4 @@ ncc/libnat.cpython-37m-x86_64-linux-gnu.so
 .eggs/
 __pycache__/
 *.egg-info/
+.venv/
