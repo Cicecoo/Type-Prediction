@@ -138,7 +138,7 @@ optimization:
   use_bmuf: 1 # default=False, action='store_true', help='specify global optimizer for syncing models on different GPUs/shards'
 
   force_anneal: 0 # '--fa', type=int, metavar='N', help='force annealing at specified epoch'
-  warmup_updates: 0 # default=0, type=int, metavar='N', help='warmup the learning rate linearly for the first N updates'
+  warmup_updates: 4 # default=0, type=int, metavar='N', help='warmup the learning rate linearly for the first N updates'
   lr_shrink: 0.98
   margin: 2
 
@@ -179,7 +179,7 @@ checkpoint:
   best_checkpoint_metric: loss # bleu # type=str, default='loss', help='metric to use for saving "best" checkpoints'
   maximize_best_checkpoint_metric: 1 # action='store_true', help='select the largest metric value for saving "best" checkpoints'
   patience: 10 # type=int, default=-1, metavar='N', help=('early stop training if valid performance doesn\'t improve for N consecutive validation runs; note that this is influenced by --validate-interval')
-  save_dir: ~/naturalcc/typilus/checkpoints/base # type=str, required=True, help="The output directory where the model predictions and checkpoints will be written.",
+  save_dir: ~/naturalcc/typilus/checkpoints/1_warm # type=str, required=True, help="The output directory where the model predictions and checkpoints will be written.",
   should_continue: 0 # action="store_true", help="Whether to continue from latest checkpoint in output_dir"
   model_name_or_path: ~ # default=None, type=str, help="The model checkpoint for weights initialization. Leave None if you want to train a model from scratch.",
   cache_dir: ~ # default=None, type=str, help="Optional directory to store the pre-trained models downloaded from s3 (instead of the default one)",
@@ -191,7 +191,7 @@ checkpoint:
 
 
 eval:
-  path: ~/naturalcc/typilus/checkpoints/base/checkpoint_best.pt # , metavar='FILE', help='path(s) to model file(s), colon separated'
+  path: ~/naturalcc/typilus/checkpoints/1_warm/checkpoint_best.pt # , metavar='FILE', help='path(s) to model file(s), colon separated'
   result_path: ~
   remove_bpe: ~ # ', nargs='?', const='@@ ', default=None, help='remove BPE tokens before scoring (can be set to sentencepiece)'
   quiet: 0 # ', action='store_true', help='only print final scores'

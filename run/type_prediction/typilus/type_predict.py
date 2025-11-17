@@ -11,7 +11,7 @@ from ncc.utils.file_ops.yaml_io import load_yaml
 from ncc.utils.logging import progress_bar
 
 
-results_path = './results/'
+# results_path = './results/'
 
 
 class SimpleTypePredictor:
@@ -39,6 +39,7 @@ class SimpleTypePredictor:
 
 
 def main(args):
+    results_path = args['checkpoint'].get('save_dir', None)
     if results_path is not None:
         os.makedirs(results_path, exist_ok=True)
         output_path = os.path.join(
