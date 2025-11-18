@@ -1,0 +1,24 @@
+{
+  "name": "baseline",
+  "timestamp": "2025-11-07",
+  "status": "completed",
+  "results": {
+    "avg_loss": 3.9156,
+    "acc1": 22.54,
+    "acc5": 54.89,
+    "acc1_any": 22.54,
+    "acc5_any": 54.89
+  },
+  "hyperparameters": {
+    "learning_rate": 0.0004,
+    "encoder_embed_dim": 64,
+    "encoder_hidden_size": 64,
+    "encoder_layers": 2,
+    "encoder_dropout": 0.1,
+    "decoder_dropout": 0.1,
+    "margin": 2,
+    "batch_size": 32
+  },
+  "training_time": "约30分钟",
+  "notes": "第3个epoch后loss开始波动，验证集性能不再提升"
+}
