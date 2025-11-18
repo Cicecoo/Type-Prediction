@@ -69,16 +69,18 @@ for exp in "${experiments[@]}"; do
 done
 echo ""
 
-# 询问用户
-read -p "是否启动所有实验？[y/N] " -n 1 -r
-echo
-if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-    echo "已取消"
-    exit 0
+# 检查是否需要交互确认
+if [ "$1" != "-y" ] && [ "$1" != "--yes" ]; then
+    read -p "是否启动所有实验？[y/N] " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        echo "已取消"
+        exit 0
+    fi
 fi
 
 # 启动所有实验
-echo -e "${GREEN}开始启动实验...${NC}"
+echo -e "${GREEN}开始启动实验（后台运行）...${NC}"
 echo ""
 
 for exp in "${experiments[@]}"; do
@@ -150,14 +152,15 @@ echo ""
 
 # 使用提示
 echo -e "${YELLOW}后续操作:${NC}"
+echo "  实时监控所有:    ./watch_all.sh"
 echo "  查看所有会话:    screen -ls"
 echo "  连接某个实验:    screen -r exp_lr_2e4"
 echo "  退出但不停止:    Ctrl+A, D"
-echo "  监控实时进度:    python run/type_prediction/typilus/experiments/monitor.py exp_lr_2e4"
+echo "  监控单个实验:    python run/type_prediction/typilus/experiments/monitor.py exp_lr_2e4"
 echo "  查看日志文件:    tail -f screen/log_exp_lr_2e4.txt"
 echo ""
 echo "  停止某个实验:    screen -X -S exp_lr_2e4 quit"
-echo "  停止所有实验:    screen -ls | grep exp_ | cut -d. -f1 | awk '{print \$1}' | xargs -I {} screen -X -S {} quit"
+echo "  停止所有实验:    pkill -f 'SCREEN.*exp_'"
 echo ""
 
 # 创建监控脚本

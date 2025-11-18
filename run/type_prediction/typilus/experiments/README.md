@@ -2,14 +2,20 @@
 
 ## 🚀 快速开始（推荐）
 
-### 一键启动所有实验
+### 一键启动所有实验（Screen后台运行）
 ```bash
 cd /path/to/Type-Prediction
 conda activate naturalcc
 export NCC=/path/to/typilus-data
 
+# 启动所有实验（会询问确认）
 bash run/type_prediction/typilus/experiments/run_all.sh
+
+# 或直接启动无需确认
+bash run/type_prediction/typilus/experiments/run_all.sh -y
 ```
+
+**实验会在Screen后台运行，你可以安全退出SSH或关闭终端！**
 
 ### 启动单个实验
 ```bash
