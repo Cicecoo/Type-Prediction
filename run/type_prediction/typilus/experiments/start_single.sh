@@ -39,6 +39,9 @@ fi
 mkdir -p screen
 mkdir -p results/{checkpoints,logs,parsed}/${EXP_NAME}
 
+# 指定GPU（默认GPU 3，可通过参数修改）
+GPU_ID=${2:-3}
+
 # 检查screen会话是否已存在
 if screen -list | grep -q "\.${EXP_NAME}\s"; then
     echo "错误: Screen会话已存在"
@@ -54,22 +57,25 @@ echo "=========================================="
 echo "配置文件: experiments/${EXP_NAME}/config.yml"
 echo "日志文件: screen/log_${EXP_NAME}.txt"
 echo "结果目录: results/checkpoints/${EXP_NAME}/"
+echo "使用GPU: $GPU_ID"
 echo ""
 
 # 启动screen会话
 screen -dmS "$EXP_NAME" -L -Logfile "./screen/log_${EXP_NAME}.txt" bash -c "
-    # 重新激活conda环境
-    source \$(conda info --base)/etc/profile.d/conda.sh
+    # 激活conda环境
+    eval \"\$(conda shell.bash hook)\"
     conda activate $CONDA_DEFAULT_ENV
     
     # 设置环境变量
     export NCC=$NCC
+    export CUDA_VISIBLE_DEVICES=$GPU_ID
     
     echo '========================================='
     echo '实验: $EXP_NAME'
     echo '时间: \$(date)'
     echo 'Conda环境: '\$CONDA_DEFAULT_ENV
     echo 'NCC路径: '\$NCC
+    echo 'GPU设备: $GPU_ID'
     echo '配置: experiments/${EXP_NAME}/config'
     echo '========================================='
     echo ''

@@ -80,13 +80,20 @@ if [ "$1" != "-y" ] && [ "$1" != "--yes" ]; then
 fi
 
 # 启动所有实验
-echo -e "${GREEN}开始启动实验（后台运行）...${NC}"
+echo -e "${GREEN}开始串行启动实验（每次只运行一个）...${NC}"
+echo -e "${YELLOW}注意：实验会依次执行，前一个完成后自动启动下一个${NC}"
 echo ""
 
-for exp in "${experiments[@]}"; do
+# 指定GPU
+GPU_ID=3
+echo "使用GPU: $GPU_ID"
+echo ""
+
+for i in "${!experiments[@]}"; do
+    exp="${experiments[$i]}"
     IFS=':' read -r name priority duration <<< "$exp"
     
-    echo -e "${YELLOW}[启动] $name${NC}"
+    echo -e "${YELLOW}[${i}/${#experiments[@]}] 准备启动: $name${NC}"
     
     # 检查screen会话是否已存在
     if screen -list | grep -q "\.${name}\s"; then
@@ -98,20 +105,29 @@ for exp in "${experiments[@]}"; do
     mkdir -p "results/checkpoints/${name}"
     mkdir -p "results/logs/${name}"
     
+    # 获取下一个实验名称（用于自动启动）
+    next_exp=""
+    if [ $((i + 1)) -lt ${#experiments[@]} ]; then
+        next_exp_line="${experiments[$((i + 1))]}"
+        IFS=':' read -r next_exp _ _ <<< "$next_exp_line"
+    fi
+    
     # 启动screen会话
     screen -dmS "$name" -L -Logfile "./screen/log_${name}.txt" bash -c "
-        # 重新激活conda环境（确保在screen内也有效）
-        source \$(conda info --base)/etc/profile.d/conda.sh
+        # 激活conda环境（简化方式，避免source问题）
+        eval \"\$(conda shell.bash hook)\"
         conda activate $CONDA_DEFAULT_ENV
         
         # 设置环境变量
         export NCC=$NCC
+        export CUDA_VISIBLE_DEVICES=$GPU_ID
         
         echo '========================================='
-        echo '开始训练: $name'
-        echo '时间: \$(date)'
+        echo '实验: $name (${i}/${#experiments[@]})'
+        echo '开始时间: \$(date)'
         echo 'Conda环境: '\$CONDA_DEFAULT_ENV
         echo 'NCC路径: '\$NCC
+        echo 'GPU设备: $GPU_ID'
         echo '配置文件: experiments/${name}/config'
         echo '========================================='
         echo ''
@@ -128,6 +144,7 @@ for exp in "${experiments[@]}"; do
         
         # 保存退出码
         echo \$exit_code > results/logs/${name}/exit_code.txt
+        date > results/logs/${name}/finish_time.txt
         
         # 如果训练成功，复制checkpoint
         if [ \$exit_code -eq 0 ]; then
@@ -138,27 +155,46 @@ for exp in "${experiments[@]}"; do
             fi
         fi
         
+        # 如果有下一个实验，自动启动
+        if [ -n \"$next_exp\" ]; then
+            echo ''
+            echo '----------------------------------------'
+            echo '准备启动下一个实验: $next_exp'
+            echo '等待5秒...'
+            sleep 5
+            
+            cd \$(pwd)
+            bash run/type_prediction/typilus/experiments/start_single.sh $next_exp
+        else
+            echo ''
+            echo '========================================='
+            echo '所有实验已完成！'
+            echo '========================================='
+        fi
+        
         exec bash
     "
     
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}  ✓ Screen会话已创建: $name${NC}"
+        echo -e "${GREEN}  → 实验已启动，其他实验会在完成后自动依次启动${NC}"
     else
         echo -e "${RED}  ✗ 启动失败${NC}"
     fi
     
-    # 间隔2秒，避免同时启动占满GPU
-    sleep 2
+    # 只启动第一个实验，后续会自动链式启动
+    break
 done
 
 echo ""
 echo -e "${GREEN}========================================${NC}"
-echo -e "${GREEN}所有实验已启动完成！${NC}"
+echo -e "${GREEN}✓ 第一个实验已启动！${NC}"
+echo -e "${GREEN}✓ 后续实验会自动依次执行${NC}"
 echo -e "${GREEN}========================================${NC}"
 echo ""
 
 # 显示运行中的实验
-echo "运行中的Screen会话:"
+echo "当前运行的Screen会话:"
 screen -ls | grep -E "exp_" || echo "  无"
 echo ""
 
