@@ -100,11 +100,21 @@ for exp in "${experiments[@]}"; do
     
     # 启动screen会话
     screen -dmS "$name" -L -Logfile "./screen/log_${name}.txt" bash -c "
+        # 重新激活conda环境（确保在screen内也有效）
+        source \$(conda info --base)/etc/profile.d/conda.sh
+        conda activate $CONDA_DEFAULT_ENV
+        
+        # 设置环境变量
         export NCC=$NCC
+        
+        echo '========================================='
         echo '开始训练: $name'
         echo '时间: \$(date)'
-        echo '环境: $CONDA_DEFAULT_ENV'
+        echo 'Conda环境: '\$CONDA_DEFAULT_ENV
+        echo 'NCC路径: '\$NCC
+        echo '配置文件: experiments/${name}/config'
         echo '========================================='
+        echo ''
         
         python run/type_prediction/typilus/train.py -f experiments/${name}/config
         
@@ -113,7 +123,8 @@ for exp in "${experiments[@]}"; do
         echo '========================================='
         echo '训练完成: $name'
         echo '退出码: '\$exit_code
-        echo '时间: \$(date)'
+        echo '结束时间: \$(date)'
+        echo '========================================='
         
         # 保存退出码
         echo \$exit_code > results/logs/${name}/exit_code.txt
@@ -123,6 +134,7 @@ for exp in "${experiments[@]}"; do
             echo '复制checkpoint到results目录...'
             if [ -d ~/naturalcc/typilus/checkpoints/${name} ]; then
                 cp -r ~/naturalcc/typilus/checkpoints/${name}/* results/checkpoints/${name}/ 2>/dev/null || true
+                echo '✓ Checkpoint已保存'
             fi
         fi
         

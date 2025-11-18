@@ -58,12 +58,19 @@ echo ""
 
 # 启动screen会话
 screen -dmS "$EXP_NAME" -L -Logfile "./screen/log_${EXP_NAME}.txt" bash -c "
+    # 重新激活conda环境
+    source \$(conda info --base)/etc/profile.d/conda.sh
+    conda activate $CONDA_DEFAULT_ENV
+    
+    # 设置环境变量
     export NCC=$NCC
+    
     echo '========================================='
     echo '实验: $EXP_NAME'
     echo '时间: \$(date)'
-    echo '环境: $CONDA_DEFAULT_ENV'
-    echo '配置: experiments/${EXP_NAME}/config.yml'
+    echo 'Conda环境: '\$CONDA_DEFAULT_ENV
+    echo 'NCC路径: '\$NCC
+    echo '配置: experiments/${EXP_NAME}/config'
     echo '========================================='
     echo ''
     
