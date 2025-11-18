@@ -1,0 +1,100 @@
+﻿
+     Typilus 实验工具 - 已针对Linux服务器优化                    
+
+
+ 文件列表 (7个文件)
+
+核心脚本:
+   run_experiments.py  (351行) - 主脚本：实验+分析一体化
+   train_enhanced.py   (354行) - 增强训练：自动日志+可视化
+
+启动脚本:
+   start.sh            (36行)  - Linux快捷启动 
+   start.ps1           (29行)  - Windows快捷启动
+
+文档:
+   LINUX_SERVER.md     (231行) - Linux服务器详细指南 
+   README.md           (91行)  - 完整使用说明
+   QUICKSTART.md       (86行)  - 快速参考
+
+
+
+ Linux服务器快速开始（3步）
+
+
+1  上传到服务器:
+   scp -r experiment_tools/ user@server:/path/to/typilus/
+
+2  运行实验（screen中）:
+   ssh user@server
+   cd /path/to/typilus/experiment_tools
+   screen -S typilus_exp
+   python run_experiments.py
+   # 按 Ctrl+A 然后按 D (detach)
+
+3  后续查看:
+   screen -r typilus_exp
+
+
+
+ 重要文档
+
+
+   LINUX_SERVER.md  - 必读！受限远程服务器完整指南
+     包含：screen使用、监控、故障排查、完整流程
+
+   QUICKSTART.md    - 快速参考卡片
+
+   README.md        - 详细使用说明
+
+
+
+ 主要功能
+
+
+ 6个预设实验配置（可自定义）
+ 全自动顺序执行
+ 自动日志记录（JSON + 图表）
+ 训练曲线可视化（4合1）
+ 结果分析和对比
+ 支持screen/tmux/nohup
+ 实验失败可继续
+ 自动保存检查点
+
+
+
+ 常用命令
+
+
+# 运行所有实验
+python run_experiments.py
+
+# 仅分析结果
+python run_experiments.py --analyze
+
+# 交互式启动（Linux）
+./start.sh
+
+# 指定GPU
+export CUDA_VISIBLE_DEVICES=0
+python run_experiments.py
+
+# 监控GPU
+watch -n 1 nvidia-smi
+
+# 查看日志
+tail -f ~/naturalcc/typilus/experiments/baseline/training.log
+
+
+
+准备好了吗？开始实验：
+
+  cd experiment_tools
+  ./start.sh
+
+或直接运行：
+
+  screen -S exp
+  python run_experiments.py
+
+祝实验顺利！
