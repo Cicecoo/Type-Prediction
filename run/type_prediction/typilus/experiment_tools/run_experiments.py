@@ -66,26 +66,245 @@ def deep_update(base_dict, update_dict):
     return base_dict
 
 
-def create_config(base_config, exp_config, output_path):
-    """创建实验配置"""
-    with open(base_config, 'r', encoding='utf-8') as f:
-        config = yaml.safe_load(f)
+def get_default_config():
+    """获取默认配置（不依赖外部文件）"""
+    return {
+        'criterion': 'typilus',
+        'optimizer': 'torch_adam',
+        'lr_scheduler': 'fixed',
+        'tokenizer': None,
+        'bpe': None,
+        
+        'common': {
+            'no_progress_bar': 0,
+            'log_interval': 50,
+            'log_format': 'simple',
+            'tensorboard_logdir': '',
+            'memory_efficient_fp16': 1,
+            'fp16_no_flatten_grads': 1,
+            'fp16_init_scale': 128,
+            'fp16_scale_window': None,
+            'fp16_scale_tolerance': 0.0,
+            'min_loss_scale': 1e-4,
+            'threshold_loss_scale': None,
+            'empty_cache_freq': 0,
+            'task': 'typilus',
+            'seed': 1,
+            'cpu': 0,
+            'fp16': 0,
+            'fp16_opt_level': '01',
+            'server_ip': '',
+            'server_port': '',
+            'bf16': 0,
+        },
+        
+        'dataset': {
+            'num_workers': 0,
+            'skip_invalid_size_inputs_valid_test': 1,
+            'max_tokens': None,
+            'max_sentences': 32,
+            'required_batch_size_multiple': 8,
+            'dataset_impl': 'mmap',
+            'train_subset': 'train',
+            'valid_subset': 'valid',
+            'validate_interval': 1,
+            'fixed_validation_seed': None,
+            'disable_validation': 0,
+            'max_tokens_valid': None,
+            'max_sentences_valid': 256,
+            'curriculum': 0,
+            'gen_subset': 'test',
+            'num_shards': 1,
+            'shard_id': 0,
+            'test_subset': 'test',
+        },
+        
+        'distributed_training': {
+            'distributed_world_size': 1,
+            'distributed_rank': 0,
+            'distributed_backend': 'nccl',
+            'distributed_init_method': None,
+            'distributed_port': -1,
+            'device_id': 0,
+            'distributed_no_spawn': 0,
+            'ddp_backend': 'c10d',
+            'bucket_cap_mb': 25,
+            'fix_batches_to_gpus': None,
+            'find_unused_parameters': 0,
+            'fast_stat_sync': 0,
+            'broadcast_buffers': 0,
+            'global_sync_iter': 50,
+            'warmup_iterations': 500,
+            'local_rank': -1,
+            'block_momentum': 0.875,
+            'block_lr': 1,
+            'use_nbm': 0,
+            'average_sync': 0,
+        },
+        
+        'task': {
+            'data': '~/typilus/type_inference/data-mmap',
+            'source_langs': ['nodes', 'edges'],
+            'target_langs': ['supernodes.annotation'],
+            'load_alignments': 0,
+            'left_pad_source': 0,
+            'left_pad_target': 0,
+            'max_source_positions': 512,
+            'max_target_positions': 30,
+            'upsample_primary': 1,
+            'truncate_source': 1,
+            'truncate_target': 1,
+            'append_eos_to_target': 1,
+            'eval_bleu': 1,
+            'eval_bleu_detok': 'space',
+            'eval_bleu_detok_args': None,
+            'eval_tokenized_bleu': 0,
+            'eval_bleu_remove_bpe': None,
+            'eval_bleu_args': None,
+            'eval_bleu_print_samples': 0,
+        },
+        
+        'model': {
+            'arch': 'typilus',
+            'encoder_embed_dim': 64,
+            'max_subtoken_len': 5,
+            'encoder_hidden_size': 64,
+            'encoder_layers': 2,
+            'edge_types': 8,
+            'edge_in': 64,
+            'edge_out': 64,
+            'edge_backward': 1,
+            'timesteps': [7, 1],
+            'encoder_dropout': 0.1,
+            'decoder_dropout': 0.1,
+        },
+        
+        'optimization': {
+            'max_epoch': 0,
+            'max_update': 0,
+            'clip_norm': 25,
+            'update_freq': [1],
+            'lrs': [4e-4],
+            'min_lr': -1,
+            'use_bmuf': 1,
+            'force_anneal': 0,
+            'warmup_updates': 0,
+            'lr_shrink': 0.98,
+            'margin': 2,
+            'sentence_avg': 1,
+            'adam': {
+                'adam_betas': '(0.9, 0.999)',
+                'adam_eps': 1e-8,
+                'weight_decay': 0.0,
+                'use_old_adam': 0,
+            },
+            'weight_decay': 0.0,
+            'adam_epsilon': 1e-8,
+            'max_grad_norm': 1.0,
+            'num_train_epochs': 5,
+            'max_steps': -1,
+            'warmup_steps': 0,
+            'gradient_accumulation_steps': 1,
+        },
+        
+        'checkpoint': {
+            'restore_file': 'checkpoint_last.pt',
+            'reset_dataloader': None,
+            'reset_lr_scheduler': None,
+            'reset_meters': None,
+            'reset_optimizer': None,
+            'optimizer_overrides': '{}',
+            'save_interval': 1,
+            'save_interval_updates': 0,
+            'keep_interval_updates': 0,
+            'keep_last_epochs': -1,
+            'keep_best_checkpoints': -1,
+            'no_save': 0,
+            'no_epoch_checkpoints': 1,
+            'no_last_checkpoints': 0,
+            'no_save_optimizer_state': None,
+            'best_checkpoint_metric': 'loss',
+            'maximize_best_checkpoint_metric': 1,
+            'patience': 10,
+            'save_dir': '~/naturalcc/typilus/checkpoints/base',
+            'should_continue': 0,
+            'model_name_or_path': None,
+            'cache_dir': None,
+            'logging_steps': 500,
+            'save_steps': 2000,
+            'save_total_limit': 2,
+            'overwrite_output_dir': 0,
+            'overwrite_cache': 0,
+        },
+        
+        'eval': {
+            'path': '~/naturalcc/typilus/checkpoints/base/checkpoint_best.pt',
+            'result_path': None,
+            'remove_bpe': None,
+            'quiet': 0,
+            'model_overrides': '{}',
+            'max_sentences': 2048,
+            'beam': 1,
+            'nbest': 1,
+            'max_len_a': 0,
+            'max_len_b': 30,
+            'min_len': 1,
+            'match_source_len': 0,
+            'no_early_stop': 0,
+            'unnormalized': 0,
+            'no_beamable_mm': 0,
+            'lenpen': 1,
+            'unkpen': 0,
+            'replace_unk': None,
+            'sacrebleu': 0,
+            'score_reference': 0,
+            'prefix_size': 0,
+            'no_repeat_ngram_size': 0,
+            'sampling': 0,
+            'sampling_topk': -1,
+            'sampling_topp': -1,
+            'temperature': 1.0,
+            'diverse_beam_groups': -1,
+            'diverse_beam_strength': 0.5,
+            'diversity_rate': -1.0,
+            'print_alignment': 0,
+            'print_step': 0,
+            'iter_decode_eos_penalty': 0.0,
+            'iter_decode_max_iter': 10,
+            'iter_decode_force_max_iter': 0,
+            'iter_decode_with_beam': 1,
+            'iter_decode_with_external_reranker': 0,
+            'retain_iter_history': 0,
+            'decoding_format': None,
+            'nltk_bleu': 1,
+            'rouge': 1,
+        },
+    }
+
+
+def create_config(exp_config, output_path):
+    """创建实验配置（不需要base_config文件）"""
+    # 从默认配置开始
+    config = get_default_config()
     
+    # 应用实验特定的参数
     if exp_config.get("params"):
         config = deep_update(config, exp_config["params"])
     
+    # 设置实验目录
     exp_dir = Path(output_path).parent
     config["checkpoint"]["save_dir"] = str(exp_dir / "checkpoints")
     config["common"]["tensorboard_logdir"] = str(exp_dir / "tensorboard")
     
+    # 保存配置
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     with open(output_path, 'w', encoding='utf-8') as f:
-        yaml.dump(config, f, default_flow_style=False)
+        yaml.dump(config, f, default_flow_style=False, allow_unicode=True)
     
     return config
 
 
-def run_single_experiment(exp_config, base_config, train_script):
+def run_single_experiment(exp_config, train_script):
     """运行单个实验"""
     name = exp_config["name"]
     print(f"\n{'='*60}")
@@ -97,7 +316,7 @@ def run_single_experiment(exp_config, base_config, train_script):
     exp_dir.mkdir(parents=True, exist_ok=True)
     
     config_path = exp_dir / "config.yml"
-    create_config(base_config, exp_config, str(config_path))
+    create_config(exp_config, str(config_path))
     
     # 保存实验信息
     with open(exp_dir / "info.txt", 'w', encoding='utf-8') as f:
@@ -312,25 +531,20 @@ def main():
     parser.add_argument('--exp-dir', default='~/naturalcc/typilus/experiments', help='实验目录')
     args = parser.parse_args()
     
-    # 修复路径：从experiment_tools目录向上找到typilus目录
-    script_dir = Path(__file__).parent.parent  # typilus目录
-    base_config = script_dir / "config" / "typilus.yml"
-    
-    # 检查配置文件是否存在
-    if not base_config.exists():
-        print(f"错误: 找不到配置文件 {base_config}")
-        print(f"当前目录: {Path.cwd()}")
-        print(f"脚本目录: {Path(__file__).parent}")
-        print(f"期望配置路径: {base_config.absolute()}")
-        return
+    # 找到训练脚本（不再需要base_config）
+    script_file = Path(__file__).resolve()
+    experiment_tools_dir = script_file.parent
+    typilus_dir = experiment_tools_dir.parent
     
     # 优先使用增强版脚本
-    train_script = Path(__file__).parent / "train_enhanced.py"
+    train_script = experiment_tools_dir / "train_enhanced.py"
     if not train_script.exists():
-        train_script = script_dir / "train.py"
+        train_script = typilus_dir / "train.py"
     
     if not train_script.exists():
-        print(f"错误: 找不到训练脚本 {train_script}")
+        print(f"错误: 找不到训练脚本")
+        print(f"尝试路径: {experiment_tools_dir / 'train_enhanced.py'}")
+        print(f"备用路径: {typilus_dir / 'train.py'}")
         return
     
     if args.analyze:
@@ -352,7 +566,7 @@ def main():
     results = []
     for i, exp in enumerate(EXPERIMENTS, 1):
         print(f"\n进度: {i}/{len(EXPERIMENTS)}")
-        success = run_single_experiment(exp, str(base_config), str(train_script))
+        success = run_single_experiment(exp, str(train_script))
         results.append((exp['name'], success))
         
         if not success:
