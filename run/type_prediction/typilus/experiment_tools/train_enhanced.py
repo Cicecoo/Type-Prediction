@@ -370,10 +370,15 @@ def cli_main():
     import argparse
     parser = argparse.ArgumentParser(description="Typilus训练（增强版）")
     parser.add_argument("--yaml_file", "-f", type=str, default='config/typilus',
-                       help="配置文件（无.yml后缀）")
+                       help="配置文件路径（可以是绝对路径或相对路径，无.yml后缀）")
     args = parser.parse_args()
     
-    yaml_file = os.path.join(os.path.dirname(__file__), '{}.yml'.format(args.yaml_file))
+    # 如果传入的是绝对路径，直接使用；否则从脚本目录解析
+    if os.path.isabs(args.yaml_file):
+        yaml_file = '{}.yml'.format(args.yaml_file)
+    else:
+        yaml_file = os.path.join(os.path.dirname(__file__), '{}.yml'.format(args.yaml_file))
+    
     LOGGER.info('加载配置: {}'.format(yaml_file))
     args = load_yaml(yaml_file)
 

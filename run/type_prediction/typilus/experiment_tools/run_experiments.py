@@ -325,7 +325,9 @@ def run_single_experiment(exp_config, train_script):
     
     # 运行训练（使用增强版脚本）
     log_file = exp_dir / "training.log"
-    cmd = [sys.executable, train_script, "--yaml_file", f"experiments/{name}/config"]
+    # 传递绝对路径（无.yml后缀）
+    config_path_no_ext = str(config_path).replace('.yml', '')
+    cmd = [sys.executable, train_script, "--yaml_file", config_path_no_ext]
     
     start_time = time.time()
     try:
