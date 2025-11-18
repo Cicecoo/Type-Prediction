@@ -312,13 +312,26 @@ def main():
     parser.add_argument('--exp-dir', default='~/naturalcc/typilus/experiments', help='实验目录')
     args = parser.parse_args()
     
-    script_dir = Path(__file__).parent.parent
+    # 修复路径：从experiment_tools目录向上找到typilus目录
+    script_dir = Path(__file__).parent.parent  # typilus目录
     base_config = script_dir / "config" / "typilus.yml"
+    
+    # 检查配置文件是否存在
+    if not base_config.exists():
+        print(f"错误: 找不到配置文件 {base_config}")
+        print(f"当前目录: {Path.cwd()}")
+        print(f"脚本目录: {Path(__file__).parent}")
+        print(f"期望配置路径: {base_config.absolute()}")
+        return
     
     # 优先使用增强版脚本
     train_script = Path(__file__).parent / "train_enhanced.py"
     if not train_script.exists():
         train_script = script_dir / "train.py"
+    
+    if not train_script.exists():
+        print(f"错误: 找不到训练脚本 {train_script}")
+        return
     
     if args.analyze:
         print("分析实验结果...\n")
