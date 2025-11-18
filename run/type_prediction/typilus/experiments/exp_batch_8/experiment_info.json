@@ -1,0 +1,6 @@
+{
+  "name": "exp_batch_8",
+  "timestamp": "20251118_170830",
+  "description": "Hyperparameter tuning experiment",
+  "config_path": "run/type_prediction/typilus/config/typilus.yml"
+}
