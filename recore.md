@@ -22,3 +22,18 @@ Processing train: 37982it [00:12, 3908.57it/s]Error processing line 38015: objec
 Error processing line 38024: object of type 'NoneType' has no len()
 Error processing line 38057: object of type 'NoneType' has no len()
 Error processing line 38099: object of type 'NoneType' has no len()
+
+
+Traceback (most recent call last):
+  File "run/type_prediction/transformer/train.py", line 339, in <module>
+    cli_main()
+  File "run/type_prediction/transformer/train.py", line 332, in cli_main
+    single_main(args)
+  File "run/type_prediction/transformer/train.py", line 211, in single_main
+    task = tasks.setup_task(args)
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/ncc/tasks/__init__.py", line 15, in setup_task
+    return TASK_REGISTRY[args['common']['task']].setup_task(args, **kwargs)
+  File 
+
+
+  
