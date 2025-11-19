@@ -179,15 +179,33 @@ def main():
     
     args = parser.parse_args()
     
-    # 确定路径
-    exp_dir = Path(__file__).parent.parent / 'experiments'
+    # 确定路径 - 使用绝对路径避免问题
+    script_dir = Path(__file__).resolve().parent
+    typilus_dir = script_dir.parent
+    
+    exp_dir = typilus_dir / 'experiments'
     if not exp_dir.exists():
         exp_dir = Path(args.exp_dir).resolve()
     
-    test_script = Path(__file__).parent.parent / 'type_predict.py'
+    test_script = typilus_dir / 'type_predict.py'
+    
+    # 调试信息
+    print(f"脚本目录: {script_dir}")
+    print(f"Typilus目录: {typilus_dir}")
+    print(f"测试脚本路径: {test_script}")
+    print(f"测试脚本是否存在: {test_script.exists()}\n")
     
     if not test_script.exists():
         print(f"错误: 找不到测试脚本 {test_script}")
+        print(f"\n可能的原因:")
+        print(f"  1. 路径计算错误")
+        print(f"  2. type_predict.py 文件不存在")
+        print(f"\n请检查以下目录:")
+        print(f"  {typilus_dir}")
+        if typilus_dir.exists():
+            print(f"\n该目录下的文件:")
+            for f in sorted(typilus_dir.iterdir())[:10]:
+                print(f"    - {f.name}")
         return
     
     print(f"实验目录: {exp_dir}")
