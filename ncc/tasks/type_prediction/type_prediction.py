@@ -239,8 +239,9 @@ class TypePredictionTask(NccTask):
         # infer langcode
         src, tgt = self.args['task']['source_lang'], self.args['task']['target_lang']
 
-        sp = spm.SentencePieceProcessor()
-        sp.load(self.args['dataset']['src_sp'])
+        # sp = spm.SentencePieceProcessor()
+        # sp.load(self.args['dataset']['src_sp'])
+        sp = None  # SentencePiece not used for pre-tokenized data
 
         self.datasets[split] = load_codetype_dataset(
             data_path, split, src, self.src_dict, tgt, self.tgt_dict, sp,

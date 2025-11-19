@@ -101,7 +101,7 @@ class TransformerExperiment:
                 'shard_id': 0,
                 'joined_dictionary': 1,
                 'srcdict': str(self.data_dir / 'dict.txt'),
-                'src_sp': str(self.data_dir / 'dummy_sp.model'),  # 虚拟SentencePiece模型
+                # 'src_sp': 不再需要，代码已修改为跳过SentencePiece加载
                 'tgtdict': str(self.data_dir / 'dict.txt'),
             },
             
