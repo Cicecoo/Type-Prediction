@@ -19,12 +19,28 @@ TYPED_MARKER_END = "__LE__"
 def collate(samples, pad_idx, no_type_id):
     if len(samples) == 0:
         return {}
+    
+    # Debug: 检查pad_idx
+    print(f"[DEBUG] collate called with pad_idx={pad_idx}, no_type_id={no_type_id}")
 
     def merge(key):
-        return data_utils.collate_tokens(
-            [s[key] for s in samples],
-            pad_idx,
-        )
+        tokens_list = [s[key] for s in samples]
+        # Debug: 检查merge前的数据
+        for i, tokens in enumerate(tokens_list[:3]):  # 只看前3个样本
+            if tokens.min().item() < 0:
+                print(f"[DEBUG] Sample {i} has negative tokens BEFORE merge!")
+                print(f"  Range: [{tokens.min().item()}, {tokens.max().item()}]")
+        
+        result = data_utils.collate_tokens(tokens_list, pad_idx)
+        
+        # Debug: 检查merge后的数据
+        if result.min().item() < 0:
+            print(f"[DEBUG] AFTER merge: negative tokens found!")
+            print(f"  Range: [{result.min().item()}, {result.max().item()}]")
+            print(f"  pad_idx used: {pad_idx}")
+        
+        return result
+    
     B = len(samples)
     # X, Y = zip(*batch)
     X = merge('subword_ids')
@@ -235,10 +251,25 @@ class CodeTypeDataset(NccDataset):
             
             # 将 tokens 转为 IDs
             subword_ids = []
-            for token in src_tokens:
+            for idx, token in enumerate(src_tokens):
                 # 应用映射
                 mapped_token = token_mapping.get(token, token)
-                token_id = self.src_dict.index(mapped_token) if mapped_token in self.src_dict else self.src_dict.unk()
+                
+                # 获取token ID
+                if mapped_token in self.src_dict:
+                    token_id = self.src_dict.index(mapped_token)
+                else:
+                    token_id = self.src_dict.unk()
+                    # Debug: 记录第一个unknown token
+                    if token_id == -1 and len(subword_ids) == 0:  # 只打印第一个样本的第一个unknown
+                        print(f"[DEBUG] Unknown token found:")
+                        print(f"  Original token: '{token}'")
+                        print(f"  Mapped token: '{mapped_token}'")
+                        print(f"  src_dict.unk_index: {self.src_dict.unk_index}")
+                        print(f"  '[UNK]' in src_dict: {'[UNK]' in self.src_dict}")
+                        print(f"  src_dict has {len(self.src_dict)} symbols")
+                        print(f"  First 10 symbols: {[self.src_dict[i] for i in range(min(10, len(self.src_dict)))]}")
+                
                 subword_ids.append(token_id)
             
             # 构建 label_segments: (label_id, start, end) 元组列表
