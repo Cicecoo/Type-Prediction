@@ -200,20 +200,49 @@ class CodeTypeDataset(NccDataset):
         self.shuffle = shuffle
 
     def __getitem__(self, index):
-        # Append EOS to end of tgt sentence if it does not have an EOS
-        # and remove EOS from end of src sentence if it exists.
-        # This is useful when we use existing datasets for opposite directions
-        #   i.e., when we want to use tgt_dataset as src_dataset and vice versa
-        src_item = self.src[index]
-        tgt_item = self.tgt[index]
+        # 获取源代码和目标类型
+        src_item = self.src[index]  # 字符串: "<s> token1 token2 ... </s>"
+        tgt_item = self.tgt[index]  # 字符串: "O type1 type2 ... O"
 
-        # line = self.lines[idx]
-        _, subword_ids, label_segments = _tokenize(
-            src_item, tgt_item, self.sp, self.tgt_dict, self.max_source_positions)
-        if self.max_source_positions != -1:
-            assert len(subword_ids) <= self.max_source_positions
-        subword_ids = torch.tensor(subword_ids, dtype=torch.long)
-        label_segments = torch.tensor(label_segments, dtype=torch.long)
+        # 如果 sp 为 None，说明数据已经预分词，直接处理
+        if self.sp is None:
+            # 简化版：直接使用字典将 token 转为 ID
+            src_tokens = src_item.split()
+            tgt_tokens = tgt_item.split()
+            
+            # 确保长度一致
+            assert len(src_tokens) == len(tgt_tokens), \
+                f"Token count mismatch: {len(src_tokens)} vs {len(tgt_tokens)}"
+            
+            # 将 tokens 转为 IDs
+            subword_ids = []
+            for token in src_tokens:
+                token_id = self.src_dict.index(token) if token in self.src_dict else self.src_dict.unk()
+                subword_ids.append(token_id)
+            
+            # 构建 label_segments: (label_id, start, end) 元组列表
+            label_segments = []
+            for i, (token, label) in enumerate(zip(src_tokens, tgt_tokens)):
+                if label != "O":
+                    label_id = self.tgt_dict.index(label) if label in self.tgt_dict else self.tgt_dict.unk()
+                    # 每个标签对应一个 token 位置 (start=end=i)
+                    label_segments.append([label_id, i, i+1])
+            
+            # 截断到最大长度
+            if self.max_source_positions != -1 and len(subword_ids) > self.max_source_positions:
+                subword_ids = subword_ids[:self.max_source_positions]
+                label_segments = [seg for seg in label_segments if seg[1] < self.max_source_positions]
+            
+            subword_ids = torch.tensor(subword_ids, dtype=torch.long)
+            label_segments = torch.tensor(label_segments, dtype=torch.long) if label_segments else torch.zeros((0, 3), dtype=torch.long)
+        else:
+            # 原始的 DeepTyper 处理方式
+            _, subword_ids, label_segments = _tokenize(
+                src_item, tgt_item, self.sp, self.tgt_dict, self.max_source_positions)
+            if self.max_source_positions != -1:
+                assert len(subword_ids) <= self.max_source_positions
+            subword_ids = torch.tensor(subword_ids, dtype=torch.long)
+            label_segments = torch.tensor(label_segments, dtype=torch.long)
 
         example = {
             'subword_ids': subword_ids,
@@ -221,19 +250,6 @@ class CodeTypeDataset(NccDataset):
         }
 
         return example
-        # return (subword_ids, label_segments)
-
-
-        # node_id = self.node_ids[index]
-        # extend = self.extends[index]
-        # example = {
-        #     'id': index,
-        #     'source': src_item,
-        #     'target': tgt_item,
-        #     'node_id': node_id,
-        #     'extend': extend,
-        # }
-        # return example
 
     def __len__(self):
         return len(self.tgt)
