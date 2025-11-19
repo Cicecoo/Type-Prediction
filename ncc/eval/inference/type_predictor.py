@@ -4,7 +4,7 @@
 # LICENSE file in the root directory of this source tree.
 
 import torch
-from ncc.modules.seq2seq.ncc_incremental_decoder import NccIncrementalDecoder
+from ncc.modules.decoders.ncc_incremental_decoder import NccIncrementalDecoder
 
 
 class TypePredictor(object):
