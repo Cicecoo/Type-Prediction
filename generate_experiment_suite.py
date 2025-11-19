@@ -387,6 +387,9 @@ def main():
     parser = argparse.ArgumentParser(description='Generate Transformer experiment suite')
     parser.add_argument('--base-dir', type=str, default='experiments/transformer_series',
                        help='Base directory for experiments')
+    parser.add_argument('--data-dir', type=str, 
+                       default='/mnt/data1/zhaojunzhang/typilus-data/transformer',
+                       help='Data directory (for reference in configs)')
     parser.add_argument('--groups', nargs='+', 
                        choices=['baseline', 'model_size', 'layers', 'lr', 'dropout', 
                                'encoder', 'batch_size', 'all'],
