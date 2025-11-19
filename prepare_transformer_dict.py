@@ -13,10 +13,13 @@ def convert_dict(input_file, output_file, default_count=1):
     """转换词典格式"""
     print(f"Reading from {input_file}")
     
-    # 注意：虽然Dictionary会自动添加特殊token，但我们的数据中已经使用了这些token
-    # 所以需要在词典中包含它们，避免索引错误
+    # NaturalCC的Dictionary会自动添加这些特殊token：[PAD], <s>, </s>, [UNK]
+    # 原始Typilus词典中有 [PAD] 和 [UNK]，需要过滤掉避免重复
+    # 但 <s> 和 </s> 不在原始词典中，会被Dictionary自动添加
+    skip_tokens = {'[PAD]', '[UNK]'}
     
     token_dict = {}  # 使用字典去重，key=token, value=原始ID
+    skipped_count = 0
     
     with open(input_file, 'r', encoding='utf-8') as f:
         for line_num, line in enumerate(f, 1):
@@ -25,6 +28,12 @@ def convert_dict(input_file, output_file, default_count=1):
                 continue
             try:
                 token, idx = json.loads(line)
+                
+                # 跳过会被Dictionary自动添加的特殊token
+                if token in skip_tokens:
+                    skipped_count += 1
+                    print(f"Skipping special token: {token}")
+                    continue
                 
                 # 去重：只保留第一次出现的token
                 if token not in token_dict:
@@ -37,7 +46,7 @@ def convert_dict(input_file, output_file, default_count=1):
     tokens = sorted(token_dict.items(), key=lambda x: x[1])
     
     print(f"Found {len(tokens)} unique tokens from original dictionary")
-    print("Note: Special tokens ([PAD], <s>, </s>, [UNK]) will be automatically added by Dictionary")
+    print(f"Skipped {skipped_count} special tokens ([PAD], [UNK]) - will be auto-added by Dictionary")
     
     with open(output_file, 'w', encoding='utf-8') as f:
         # NaturalCC词典格式：每行是JSON数组 ["token", count]
@@ -49,6 +58,11 @@ def convert_dict(input_file, output_file, default_count=1):
     print("Conversion completed!")
     print(f"Dictionary saved in NaturalCC JSON format")
     print(f"Format: each line is a JSON array [\"token\", count]")
+    
+    # 打印前几个token作为示例
+    print("\nFirst 5 tokens:")
+    for i, (token, _) in enumerate(tokens[:5]):
+        print(f"  {i+1}. {token}")
     
     # 打印前几个token作为示例
     print("\nFirst 5 tokens:")
