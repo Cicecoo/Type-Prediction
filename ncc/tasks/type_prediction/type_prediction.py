@@ -187,7 +187,13 @@ class TypePredictionTask(NccTask):
             extra_special_symbols=[constants.CLS, constants.SEP, constants.MASK,
                                    constants.EOL, constants.URL])
         src_dict.add_from_file(args['dataset']['srcdict'])
-        tgt_dict = Dictionary.load(args['dataset']['tgtdict'])
+        
+        # 修复：tgt_dict也需要正确初始化特殊token，不能使用Dictionary.load()
+        # 因为load()期望词典文件中包含特殊token，但我们的文件中没有
+        tgt_dict = Dictionary(
+            extra_special_symbols=[constants.CLS, constants.SEP, constants.MASK,
+                                   constants.EOL, constants.URL])
+        tgt_dict.add_from_file(args['dataset']['tgtdict'])
 
         # src_dict = cls.load_dictionary(os.path.join(paths[0], '{}.dict.txt'.format(args['task']['source_lang'])))
         # tgt_dict = cls.load_dictionary(os.path.join(paths[0], '{}.dict.txt'.format(args['task']['target_lang'])))
