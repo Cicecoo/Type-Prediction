@@ -55,7 +55,7 @@ class TransformerExperiment:
         """获取默认配置（完整版本，包含所有必需字段）"""
         return {
             'criterion': 'type_predicition_cross_entropy',
-            'optimizer': 'adam_simple',
+            'optimizer': 'fairseq_adam',  # 修正：adam_simple 不存在，使用 fairseq_adam
             'lr_scheduler': 'polynomial_decay',
             'tokenizer': None,
             'bpe': None,
@@ -196,7 +196,8 @@ class TransformerExperiment:
                 'clip_norm': 25,
                 'sentence_avg': None,
                 'update_freq': [1],
-                'lr': [0.0001],
+                'lr': [0.0001],  # 保留用于向后兼容
+                'lrs': [0.0001],  # fairseq_adam 需要这个字段
                 'min_lr': -1,
                 'use_bmuf': 0,
                 'force_anneal': None,
