@@ -236,43 +236,37 @@ class TransformerExperiment:
         print("Starting training...")
         print(f"{'='*60}\n")
         
-        # 构建训练命令 - 使用多种方式尝试
+        # 构建训练命令 - 使用transformer的train.py脚本（类似typilus）
         log_file = self.log_dir / 'train.log'
         
-        # 方式1: 使用ncc-train命令（如果已安装）
-        # 方式2: 使用python -m ncc_cli.train
-        # 方式3: 使用我们的train_direct.py脚本
-        commands = [
-            f"ncc-train --configs {self.config_path} 2>&1 | tee {log_file}",
-            f"python -m ncc_cli.train --configs {self.config_path} 2>&1 | tee {log_file}",
-            f"python train_direct.py --config {self.config_path} 2>&1 | tee {log_file}",
-        ]
+        # 使用run/type_prediction/transformer/train.py（和typilus一样的方式）
+        train_script = 'run/type_prediction/transformer/train.py'
         
-        for idx, cmd in enumerate(commands, 1):
-            print(f"Trying method {idx}: {cmd.split('|')[0].strip()}")
-            
-            try:
-                result = subprocess.run(
-                    cmd,
-                    shell=True,
-                    cwd=os.getcwd(),
-                    check=True
-                )
-                print(f"\n✓ Training completed successfully!")
-                return True
-            except subprocess.CalledProcessError as e:
-                if idx < len(commands):
-                    print(f"Method {idx} failed, trying next method...")
-                    continue
-                else:
-                    print(f"\n✗ All training methods failed")
-                    print(f"\nPlease check:")
-                    print(f"1. NaturalCC is properly installed")
-                    print(f"2. You are in the correct directory")
-                    print(f"3. The config file is valid: {self.config_path}")
-                    return False
+        # 传递配置路径（不带.yml后缀，和typilus保持一致）
+        config_path_no_ext = str(self.config_path).replace('.yml', '')
         
-        return False
+        cmd = f"python {train_script} --yaml_file {config_path_no_ext} 2>&1 | tee {log_file}"
+        
+        print(f"Command: {cmd}\n")
+        
+        # 执行训练
+        try:
+            result = subprocess.run(
+                cmd,
+                shell=True,
+                cwd=os.getcwd(),
+                check=True
+            )
+            print(f"\n✓ Training completed successfully!")
+            return True
+        except subprocess.CalledProcessError as e:
+            print(f"\n✗ Training failed with error code {e.returncode}")
+            print(f"\nPlease check:")
+            print(f"1. NaturalCC is properly installed")
+            print(f"2. You are in the naturalcc directory")
+            print(f"3. The config file is valid: {self.config_path}")
+            print(f"4. Training script exists: {train_script}")
+            return False
     
     def evaluate(self):
         """训练后评估"""
