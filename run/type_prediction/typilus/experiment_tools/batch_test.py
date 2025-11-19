@@ -57,6 +57,7 @@ def create_test_config(exp_info, base_config_path):
     config['checkpoint']['save_dir'] = exp_info['checkpoint_dir']
     
     # 创建临时测试配置文件
+    # 注意: type_predict.py 会自动添加 .yml 后缀，所以这里不要加
     temp_config_path = Path(exp_info['checkpoint_dir']) / 'test_config.yml'
     with open(temp_config_path, 'w', encoding='utf-8') as f:
         yaml.dump(config, f, default_flow_style=False, allow_unicode=True)
@@ -77,10 +78,12 @@ def run_test(exp_info, test_script_path):
     test_config = create_test_config(exp_info, base_config)
     
     # 构建测试命令
+    # type_predict.py 会自动添加 .yml 后缀，所以传入时要去掉
+    test_config_no_ext = str(test_config).replace('.yml', '')
     cmd = [
         sys.executable,
         str(test_script_path),
-        '-f', test_config
+        '-f', test_config_no_ext
     ]
     
     print(f"命令: {' '.join(cmd)}\n")
