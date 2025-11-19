@@ -15,7 +15,7 @@ def convert_dict(input_file, output_file, default_count=1):
     
     tokens = []
     with open(input_file, 'r', encoding='utf-8') as f:
-        for line in f:
+        for line_num, line in enumerate(f, 1):
             line = line.strip()
             if not line:
                 continue
@@ -23,20 +23,39 @@ def convert_dict(input_file, output_file, default_count=1):
                 token, idx = json.loads(line)
                 tokens.append((token, idx))
             except json.JSONDecodeError as e:
-                print(f"Warning: Failed to parse line: {line[:50]}... Error: {e}")
+                print(f"Warning: Line {line_num} failed to parse: {line[:50]}... Error: {e}")
                 continue
     
     # 按ID排序（保持原有顺序）
     tokens.sort(key=lambda x: x[1])
     
     print(f"Writing {len(tokens)} tokens to {output_file}")
+    
+    # 添加特殊token（如果不存在）
+    special_tokens = ['<pad>', '<unk>', '<s>', '</s>']
+    existing_tokens = {t for t, _ in tokens}
+    
     with open(output_file, 'w', encoding='utf-8') as f:
+        # 先写入特殊token
+        for special_token in special_tokens:
+            if special_token not in existing_tokens and special_token.lower() not in existing_tokens:
+                f.write(f"{special_token} {default_count}\n")
+        
+        # 写入所有token
         for token, _ in tokens:
-            # Transformer词典格式: token count
-            # 这里使用固定的count值，因为我们没有真实的词频统计
-            f.write(f"{token} {default_count}\n")
+            # 确保token不包含换行符，并且正确转义
+            token_clean = token.replace('\n', '\\n').replace('\r', '\\r').replace('\t', '\\t')
+            
+            # 检查token是否包含空格
+            if ' ' in token_clean:
+                # 如果包含空格，使用引号包裹或跳过
+                print(f"Warning: Token contains space, skipping: '{token_clean[:50]}'")
+                continue
+            
+            f.write(f"{token_clean} {default_count}\n")
     
     print("Conversion completed!")
+    print(f"Note: Check first few lines of {output_file} to verify format")
 
 def main():
     parser = argparse.ArgumentParser(description='Convert Typilus dict to Transformer format')
