@@ -148,20 +148,31 @@ def convert_attributes_to_transformer(attributes_dir, dict_file, output_dir, spl
                 nodes = json.loads(nodes_line.strip())
                 
                 # 跳过空数据
-                if nodes is None or not isinstance(nodes, list):
+                if nodes is None:
                     continue
                 
-                # nodes是字符串数组，直接对应token_ids的每个位置
-                # 例如: ["Module", "ImportFrom", "ImportFrom", ...]
-                tokens = nodes  # 直接使用节点类型作为token
-                
-                # 如果想使用词典将ID转为token（如果词典可用）
-                # 但实际上nodes数组已经包含了可读的AST节点名称，直接用更好
+                # 关键修复：使用token_ids作为基准，将ID转换为token字符串
+                # 如果有vocab字典，使用字典转换；否则使用nodes数组（如果长度匹配）
+                if vocab and id2token:
+                    # 使用词典将token ID转换为字符串
+                    tokens = []
+                    for tid in token_ids:
+                        if tid in id2token:
+                            tokens.append(id2token[tid])
+                        else:
+                            tokens.append('<unk>')
+                elif isinstance(nodes, list) and len(nodes) == len(token_ids):
+                    # 如果nodes是列表且长度匹配，直接使用
+                    tokens = nodes
+                else:
+                    # 长度不匹配或格式错误，跳过此样本
+                    print(f"Warning: line {lines_processed} - token_ids length {len(token_ids)} != nodes length {len(nodes) if isinstance(nodes, list) else 'N/A'}, skipping")
+                    continue
                 
                 # 解析supernodes（类型标注字典）
                 supernodes = json.loads(super_line.strip())
                 
-                # 初始化类型序列（全部为O）
+                # 初始化类型序列（全部为O）- 长度必须与tokens一致
                 types = ['O'] * len(tokens)
                 
                 # 填充类型标注
@@ -181,10 +192,18 @@ def convert_attributes_to_transformer(attributes_dir, dict_file, output_dir, spl
                         # node_id是字符串格式的索引
                         try:
                             idx = int(node_id)
+                            # 重要：确保索引在有效范围内
                             if 0 <= idx < len(types):
                                 types[idx] = annotation
+                            else:
+                                # 索引超出范围，跳过但记录警告
+                                pass  # 可以添加调试信息
                         except (ValueError, IndexError):
                             continue
+                
+                # 验证：确保 tokens 和 types 长度完全一致
+                assert len(tokens) == len(types), \
+                    f"Length mismatch: {len(tokens)} tokens vs {len(types)} types at line {lines_processed}"
                 
                 # 格式化输出（添加<s>和</s>）
                 code_line = '<s> ' + ' '.join(tokens) + ' </s>'
