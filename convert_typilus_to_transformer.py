@@ -147,6 +147,10 @@ def convert_attributes_to_transformer(attributes_dir, dict_file, output_dir, spl
                 # 解析nodes（节点类型字符串数组）
                 nodes = json.loads(nodes_line.strip())
                 
+                # 跳过空数据
+                if nodes is None or not isinstance(nodes, list):
+                    continue
+                
                 # nodes是字符串数组，直接对应token_ids的每个位置
                 # 例如: ["Module", "ImportFrom", "ImportFrom", ...]
                 tokens = nodes  # 直接使用节点类型作为token
