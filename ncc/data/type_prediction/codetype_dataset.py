@@ -31,6 +31,20 @@ def collate(samples, pad_idx, no_type_id):
     # Y = merge('label_segments')
     Y = [s['label_segments'] for s in samples]
 
+    # Debug: 检查padding后的token IDs
+    if X.min().item() < 0 or X.max().item() > 10005:
+        print(f"❌ WARNING in collate:")
+        print(f"  Batch size: {B}")
+        print(f"  X shape: {X.shape}")
+        print(f"  X range: [{X.min().item()}, {X.max().item()}]")
+        print(f"  pad_idx: {pad_idx}")
+        print(f"  Sample lengths: {[s['subword_ids'].numel() for s in samples]}")
+        if X.min().item() < 0:
+            print(f"  Negative values found!")
+            neg_positions = (X < 0).nonzero(as_tuple=False)
+            print(f"  Negative count: {len(neg_positions)}")
+            print(f"  First 5 negative positions: {neg_positions[:5].tolist()}")
+
     # X = pad_sequence(X, batch_first=True, padding_value=pad_id)
     L = X.size(1)
 
