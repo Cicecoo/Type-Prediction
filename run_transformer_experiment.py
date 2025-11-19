@@ -236,25 +236,43 @@ class TransformerExperiment:
         print("Starting training...")
         print(f"{'='*60}\n")
         
-        # 构建训练命令
+        # 构建训练命令 - 使用多种方式尝试
         log_file = self.log_dir / 'train.log'
-        cmd = f"ncc-train --configs {self.config_path} 2>&1 | tee {log_file}"
         
-        print(f"Command: {cmd}\n")
+        # 方式1: 使用ncc-train命令（如果已安装）
+        # 方式2: 使用python -m ncc_cli.train
+        # 方式3: 使用我们的train_direct.py脚本
+        commands = [
+            f"ncc-train --configs {self.config_path} 2>&1 | tee {log_file}",
+            f"python -m ncc_cli.train --configs {self.config_path} 2>&1 | tee {log_file}",
+            f"python train_direct.py --config {self.config_path} 2>&1 | tee {log_file}",
+        ]
         
-        # 执行训练
-        try:
-            result = subprocess.run(
-                cmd,
-                shell=True,
-                cwd=os.getcwd(),
-                check=True
-            )
-            print(f"\n✓ Training completed successfully!")
-            return True
-        except subprocess.CalledProcessError as e:
-            print(f"\n✗ Training failed with error code {e.returncode}")
-            return False
+        for idx, cmd in enumerate(commands, 1):
+            print(f"Trying method {idx}: {cmd.split('|')[0].strip()}")
+            
+            try:
+                result = subprocess.run(
+                    cmd,
+                    shell=True,
+                    cwd=os.getcwd(),
+                    check=True
+                )
+                print(f"\n✓ Training completed successfully!")
+                return True
+            except subprocess.CalledProcessError as e:
+                if idx < len(commands):
+                    print(f"Method {idx} failed, trying next method...")
+                    continue
+                else:
+                    print(f"\n✗ All training methods failed")
+                    print(f"\nPlease check:")
+                    print(f"1. NaturalCC is properly installed")
+                    print(f"2. You are in the correct directory")
+                    print(f"3. The config file is valid: {self.config_path}")
+                    return False
+        
+        return False
     
     def evaluate(self):
         """训练后评估"""
@@ -275,6 +293,7 @@ class TransformerExperiment:
         # 构建评估命令
         log_file = self.log_dir / 'eval.log'
         cmd = f"ncc-eval --configs {self.config_path} 2>&1 | tee {log_file}"
+        cmd_fallback = f"python -m ncc_cli.eval --configs {self.config_path} 2>&1 | tee {log_file}"
         
         print(f"Command: {cmd}\n")
         
@@ -292,8 +311,21 @@ class TransformerExperiment:
             return True
             
         except subprocess.CalledProcessError as e:
-            print(f"\n✗ Evaluation failed with error code {e.returncode}")
-            return False
+            # 尝试fallback命令
+            print(f"ncc-eval not found, trying python -m ncc_cli.eval...")
+            try:
+                result = subprocess.run(
+                    cmd_fallback,
+                    shell=True,
+                    cwd=os.getcwd(),
+                    check=True
+                )
+                print(f"\n✓ Evaluation completed!")
+                self._parse_eval_results(log_file)
+                return True
+            except subprocess.CalledProcessError as e2:
+                print(f"\n✗ Evaluation failed with error code {e2.returncode}")
+                return False
     
     def _parse_eval_results(self, log_file):
         """解析评估结果并保存"""
