@@ -144,36 +144,40 @@ def convert_attributes_to_transformer(attributes_dir, dict_file, output_dir, spl
                 if not token_ids:
                     continue
                 
-                # 解析nodes（节点信息）
+                # 解析nodes（节点类型字符串数组）
                 nodes = json.loads(nodes_line.strip())
                 
-                # 将token ID转换为字符串
-                tokens = []
-                for tid in token_ids:
-                    # nodes是字典 {node_id: [token_string]}
-                    node_tokens = nodes.get(str(tid), ['<unk>'])
-                    # 通常每个节点有一个token
-                    token = node_tokens[0] if node_tokens else '<unk>'
-                    tokens.append(token)
+                # nodes是字符串数组，直接对应token_ids的每个位置
+                # 例如: ["Module", "ImportFrom", "ImportFrom", ...]
+                tokens = nodes  # 直接使用节点类型作为token
                 
-                # 解析supernodes（类型标注）
+                # 如果想使用词典将ID转为token（如果词典可用）
+                # 但实际上nodes数组已经包含了可读的AST节点名称，直接用更好
+                
+                # 解析supernodes（类型标注字典）
                 supernodes = json.loads(super_line.strip())
                 
-                # 初始化类型序列
+                # 初始化类型序列（全部为O）
                 types = ['O'] * len(tokens)
                 
                 # 填充类型标注
+                # supernodes格式: {"18": {"name": "T", "annotation": "str", ...}, ...}
                 if supernodes:
                     for node_id, node_info in supernodes.items():
-                        annotation = node_info.get('annotation', 'O')
-                        # 清理类型标注（去掉泛型）
-                        if annotation != 'O' and '[' in annotation:
+                        annotation = node_info.get('annotation')
+                        
+                        # 跳过null或None的标注
+                        if annotation is None or annotation == 'null':
+                            continue
+                        
+                        # 清理类型标注（去掉泛型参数）
+                        if '[' in annotation:
                             annotation = annotation.split('[')[0]
                         
-                        # node_id是字符串，需要转为int作为索引
+                        # node_id是字符串格式的索引
                         try:
                             idx = int(node_id)
-                            if idx < len(types):
+                            if 0 <= idx < len(types):
                                 types[idx] = annotation
                         except (ValueError, IndexError):
                             continue
