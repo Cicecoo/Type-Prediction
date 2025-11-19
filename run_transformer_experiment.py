@@ -68,7 +68,9 @@ class TransformerExperiment:
                 'seed': 1,
                 'cpu': 0,
                 'fp16': 0,
+                'bf16': 0,  # bfloat16
                 'memory_efficient_fp16': 0,
+                'memory_efficient_bf16': 0,
                 'fp16_no_flatten_grads': 0,
                 'fp16_init_scale': 128,
                 'fp16_scale_window': None,
