@@ -5,15 +5,62 @@
 
 import json
 import sys
+import os
 
 def debug_data_format(data_dir, split='train', num_samples=5):
     """检查前几个样本的数据格式"""
     
-    token_seq_file = f"{data_dir}/attributes/{split}.token-sequence"
-    nodes_file = f"{data_dir}/attributes/{split}.nodes"
-    supernodes_file = f"{data_dir}/attributes/{split}.supernodes"
+    # 首先检查目录结构
+    print(f"Data directory: {data_dir}")
+    print(f"Checking directory structure...")
     
-    print(f"Checking {split} split data...")
+    # 可能的路径
+    possible_paths = [
+        f"{data_dir}/attributes/{split}.token-sequence",
+        f"{data_dir}/{split}.token-sequence",
+        f"{data_dir}/data/{split}.token-sequence",
+    ]
+    
+    token_seq_file = None
+    for path in possible_paths:
+        if os.path.exists(path):
+            token_seq_file = path
+            base_dir = os.path.dirname(path)
+            break
+    
+    if token_seq_file is None:
+        print(f"ERROR: Could not find token-sequence file!")
+        print(f"Tried paths:")
+        for path in possible_paths:
+            print(f"  - {path}")
+        
+        # 列出实际存在的目录
+        print(f"\nActual directory contents:")
+        if os.path.exists(data_dir):
+            for item in os.listdir(data_dir):
+                item_path = os.path.join(data_dir, item)
+                if os.path.isdir(item_path):
+                    print(f"  DIR: {item}/")
+                    # 列出子目录内容
+                    try:
+                        sub_items = os.listdir(item_path)[:10]
+                        for sub in sub_items:
+                            print(f"    - {sub}")
+                        if len(os.listdir(item_path)) > 10:
+                            print(f"    ... and {len(os.listdir(item_path)) - 10} more")
+                    except:
+                        pass
+                else:
+                    print(f"  FILE: {item}")
+        return
+    
+    nodes_file = os.path.join(base_dir, f"{split}.nodes")
+    supernodes_file = os.path.join(base_dir, f"{split}.supernodes")
+    
+    print(f"Found files:")
+    print(f"  - {token_seq_file}")
+    print(f"  - {nodes_file}")
+    print(f"  - {supernodes_file}")
     print(f"=" * 80)
     
     with open(token_seq_file, 'r') as f_seq, \
