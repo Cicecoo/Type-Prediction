@@ -16,8 +16,11 @@ from datetime import datetime
 import multiprocessing as mp
 
 class BatchExperimentRunner:
-    def __init__(self, exp_dir="experiments/transformer_series"):
+    def __init__(self, exp_dir="experiments/transformer_series", 
+                 data_dir="/mnt/data1/zhaojunzhang/typilus-data/transformer"):
         self.exp_dir = Path(exp_dir)
+        self.base_dir = self.exp_dir  # 别名
+        self.data_dir = Path(data_dir)
         self.index_file = self.exp_dir / "experiment_index.json"
         
         if not self.index_file.exists():
@@ -277,8 +280,13 @@ class BatchExperimentRunner:
 
 def main():
     parser = argparse.ArgumentParser(description='Run batch experiments')
-    parser.add_argument('--exp-dir', type=str, default='experiments/transformer_series',
+    parser.add_argument('--base-dir', '--exp-dir', type=str, 
+                       default='experiments/transformer_series',
+                       dest='exp_dir',
                        help='Experiments directory')
+    parser.add_argument('--data-dir', type=str,
+                       default='/mnt/data1/zhaojunzhang/typilus-data/transformer',
+                       help='Data directory')
     parser.add_argument('--group', type=str, 
                        choices=['baseline', 'model_size', 'layers', 'lr', 'dropout', 
                                'encoder', 'batch_size'],
@@ -290,14 +298,15 @@ def main():
     parser.add_argument('--mode', type=str, default='serial',
                        choices=['serial', 'parallel'],
                        help='Execution mode')
-    parser.add_argument('--gpus', nargs='+', type=int, default=[0],
+    parser.add_argument('--gpus', '--gpu', nargs='+', type=int, default=[0],
+                       dest='gpus',
                        help='GPU IDs to use')
     parser.add_argument('--dry-run', action='store_true',
                        help='Print commands without running')
     
     args = parser.parse_args()
     
-    runner = BatchExperimentRunner(exp_dir=args.exp_dir)
+    runner = BatchExperimentRunner(exp_dir=args.exp_dir, data_dir=args.data_dir)
     
     # 获取实验列表
     if args.all:
