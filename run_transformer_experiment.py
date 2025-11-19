@@ -196,6 +196,16 @@ class TransformerExperiment:
         with open(self.config_path, 'w') as f:
             yaml.dump(self.config, f, default_flow_style=False, sort_keys=False)
         print(f"✓ Saved config to: {self.config_path}")
+        
+        # 同时保存到transformer的config目录（让train.py能找到）
+        transformer_config_dir = Path('run/type_prediction/transformer/config')
+        transformer_config_dir.mkdir(parents=True, exist_ok=True)
+        
+        # 使用实验名称作为配置名称
+        transformer_config_path = transformer_config_dir / f'{self.exp_name}.yml'
+        with open(transformer_config_path, 'w') as f:
+            yaml.dump(self.config, f, default_flow_style=False, sort_keys=False)
+        print(f"✓ Also saved to: {transformer_config_path}")
     
     def save_experiment_info(self, extra_info=None):
         """保存实验信息"""
@@ -236,18 +246,17 @@ class TransformerExperiment:
         print("Starting training...")
         print(f"{'='*60}\n")
         
-        # 构建训练命令 - 使用transformer的train.py脚本（类似typilus）
+        # 构建训练命令 - transformer的train.py使用--language参数
         log_file = self.log_dir / 'train.log'
         
-        # 使用run/type_prediction/transformer/train.py（和typilus一样的方式）
+        # transformer的train.py会从config/目录加载{language}.yml
+        # 我们在save_config时已经保存了一份到那里
         train_script = 'run/type_prediction/transformer/train.py'
         
-        # 传递配置路径（不带.yml后缀，和typilus保持一致）
-        config_path_no_ext = str(self.config_path).replace('.yml', '')
-        
-        cmd = f"python {train_script} --yaml_file {config_path_no_ext} 2>&1 | tee {log_file}"
+        cmd = f"python {train_script} --language {self.exp_name} 2>&1 | tee {log_file}"
         
         print(f"Command: {cmd}\n")
+        print(f"Note: Config file will be loaded from run/type_prediction/transformer/config/{self.exp_name}.yml\n")
         
         # 执行训练
         try:
@@ -264,7 +273,7 @@ class TransformerExperiment:
             print(f"\nPlease check:")
             print(f"1. NaturalCC is properly installed")
             print(f"2. You are in the naturalcc directory")
-            print(f"3. The config file is valid: {self.config_path}")
+            print(f"3. The config file exists: run/type_prediction/transformer/config/{self.exp_name}.yml")
             print(f"4. Training script exists: {train_script}")
             return False
     
