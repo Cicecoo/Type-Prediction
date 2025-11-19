@@ -1,0 +1,50 @@
+# 学习率精细搜索实验
+# 目标: 找到最优学习率
+# 基于初步实验结果: lr=1e-3最优(3.584), 4e-4次之(3.609), 1e-4最差(3.942)
+
+experiments:
+  - name: lr_5e-4
+    desc: 学习率5e-4 (baseline和1e-3之间)
+    params:
+      optimization:
+        lrs: [5e-4]
+      checkpoint:
+        patience: 3  # 提前终止，防止过拟合
+
+  - name: lr_7.5e-4
+    desc: 学习率7.5e-4 (逼近1e-3)
+    params:
+      optimization:
+        lrs: [7.5e-4]
+      checkpoint:
+        patience: 3
+
+  - name: lr_1e-3
+    desc: 学习率1e-3 (重新验证，使用patience=3)
+    params:
+      optimization:
+        lrs: [1e-3]
+      checkpoint:
+        patience: 3
+
+  - name: lr_1.25e-3
+    desc: 学习率1.25e-3 (探索更高)
+    params:
+      optimization:
+        lrs: [1.25e-3]
+      checkpoint:
+        patience: 3
+
+  - name: lr_1.5e-3
+    desc: 学习率1.5e-3 (探索上界)
+    params:
+      optimization:
+        lrs: [1.5e-3]
+      checkpoint:
+        patience: 3
+
+# 实验说明:
+# - 所有实验使用 patience=3，避免过拟合
+# - 保持其他参数为默认值 (batch=32, hidden=64, layers=2)
+# - 预期结果: 找到最优学习率区间
+# - 如果1.5e-3仍在改进，可能需要继续探索更高的学习率

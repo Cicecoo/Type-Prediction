@@ -17,55 +17,21 @@ from datetime import datetime
 
 # ==================== 实验配置 ====================
 
-EXPERIMENTS = [
-    {
-        "name": "baseline",
-        "desc": "基线实验",
-        "params": {}  # 使用默认配置
-    },
-    {
-        "name": "exp_lr_1e-3",
-        "desc": "学习率1e-3",
-        "params": {"optimization": {"lrs": [1e-3]}}
-    },
-    {
-        "name": "exp_lr_1e-4",
-        "desc": "学习率1e-4",
-        "params": {"optimization": {"lrs": [1e-4]}}
-    },
-    {
-        "name": "exp_batch_64",
-        "desc": "批量大小64",
-        "params": {"dataset": {"max_sentences": 64}}
-    },
-    {
-        "name": "exp_hidden_128",
-        "desc": "隐藏层128",
-        "params": {
-            "model": {
-                "encoder_embed_dim": 128,
-                "encoder_hidden_size": 128,
-                "edge_in": 128,
-                "edge_out": 128
-            }
-        }
-    },
-    {
-        "name": "exp_best",
-        "desc": "推荐配置",
-        "params": {
-            "optimization": {"lrs": [5e-4]},
-            "dataset": {"max_sentences": 64},
-            "model": {
-                "encoder_embed_dim": 128,
-                "encoder_hidden_size": 128,
-                "edge_in": 128,
-                "edge_out": 128,
-                "encoder_layers": 4
-            }
-        }
-    }
-]
+def load_experiments(config_file=None):
+    """从YAML文件加载实验配置"""
+    if config_file is None:
+        # 默认使用学习率实验配置
+        script_dir = Path(__file__).parent
+        config_file = script_dir / "experiments_lr.yml"
+    
+    config_file = Path(config_file)
+    if not config_file.exists():
+        raise FileNotFoundError(f"实验配置文件不存在: {config_file}")
+    
+    with open(config_file, 'r', encoding='utf-8') as f:
+        config = yaml.safe_load(f)
+    
+    return config.get('experiments', [])
 
 # ==================== 工具函数 ====================
 
@@ -80,219 +46,18 @@ def deep_update(base_dict, update_dict):
 
 
 def get_default_config():
-    """获取默认配置（不依赖外部文件）"""
-    return {
-        'criterion': 'typilus',
-        'optimizer': 'torch_adam',
-        'lr_scheduler': 'fixed',
-        'tokenizer': None,
-        'bpe': None,
-        
-        'common': {
-            'no_progress_bar': 0,
-            'log_interval': 50,
-            'log_format': 'simple',
-            'tensorboard_logdir': '',
-            'memory_efficient_fp16': 1,
-            'fp16_no_flatten_grads': 1,
-            'fp16_init_scale': 128,
-            'fp16_scale_window': None,
-            'fp16_scale_tolerance': 0.0,
-            'min_loss_scale': 1e-4,
-            'threshold_loss_scale': None,
-            'empty_cache_freq': 0,
-            'task': 'typilus',
-            'seed': 1,
-            'cpu': 0,
-            'fp16': 0,
-            'fp16_opt_level': '01',
-            'server_ip': '',
-            'server_port': '',
-            'bf16': 0,
-        },
-        
-        'dataset': {
-            'num_workers': 0,
-            'skip_invalid_size_inputs_valid_test': 1,
-            'max_tokens': None,
-            'max_sentences': 32,
-            'required_batch_size_multiple': 8,
-            'dataset_impl': 'mmap',
-            'train_subset': 'train',
-            'valid_subset': 'valid',
-            'validate_interval': 1,
-            'fixed_validation_seed': None,
-            'disable_validation': 0,
-            'max_tokens_valid': None,
-            'max_sentences_valid': 256,
-            'curriculum': 0,
-            'gen_subset': 'test',
-            'num_shards': 1,
-            'shard_id': 0,
-            'test_subset': 'test',
-        },
-        
-        'distributed_training': {
-            'distributed_world_size': 1,
-            'distributed_rank': 0,
-            'distributed_backend': 'nccl',
-            'distributed_init_method': None,
-            'distributed_port': -1,
-            'device_id': 0,
-            'distributed_no_spawn': 0,
-            'ddp_backend': 'c10d',
-            'bucket_cap_mb': 25,
-            'fix_batches_to_gpus': None,
-            'find_unused_parameters': 0,
-            'fast_stat_sync': 0,
-            'broadcast_buffers': 0,
-            'global_sync_iter': 50,
-            'warmup_iterations': 500,
-            'local_rank': -1,
-            'block_momentum': 0.875,
-            'block_lr': 1,
-            'use_nbm': 0,
-            'average_sync': 0,
-        },
-        
-        'task': {
-            'data': '~/workspace/type_pred/typilus/type_inference/data-mmap',
-            'source_langs': ['nodes', 'edges'],
-            'target_langs': ['supernodes.annotation'],
-            'load_alignments': 0,
-            'left_pad_source': 0,
-            'left_pad_target': 0,
-            'max_source_positions': 512,
-            'max_target_positions': 30,
-            'upsample_primary': 1,
-            'truncate_source': 1,
-            'truncate_target': 1,
-            'append_eos_to_target': 1,
-            'eval_bleu': 1,
-            'eval_bleu_detok': 'space',
-            'eval_bleu_detok_args': None,
-            'eval_tokenized_bleu': 0,
-            'eval_bleu_remove_bpe': None,
-            'eval_bleu_args': None,
-            'eval_bleu_print_samples': 0,
-        },
-        
-        'model': {
-            'arch': 'typilus',
-            'encoder_embed_dim': 64,
-            'max_subtoken_len': 5,
-            'encoder_hidden_size': 64,
-            'encoder_layers': 2,
-            'edge_types': 8,
-            'edge_in': 64,
-            'edge_out': 64,
-            'edge_backward': 1,
-            'timesteps': [7, 1],
-            'encoder_dropout': 0.1,
-            'decoder_dropout': 0.1,
-        },
-        
-        'optimization': {
-            'max_epoch': 0,
-            'max_update': 0,
-            'clip_norm': 25,
-            'update_freq': [1],
-            'lrs': [4e-4],
-            'min_lr': -1,
-            'use_bmuf': 1,
-            'force_anneal': 0,
-            'warmup_updates': 0,
-            'lr_shrink': 0.98,
-            'margin': 2,
-            'sentence_avg': 1,
-            'adam': {
-                'adam_betas': '(0.9, 0.999)',
-                'adam_eps': 1e-8,
-                'weight_decay': 0.0,
-                'use_old_adam': 0,
-            },
-            'weight_decay': 0.0,
-            'adam_epsilon': 1e-8,
-            'max_grad_norm': 1.0,
-            'num_train_epochs': 5,
-            'max_steps': -1,
-            'warmup_steps': 0,
-            'gradient_accumulation_steps': 1,
-        },
-        
-        'checkpoint': {
-            'restore_file': 'checkpoint_last.pt',
-            'reset_dataloader': None,
-            'reset_lr_scheduler': None,
-            'reset_meters': None,
-            'reset_optimizer': None,
-            'optimizer_overrides': '{}',
-            'save_interval': 1,
-            'save_interval_updates': 0,
-            'keep_interval_updates': 0,
-            'keep_last_epochs': -1,
-            'keep_best_checkpoints': -1,
-            'no_save': 0,
-            'no_epoch_checkpoints': 1,
-            'no_last_checkpoints': 0,
-            'no_save_optimizer_state': None,
-            'best_checkpoint_metric': 'loss',
-            'maximize_best_checkpoint_metric': 1,
-            'patience': 10,
-            'save_dir': '~/workspace/type_pred/naturalcc/run/type_prediction/typilus/checkpoints/base',
-            'should_continue': 0,
-            'model_name_or_path': None,
-            'cache_dir': None,
-            'logging_steps': 500,
-            'save_steps': 2000,
-            'save_total_limit': 2,
-            'overwrite_output_dir': 0,
-            'overwrite_cache': 0,
-        },
-        
-        'eval': {
-            'path': '~/workspace/type_pred/naturalcc/run/type_prediction/typilus/checkpoints/base/checkpoint_best.pt',
-            'result_path': None,
-            'remove_bpe': None,
-            'quiet': 0,
-            'model_overrides': '{}',
-            'max_sentences': 2048,
-            'beam': 1,
-            'nbest': 1,
-            'max_len_a': 0,
-            'max_len_b': 30,
-            'min_len': 1,
-            'match_source_len': 0,
-            'no_early_stop': 0,
-            'unnormalized': 0,
-            'no_beamable_mm': 0,
-            'lenpen': 1,
-            'unkpen': 0,
-            'replace_unk': None,
-            'sacrebleu': 0,
-            'score_reference': 0,
-            'prefix_size': 0,
-            'no_repeat_ngram_size': 0,
-            'sampling': 0,
-            'sampling_topk': -1,
-            'sampling_topp': -1,
-            'temperature': 1.0,
-            'diverse_beam_groups': -1,
-            'diverse_beam_strength': 0.5,
-            'diversity_rate': -1.0,
-            'print_alignment': 0,
-            'print_step': 0,
-            'iter_decode_eos_penalty': 0.0,
-            'iter_decode_max_iter': 10,
-            'iter_decode_force_max_iter': 0,
-            'iter_decode_with_beam': 1,
-            'iter_decode_with_external_reranker': 0,
-            'retain_iter_history': 0,
-            'decoding_format': None,
-            'nltk_bleu': 1,
-            'rouge': 1,
-        },
-    }
+    """从配置文件读取默认配置"""
+    # 找到配置文件
+    script_file = Path(__file__).resolve()
+    experiment_tools_dir = script_file.parent
+    typilus_dir = experiment_tools_dir.parent
+    config_file = typilus_dir / "config" / "typilus.yml"
+    
+    if not config_file.exists():
+        raise FileNotFoundError(f"找不到配置文件: {config_file}")
+    
+    with open(config_file, 'r', encoding='utf-8') as f:
+        return yaml.safe_load(f)
 
 
 def create_config(exp_config, output_path):
@@ -544,6 +309,7 @@ def main():
     parser.add_argument('--analyze', action='store_true', help='仅分析结果')
     parser.add_argument('--run-only', action='store_true', help='仅运行实验')
     parser.add_argument('--exp-dir', default='~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments', help='实验目录')
+    parser.add_argument('--config', default=None, help='实验配置文件 (默认: experiments_lr.yml)')
     args = parser.parse_args()
     
     # 找到训练脚本（不再需要base_config）
@@ -567,10 +333,23 @@ def main():
         analyze_all_experiments(args.exp_dir)
         return
     
+    # 加载实验配置
+    try:
+        EXPERIMENTS = load_experiments(args.config)
+    except FileNotFoundError as e:
+        print(f"错误: {e}")
+        return
+    
+    if not EXPERIMENTS:
+        print("错误: 没有找到实验配置")
+        return
+    
     if not args.run_only:
         print("="*60)
         print("Typilus 参数调优实验系统")
         print("="*60)
+        config_name = Path(args.config).name if args.config else "experiments_lr.yml"
+        print(f"配置文件: {config_name}")
         print(f"\n共 {len(EXPERIMENTS)} 个实验:\n")
         for i, exp in enumerate(EXPERIMENTS, 1):
             print(f"{i}. {exp['name']}: {exp['desc']}")

@@ -32,19 +32,46 @@ import torch.multiprocessing
 # ==================== 训练日志记录器 ====================
 
 class TrainingLogger:
-    """简化的训练日志记录器"""
+    """详细的训练日志记录器"""
     
     def __init__(self, log_dir):
-        self.log_dir = Path(log_dir)
+        self.log_dir = Path(log_dir).resolve()  # 使用绝对路径
         self.log_dir.mkdir(parents=True, exist_ok=True)
+        print(f"[TrainingLogger] 日志目录: {self.log_dir}")
+        
+        # 简化指标（用于绘图）
         self.history = {
             'epochs': [], 'train_loss': [], 'valid_loss': [],
             'train_ppl': [], 'valid_ppl': [], 'learning_rate': []
         }
+        
+        # 详细指标（包含所有原始数据）
+        self.detailed_history = []
+        
         self.metrics_file = self.log_dir / 'metrics.json'
+        self.detailed_file = self.log_dir / 'detailed_metrics.txt'
+        self.raw_log_file = self.log_dir / 'training_output.log'
+        
+        # 打开原始输出日志文件
+        try:
+            self.raw_log_handle = open(self.raw_log_file, 'w', encoding='utf-8', buffering=1)
+            print(f"[TrainingLogger] 原始输出将保存到: {self.raw_log_file}")
+        except Exception as e:
+            print(f"[TrainingLogger] 无法打开日志文件: {e}")
+            self.raw_log_handle = None
+    
+    def log_raw_output(self, message):
+        """记录原始训练输出"""
+        if self.raw_log_handle:
+            try:
+                self.raw_log_handle.write(str(message) + '\n')
+                self.raw_log_handle.flush()
+            except:
+                pass
     
     def log(self, epoch, train_stats, valid_stats, lr):
-        """记录一个epoch的数据"""
+        """记录一个epoch的训练统计（包含所有可用数据）"""
+        # 简化指标
         self.history['epochs'].append(epoch)
         self.history['train_loss'].append(train_stats.get('loss', 0))
         self.history['valid_loss'].append(valid_stats.get('loss', 0) if valid_stats else 0)
@@ -52,8 +79,44 @@ class TrainingLogger:
         self.history['valid_ppl'].append(valid_stats.get('ppl', 0) if valid_stats else 0)
         self.history['learning_rate'].append(lr)
         
-        with open(self.metrics_file, 'w', encoding='utf-8') as f:
-            json.dump(self.history, f, indent=2)
+        # 详细指标（保存所有字段）
+        epoch_detail = {
+            'epoch': epoch,
+            'learning_rate': lr,
+            'train': dict(train_stats),
+            'valid': dict(valid_stats) if valid_stats else {}
+        }
+        self.detailed_history.append(epoch_detail)
+        
+        # 保存简化指标（JSON）
+        try:
+            with open(self.metrics_file, 'w', encoding='utf-8') as f:
+                json.dump(self.history, f, indent=2)
+            print(f"[TrainingLogger] Epoch {epoch} 指标已保存: {self.metrics_file}")
+        except Exception as e:
+            print(f"[TrainingLogger] 保存metrics.json失败: {e}")
+        
+        # 保存详细指标（文本格式，易于查看）
+        try:
+            with open(self.detailed_file, 'a', encoding='utf-8') as f:
+                f.write(f"\n{'='*80}\n")
+                f.write(f"Epoch {epoch} | LR: {lr:.6f}\n")
+                f.write(f"{'-'*80}\n")
+                f.write("TRAIN:\n")
+                for k, v in sorted(train_stats.items()):
+                    f.write(f"  {k:30s}: {v}\n")
+                if valid_stats:
+                    f.write("\nVALID:\n")
+                    for k, v in sorted(valid_stats.items()):
+                        f.write(f"  {k:30s}: {v}\n")
+                f.flush()
+        except Exception as e:
+            print(f"[TrainingLogger] 保存详细日志失败: {e}")
+    
+    def close(self):
+        """关闭日志文件"""
+        if self.raw_log_handle:
+            self.raw_log_handle.close()
     
     def plot(self):
         """生成训练曲线"""
@@ -167,6 +230,11 @@ def train(args, trainer, task, epoch_itr):
         if num_updates % args['common']['log_interval'] == 0:
             stats = get_training_stats(metrics.get_smoothed_values('train_inner'))
             progress.log(stats, tag='train_inner', step=num_updates)
+            
+            # 记录训练过程输出
+            if hasattr(trainer, '_logger') and trainer._logger:
+                trainer._logger.log_raw_output(f"Step {num_updates}: {stats}")
+            
             metrics.reset_meters('train_inner')
 
         if (not args['dataset']['disable_validation']
@@ -226,6 +294,10 @@ def validate(args, trainer, task, epoch_itr, subsets):
 
         stats = get_valid_stats(args, trainer, agg.get_smoothed_values())
         progress.print(stats, tag=subset, step=trainer.get_num_updates())
+
+        # 记录验证输出
+        if hasattr(trainer, '_logger') and trainer._logger:
+            trainer._logger.log_raw_output(f"Validation [{subset}]: {stats}")
 
         valid_losses.append(stats[args['checkpoint']['best_checkpoint_metric']])
         valid_stats_list.append(stats)
@@ -309,6 +381,12 @@ def single_main(args, init_distributed=False):
 
     trainer = Trainer(args, task, model, criterion)
     LOGGER.info('使用 {} 个GPU训练'.format(args['distributed_training']['distributed_world_size']))
+    
+    # 将logger附加到trainer以便在训练循环中访问
+    if distributed_utils.is_master(args):
+        trainer._logger = training_logger
+    else:
+        trainer._logger = None
 
     extra_state, epoch_itr = checkpoint_utils.load_checkpoint(args, trainer, combine=False)
 
@@ -355,6 +433,7 @@ def single_main(args, init_distributed=False):
     LOGGER.info('训练完成，用时 {:.1f} 秒'.format(train_meter.sum))
     
     if training_logger and distributed_utils.is_master(args):
+        training_logger.close()
         training_logger.plot()
         LOGGER.info(f'所有日志已保存到: {training_logger.log_dir}')
 
