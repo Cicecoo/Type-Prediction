@@ -13,11 +13,10 @@ def convert_dict(input_file, output_file, default_count=1):
     """转换词典格式"""
     print(f"Reading from {input_file}")
     
-    # 这些特殊token会被Dictionary自动添加，不需要在词典文件中重复
-    skip_tokens = {'[PAD]', '[UNK]', '[BOS]', '[EOS]', '<pad>', '<unk>', '<s>', '</s>'}
+    # 注意：虽然Dictionary会自动添加特殊token，但我们的数据中已经使用了这些token
+    # 所以需要在词典中包含它们，避免索引错误
     
-    token_dict = {}  # 使用字典去重，保留第一次出现的
-    skipped_count = 0
+    token_dict = {}  # 使用字典去重，key=token, value=原始ID
     
     with open(input_file, 'r', encoding='utf-8') as f:
         for line_num, line in enumerate(f, 1):
@@ -27,12 +26,7 @@ def convert_dict(input_file, output_file, default_count=1):
             try:
                 token, idx = json.loads(line)
                 
-                # 跳过特殊token（避免与Dictionary初始化时添加的冲突）
-                if token in skip_tokens:
-                    skipped_count += 1
-                    continue
-                
-                # 只保留第一次出现的token
+                # 去重：只保留第一次出现的token
                 if token not in token_dict:
                     token_dict[token] = idx
             except json.JSONDecodeError as e:
@@ -43,7 +37,6 @@ def convert_dict(input_file, output_file, default_count=1):
     tokens = sorted(token_dict.items(), key=lambda x: x[1])
     
     print(f"Found {len(tokens)} unique tokens")
-    print(f"Skipped {skipped_count} special tokens (will be added by Dictionary)")
     
     with open(output_file, 'w', encoding='utf-8') as f:
         # NaturalCC词典格式：每行是JSON数组 ["token", count]
