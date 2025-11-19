@@ -1,0 +1,179 @@
+bpe: null
+checkpoint:
+  best_checkpoint_metric: loss
+  cache_dir: null
+  keep_best_checkpoints: -1
+  keep_interval_updates: 0
+  keep_last_epochs: -1
+  logging_steps: 500
+  maximize_best_checkpoint_metric: 0
+  model_name_or_path: null
+  no_epoch_checkpoints: 1
+  no_last_checkpoints: 0
+  no_save: 0
+  no_save_optimizer_state: null
+  optimizer_overrides: '{}'
+  overwrite_cache: 0
+  overwrite_output_dir: 0
+  patience: 3
+  reset_dataloader: null
+  reset_lr_scheduler: null
+  reset_meters: null
+  reset_optimizer: null
+  restore_file: checkpoint_last.pt
+  save_dir: ~/workspace/type_pred/naturalcc/run/type_prediction/transformer/checkpoints/lr_7p5e5
+  save_interval: 1
+  save_interval_updates: 0
+  save_steps: 2000
+  save_total_limit: 2
+  should_continue: 0
+common:
+  bf16: 0
+  cpu: 0
+  empty_cache_freq: 0
+  fp16: 0
+  fp16_init_scale: 128
+  fp16_no_flatten_grads: 1
+  fp16_opt_level: '01'
+  fp16_scale_tolerance: 0.0
+  fp16_scale_window: null
+  log_format: simple
+  log_interval: 50
+  memory_efficient_fp16: 0
+  min_loss_scale: 1e-4
+  no_progress_bar: 0
+  seed: 1
+  server_ip: ''
+  server_port: ''
+  task: typetransformer
+  tensorboard_logdir: ''
+  threshold_loss_scale: null
+criterion: cross_entropy
+dataset:
+  curriculum: 0
+  dataset_impl: mmap
+  disable_validation: 0
+  fixed_validation_seed: null
+  gen_subset: test
+  max_sentences: 16
+  max_sentences_valid: 64
+  max_tokens: null
+  max_tokens_valid: null
+  num_shards: 1
+  num_workers: 0
+  required_batch_size_multiple: 8
+  shard_id: 0
+  skip_invalid_size_inputs_valid_test: 1
+  train_subset: train
+  valid_subset: valid
+  validate_interval: 1
+distributed_training:
+  average_sync: 0
+  block_lr: 1
+  block_momentum: 0.875
+  broadcast_buffers: 0
+  bucket_cap_mb: 25
+  ddp_backend: c10d
+  device_id: 0
+  distributed_backend: nccl
+  distributed_init_method: null
+  distributed_no_spawn: 0
+  distributed_port: -1
+  distributed_rank: 0
+  distributed_world_size: 1
+  fast_stat_sync: 0
+  find_unused_parameters: 0
+  fix_batches_to_gpus: null
+  global_sync_iter: 50
+  local_rank: -1
+  use_nbm: 0
+  warmup_iterations: 500
+eval:
+  beam: 1
+  decoding_format: null
+  diverse_beam_groups: -1
+  diverse_beam_strength: 0.5
+  diversity_rate: -1.0
+  iter_decode_eos_penalty: 0.0
+  iter_decode_force_max_iter: 0
+  iter_decode_max_iter: 10
+  iter_decode_with_beam: 1
+  iter_decode_with_external_reranker: 0
+  lenpen: 1
+  match_source_len: 0
+  max_len_a: 0
+  max_len_b: 512
+  max_sentences: 256
+  min_len: 1
+  model_overrides: '{}'
+  nbest: 1
+  nltk_bleu: 0
+  no_beamable_mm: 0
+  no_early_stop: 0
+  no_repeat_ngram_size: 0
+  path: ~/workspace/type_pred/naturalcc/run/type_prediction/transformer/checkpoints/base/checkpoint_best.pt
+  prefix_size: 0
+  print_alignment: 0
+  print_step: 0
+  quiet: 0
+  remove_bpe: null
+  replace_unk: null
+  result_path: null
+  retain_iter_history: 0
+  rouge: 0
+  sacrebleu: 0
+  sampling: 0
+  sampling_topk: -1
+  sampling_topp: -1
+  score_reference: 0
+  temperature: 1.0
+  unkpen: 0
+  unnormalized: 0
+lr_scheduler: fixed
+model:
+  activation: relu
+  arch: typetransformer
+  d_ff: 1024
+  d_model: 256
+  d_rep: 128
+  dropout: 0.1
+  encoder_type: transformer
+  max_positions: 512
+  n_encoder_layers: 4
+  n_head: 8
+optimization:
+  adam:
+    adam_betas: (0.9, 0.999)
+    adam_eps: 1e-8
+    use_old_adam: 0
+    weight_decay: 0.01
+  clip_norm: 25
+  force_anneal: 0
+  lr_shrink: 0.98
+  lrs:
+  - 7.5e-05
+  max_epoch: 50
+  max_update: 0
+  min_lr: 1e-6
+  sentence_avg: 1
+  update_freq:
+  - 1
+  use_bmuf: 0
+  warmup_updates: 2000
+optimizer: torch_adam
+task:
+  data: ~/workspace/type_pred/naturalcc/data-mmap
+  left_pad_source: 0
+  left_pad_target: 0
+  load_alignments: 0
+  max_source_positions: 512
+  max_target_positions: 512
+  source_langs:
+  - token-sequence
+  target_langs:
+  - supernodes
+  tokens_per_sample: 512
+  truncate_source: 1
+  truncate_target: 0
+  upsample_primary: 1
+tokenizer: null

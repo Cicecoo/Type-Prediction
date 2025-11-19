@@ -17323,4 +17323,227 @@ FileNotFoundError: [Errno 2] No such file or directory: '/home/zhaojunzhang/work
 成功: 0
 失败: 5
 总计: 5
-(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ python batch_test.py [C[C[C[C[C[C[C[C[C[C[C[C[5@run_experiments[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5Pbatch_test[C[C[C[C[C[C[C[C[C[K[K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ 
+(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ python batch_test.py [C[C[C[C[C[C[C[C[C[C[C[C[5@run_experiments[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5Pbatch_test[C[C[C[C[C[C[C[C[C[K[K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ python batch_test.py 
+错误: 找不到测试脚本 type_predict.py
+(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ python batch_test.py 
+错误: 找不到测试脚本 type_predict.py
+(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ 
+(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ python batch_test.py 
+错误: 找不到测试脚本 type_predict.py
+(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ python batch_test.py 
+Traceback (most recent call last):
+  File "batch_test.py", line 251, in <module>
+    main()
+  File "batch_test.py", line 189, in main
+    print(test_script.as_uri())
+  File "/mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/lib/python3.8/pathlib.py", line 748, in as_uri
+    raise ValueError("relative path can't be expressed as a file URI")
+ValueError: relative path can't be expressed as a file URI
+(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ python batch_test.py 
+type_predict.py
+错误: 找不到测试脚本 type_predict.py
+(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ python batch_test.py [C[C[C[C[C[C[C[C[C[C[C[C[5@run_experiments[C[C[C[C[C[C[C[C[Ccd run/type_prediction/typilus/experiment_tools[C[C[C[C[C[C[23Ponda activate naturalcc[C[C[C[C[C[Cd run/type_prediction/typilus/experiment_tools[C[C[C[C[C[21Ppython run_experiments.py [C[C[C[C[C[C[C[C[C[C[C[C[5Pbatch_test[C[C[C[C[C[C[C[C[C[Kgit pull
+remote: Enumerating objects: 24, done.[K
+remote: Counting objects:   4% (1/22)[Kremote: Counting objects:   9% (2/22)[Kremote: Counting objects:  13% (3/22)[Kremote: Counting objects:  18% (4/22)[Kremote: Counting objects:  22% (5/22)[Kremote: Counting objects:  27% (6/22)[Kremote: Counting objects:  31% (7/22)[Kremote: Counting objects:  36% (8/22)[Kremote: Counting objects:  40% (9/22)[Kremote: Counting objects:  45% (10/22)[Kremote: Counting objects:  50% (11/22)[Kremote: Counting objects:  54% (12/22)[Kremote: Counting objects:  59% (13/22)[Kremote: Counting objects:  63% (14/22)[Kremote: Counting objects:  68% (15/22)[Kremote: Counting objects:  72% (16/22)[Kremote: Counting objects:  77% (17/22)[Kremote: Counting objects:  81% (18/22)[Kremote: Counting objects:  86% (19/22)[Kremote: Counting objects:  90% (20/22)[Kremote: Counting objects:  95% (21/22)[Kremote: Counting objects: 100% (22/22)[Kremote: Counting objects: 100% (22/22), done.[K
+remote: Compressing objects:  50% (1/2)[Kremote: Compressing objects: 100% (2/2)[Kremote: Compressing objects: 100% (2/2), done.[K
+remote: Total 12 (delta 10), reused 12 (delta 10), pack-reused 0 (from 0)[K
+Unpacking objects:   8% (1/12)Unpacking objects:  16% (2/12)Unpacking objects:  25% (3/12)Unpacking objects:  33% (4/12)Unpacking objects:  41% (5/12)Unpacking objects:  50% (6/12)Unpacking objects:  58% (7/12)Unpacking objects:  66% (8/12)Unpacking objects:  75% (9/12)Unpacking objects:  83% (10/12)Unpacking objects:  91% (11/12)Unpacking objects: 100% (12/12)Unpacking objects: 100% (12/12), 1.42 KiB | 485.00 KiB/s, done.
+From https://github.com/Cicecoo/Type-Prediction
+   21f4f71..73205aa  master     -> cicecoo/master
+Updating 21f4f71..73205aa
+Fast-forward
+ run/type_prediction/typilus/experiment_tools/batch_test.py | 24 [32m+++++++++++++++++++++[m[31m---[m
+ 1 file changed, 21 insertions(+), 3 deletions(-)
+(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ git pull[C[C[C[C[Cpython batch_test.py 
+脚本目录: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools
+Typilus目录: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus
+测试脚本路径: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/type_predict.py
+测试脚本是否存在: True
+
+实验目录: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments
+测试脚本: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/type_predict.py
+
+找到 5 个未测试的实验:
+  - lr_1.25e-3
+  - lr_1.5e-3
+  - lr_1e-3
+  - lr_5e-4
+  - lr_7.5e-4
+
+
+================================================================================
+测试实验: lr_1.25e-3
+================================================================================
+Checkpoint: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1.25e-3/checkpoints/checkpoint_best.pt
+输出目录: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1.25e-3/checkpoints
+
+命令: /mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/bin/python /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/type_predict.py -f /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1.25e-3/checkpoints/test_config
+
+测试完成!
+结果已保存: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1.25e-3/checkpoints/res.txt
+
+测试结果:
+avg_loss: 3.741307392548979
+acc1: 13.484945647923672
+acc5: 40.998514115898956
+acc1_any: 13.484945647923672
+acc5_any: 40.998514115898956
+
+✓ 训练日志已更新: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1.25e-3/logs
+
+
+================================================================================
+测试实验: lr_1.5e-3
+================================================================================
+Checkpoint: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1.5e-3/checkpoints/checkpoint_best.pt
+输出目录: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1.5e-3/checkpoints
+
+命令: /mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/bin/python /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/type_predict.py -f /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1.5e-3/checkpoints/test_config
+
+测试完成!
+结果已保存: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1.5e-3/checkpoints/res.txt
+
+测试结果:
+avg_loss: 3.8527741330393246
+acc1: 8.193008524282474
+acc5: 32.775787909595685
+acc1_any: 8.193008524282474
+acc5_any: 32.775787909595685
+
+✓ 训练日志已更新: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1.5e-3/logs
+
+
+================================================================================
+测试实验: lr_1e-3
+================================================================================
+Checkpoint: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1e-3/checkpoints/checkpoint_best.pt
+输出目录: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1e-3/checkpoints
+
+命令: /mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/bin/python /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/type_predict.py -f /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1e-3/checkpoints/test_config
+
+测试完成!
+结果已保存: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1e-3/checkpoints/res.txt
+
+测试结果:
+avg_loss: 3.8047759393627723
+acc1: 11.45225619770079
+acc5: 41.42895127864237
+acc1_any: 11.45225619770079
+acc5_any: 41.42895127864237
+
+✓ 训练日志已更新: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1e-3/logs
+
+
+================================================================================
+测试实验: lr_5e-4
+================================================================================
+Checkpoint: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_5e-4/checkpoints/checkpoint_best.pt
+输出目录: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_5e-4/checkpoints
+
+命令: /mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/bin/python /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/type_predict.py -f /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_5e-4/checkpoints/test_config
+
+测试完成!
+结果已保存: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_5e-4/checkpoints/res.txt
+
+测试结果:
+avg_loss: 3.8336618900299073
+acc1: 23.21263783530148
+acc5: 53.334793149292246
+acc1_any: 23.21263783530148
+acc5_any: 53.334793149292246
+
+✓ 训练日志已更新: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_5e-4/logs
+
+
+================================================================================
+测试实验: lr_7.5e-4
+================================================================================
+Checkpoint: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_7.5e-4/checkpoints/checkpoint_best.pt
+输出目录: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_7.5e-4/checkpoints
+
+命令: /mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/bin/python /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/type_predict.py -f /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_7.5e-4/checkpoints/test_config
+
+测试完成!
+结果已保存: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_7.5e-4/checkpoints/res.txt
+
+测试结果:
+avg_loss: 3.7878893637925053
+acc1: 20.181434269179636
+acc5: 47.251740048486745
+acc1_any: 20.181434269179636
+acc5_any: 47.251740048486745
+
+✓ 训练日志已更新: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_7.5e-4/logs
+
+
+================================================================================
+测试完成汇总
+================================================================================
+成功: 5
+失败: 0
+总计: 5
+
+建议运行以下命令查看更新后的分析:
+  python analyze_results.py
+(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ python analyze_results.py
+分析目录: ../experiments
+
+========================================================================================================================
+Typilus 学习率实验结果分析
+========================================================================================================================
+
+## 训练结果
+------------------------------------------------------------------------------------------------------------------------
++----------+-------------+----------------+----------------+--------+----------------+----------------+
+|   学习率 |   最佳Epoch |   最佳训练Loss |   最佳验证Loss |    Gap |   最终训练Loss |   最终验证Loss |
++==========+=============+================+================+========+================+================+
+|  0.00125 |           3 |          3.573 |          3.734 | -0.161 |          3.509 |          3.738 |
++----------+-------------+----------------+----------------+--------+----------------+----------------+
+|  0.0015  |           2 |          3.712 |          3.721 | -0.009 |          3.52  |          3.74  |
++----------+-------------+----------------+----------------+--------+----------------+----------------+
+|  0.001   |           4 |          3.532 |          3.718 | -0.186 |          3.532 |          3.718 |
++----------+-------------+----------------+----------------+--------+----------------+----------------+
+|  0.0005  |           4 |          3.648 |          3.785 | -0.137 |          3.648 |          3.785 |
++----------+-------------+----------------+----------------+--------+----------------+----------------+
+|  0.00075 |           4 |          3.553 |          3.756 | -0.203 |          3.553 |          3.756 |
++----------+-------------+----------------+----------------+--------+----------------+----------------+
+
+## 测试结果
+------------------------------------------------------------------------------------------------------------------------
++----------+------------+---------+---------+----------------+----------------+
+|   学习率 |   测试Loss | Acc@1   | Acc@5   | Acc@1(含any)   | Acc@5(含any)   |
++==========+============+=========+=========+================+================+
+|  0.00125 |     3.7413 | 13.48%  | 41.00%  | 13.48%         | 41.00%         |
++----------+------------+---------+---------+----------------+----------------+
+|  0.0015  |     3.8528 | 8.19%   | 32.78%  | 8.19%          | 32.78%         |
++----------+------------+---------+---------+----------------+----------------+
+|  0.001   |     3.8048 | 11.45%  | 41.43%  | 11.45%         | 41.43%         |
++----------+------------+---------+---------+----------------+----------------+
+|  0.0005  |     3.8337 | 23.21%  | 53.33%  | 23.21%         | 53.33%         |
++----------+------------+---------+---------+----------------+----------------+
+|  0.00075 |     3.7879 | 20.18%  | 47.25%  | 20.18%         | 47.25%         |
++----------+------------+---------+---------+----------------+----------------+
+
+## 最佳配置
+------------------------------------------------------------------------------------------------------------------------
+
+最佳验证Loss: lr_1e-3 (lr=1e-3)
+  - 最佳Epoch: 4
+  - 训练Loss: 3.5320
+  - 验证Loss: 3.7180
+  - Gap: -0.1860
+  - 测试Acc@1: 11.45%
+  - 测试Acc@5: 41.43%
+
+最佳泛化能力: lr_7.5e-4 (Gap=-0.2030)
+  - 验证Loss: 3.7560
+
+最佳测试准确率: lr_5e-4
+  - Acc@1: 23.21%
+  - Acc@5: 53.33%
+
+========================================================================================================================
+
+对比图已保存: ../experiments/comparison.png
+报告已保存: ../experiments/analysis_report.md
+(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ python analyze_results.py[C[C[C[C[C[C[C[C[C[C[C[C[4Pbatch_test.py [C[C[C[C[C[C[C[C[C[C[C[Canalyze_results.py[C[C[C[C[C[K[K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ 
