@@ -237,14 +237,34 @@ def main():
     # 创建输出目录
     os.makedirs(args.output_dir, exist_ok=True)
     
-    # attributes目录
-    attributes_dir = os.path.join(args.typilus_dir, 'attributes')
+    # attributes目录 - 修正路径
+    # Typilus数据可能在 typilus/attributes 或直接在 attributes
+    if os.path.exists(os.path.join(args.typilus_dir, 'typilus', 'attributes')):
+        attributes_dir = os.path.join(args.typilus_dir, 'typilus', 'attributes')
+    elif os.path.exists(os.path.join(args.typilus_dir, 'attributes')):
+        attributes_dir = os.path.join(args.typilus_dir, 'attributes')
+    else:
+        raise FileNotFoundError(f"Cannot find attributes directory in {args.typilus_dir}")
     
-    # 节点词典文件
-    dict_file = os.path.join(args.typilus_dir, 'type_inference', 'data-mmap', 'nodes.dict.json')
+    print(f"Using attributes directory: {attributes_dir}")
     
-    if not os.path.exists(dict_file):
-        print(f"Warning: Dictionary file not found: {dict_file}")
+    # 节点词典文件 - 尝试多个可能的位置
+    dict_paths = [
+        os.path.join(args.typilus_dir, 'typilus', 'type_inference', 'data-mmap', 'nodes.dict.json'),
+        os.path.join(args.typilus_dir, 'type_inference', 'data-mmap', 'nodes.dict.json'),
+        os.path.join(args.typilus_dir, 'nodes.dict.json'),
+    ]
+    
+    dict_file = None
+    for path in dict_paths:
+        if os.path.exists(path):
+            dict_file = path
+            break
+    
+    if dict_file is None:
+        print(f"Warning: Dictionary file not found in any of these locations:")
+        for path in dict_paths:
+            print(f"  - {path}")
         print("Will use node strings directly from attributes/nodes files")
     
     # 转换每个split
