@@ -198,15 +198,18 @@ def convert_attributes_to_transformer(attributes_dir, dict_file, output_dir, spl
                         except (ValueError, IndexError):
                             continue
                 
-                # 然后清理tokens和types：移除空字符串，替换包含空格的token
+                # 然后清理tokens和types：移除空字符串，替换所有空白字符
                 cleaned_tokens = []
                 cleaned_types = []
                 for token, type_label in zip(tokens, types):
                     # 跳过空token
-                    if not token or token.strip() == '':
+                    if not token or not token.strip():
                         continue
-                    # 替换空格为下划线，避免split问题
-                    token = token.replace(' ', '_').replace('\t', '_').replace('\n', '_')
+                    # 替换所有空白字符为下划线
+                    token = ''.join('_' if c.isspace() else c for c in token)
+                    # 如果清理后变成空字符串，跳过
+                    if not token:
+                        continue
                     cleaned_tokens.append(token)
                     cleaned_types.append(type_label)
                 
@@ -219,15 +222,28 @@ def convert_attributes_to_transformer(attributes_dir, dict_file, output_dir, spl
                     continue
                 
                 # 格式化输出（添加<s>和</s>）
-                code_line = '<s> ' + ' '.join(tokens) + ' </s>'
-                type_line = 'O ' + ' '.join(types) + ' O'
+                # 关键：不使用 join，而是确保每个元素都正确分隔
+                code_parts = ['<s>'] + tokens + ['</s>']
+                type_parts = ['O'] + types + ['O']
                 
-                # 双重验证：确保输出的token数量匹配
+                # 验证长度
+                assert len(code_parts) == len(type_parts), \
+                    f"Internal error at line {lines_processed}: {len(code_parts)} != {len(type_parts)}"
+                
+                # 生成输出行
+                code_line = ' '.join(code_parts)
+                type_line = ' '.join(type_parts)
+                
+                # 最终验证：确保split后长度一致
                 code_tokens_count = len(code_line.split())
                 type_tokens_count = len(type_line.split())
                 if code_tokens_count != type_tokens_count:
                     print(f"ERROR: line {lines_processed} output mismatch - code={code_tokens_count}, type={type_tokens_count}")
                     print(f"  Original: tokens={len(tokens)}, types={len(types)}")
+                    # 找出有问题的token
+                    for i, (t, tp) in enumerate(zip(code_parts, type_parts)):
+                        if ' ' in t or '\t' in t or '\n' in t:
+                            print(f"  Problem token at {i}: '{t}' (has whitespace)")
                     continue
                 
                 f_code.write(code_line + '\n')
