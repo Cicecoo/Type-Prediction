@@ -1,0 +1,129 @@
+[32m[2025-11-19 05:29:50]    INFO >> 加载配置: /home/zhaojunzhang/naturalcc/typilus/experiments/exp_hidden_128/config.yml (train_enhanced.py:382, cli_main())[0m
+[32m[2025-11-19 05:29:50]    INFO >> 单GPU训练... (train_enhanced.py:410, cli_main())[0m
+[32m[2025-11-19 05:29:50]    INFO >> 训练日志将保存到: /home/zhaojunzhang/naturalcc/typilus/experiments/exp_hidden_128/logs (train_enhanced.py:296, single_main())[0m
+[32m[2025-11-19 05:29:50]    INFO >> [nodes] dictionary: 9999 types (typilus.py:102, setup_task())[0m
+[32m[2025-11-19 05:29:50]    INFO >> [edges] dictionary: 0 types (typilus.py:102, setup_task())[0m
+[32m[2025-11-19 05:29:50]    INFO >> [supernodes.annotation] dictionary: 99 types (typilus.py:106, setup_task())[0m
+[32m[2025-11-19 05:29:58]    INFO >> Typilus(
+  (encoder): GGNNEncoder(
+    (node_embedding): Embedding(9999, 128, padding_idx=0)
+    (node_layer): Sequential(
+      (0): Dropout(p=0.1, inplace=False)
+      (1): Linear(in_features=128, out_features=64, bias=False)
+      (2): Dropout(p=0.1, inplace=False)
+    )
+    (ggnns): ModuleList(
+      (0): GatedGNN(
+        (edge_weights): ModuleDict(
+          (CHILD): Linear(in_features=64, out_features=64, bias=False)
+          (OCCURRENCE_OF): Linear(in_features=64, out_features=64, bias=False)
+          (NEXT): Linear(in_features=64, out_features=64, bias=False)
+          (SUBTOKEN_OF): Linear(in_features=64, out_features=64, bias=False)
+          (COMPUTED_FROM): Linear(in_features=64, out_features=64, bias=False)
+          (LAST_LEXICAL_USE): Linear(in_features=64, out_features=64, bias=False)
+          (NEXT_USE): Linear(in_features=64, out_features=64, bias=False)
+          (RETURNS_TO): Linear(in_features=64, out_features=64, bias=False)
+          (_CHILD): Linear(in_features=64, out_features=64, bias=False)
+          (_OCCURRENCE_OF): Linear(in_features=64, out_features=64, bias=False)
+          (_NEXT): Linear(in_features=64, out_features=64, bias=False)
+          (_SUBTOKEN_OF): Linear(in_features=64, out_features=64, bias=False)
+          (_COMPUTED_FROM): Linear(in_features=64, out_features=64, bias=False)
+          (_LAST_LEXICAL_USE): Linear(in_features=64, out_features=64, bias=False)
+          (_NEXT_USE): Linear(in_features=64, out_features=64, bias=False)
+          (_RETURNS_TO): Linear(in_features=64, out_features=64, bias=False)
+        )
+        (rnn_cell): GRUCell(64, 128)
+      )
+      (1): GatedGNN(
+        (edge_weights): ModuleDict(
+          (CHILD): Linear(in_features=64, out_features=64, bias=False)
+          (OCCURRENCE_OF): Linear(in_features=64, out_features=64, bias=False)
+          (NEXT): Linear(in_features=64, out_features=64, bias=False)
+          (SUBTOKEN_OF): Linear(in_features=64, out_features=64, bias=False)
+          (COMPUTED_FROM): Linear(in_features=64, out_features=64, bias=False)
+          (LAST_LEXICAL_USE): Linear(in_features=64, out_features=64, bias=False)
+          (NEXT_USE): Linear(in_features=64, out_features=64, bias=False)
+          (RETURNS_TO): Linear(in_features=64, out_features=64, bias=False)
+          (_CHILD): Linear(in_features=64, out_features=64, bias=False)
+          (_OCCURRENCE_OF): Linear(in_features=64, out_features=64, bias=False)
+          (_NEXT): Linear(in_features=64, out_features=64, bias=False)
+          (_SUBTOKEN_OF): Linear(in_features=64, out_features=64, bias=False)
+          (_COMPUTED_FROM): Linear(in_features=64, out_features=64, bias=False)
+          (_LAST_LEXICAL_USE): Linear(in_features=64, out_features=64, bias=False)
+          (_NEXT_USE): Linear(in_features=64, out_features=64, bias=False)
+          (_RETURNS_TO): Linear(in_features=64, out_features=64, bias=False)
+        )
+        (rnn_cell): GRUCell(192, 128)
+      )
+    )
+  )
+  (decoder): DenseDecoder(
+    (cls_layers): Sequential(
+      (0): Linear(in_features=64, out_features=64, bias=False)
+      (1): Dropout(p=0.1, inplace=False)
+      (2): Linear(in_features=64, out_features=99, bias=True)
+    )
+  )
+) (train_enhanced.py:303, single_main())[0m
+[32m[2025-11-19 05:29:58]    INFO >> 模型: typilus, 损失函数: TypilusCriterion (train_enhanced.py:304, single_main())[0m
+[32m[2025-11-19 05:29:58]    INFO >> 模型参数: 1627811 (可训练: 1627811) (train_enhanced.py:305, single_main())[0m
+[32m[2025-11-19 05:29:58]    INFO >> ***********************CUDA enviroments for all 1 workers*********************** (utils.py:530, pretty_print_cuda_env_list())[0m
+[32m[2025-11-19 05:29:58]    INFO >> rank   0: capabilities =  8.0  ; total memory = 81920 MB ; free memory = 80579 MB ; used memory = 1340 MB ; name = NVIDIA A800 80GB PCIe                    (utils.py:532, pretty_print_cuda_env_list())[0m
+[32m[2025-11-19 05:29:58]    INFO >> ***********************CUDA enviroments for all 1 workers*********************** (utils.py:540, pretty_print_cuda_env_list())[0m
+[32m[2025-11-19 05:29:58]    INFO >> 使用 1 个GPU训练 (train_enhanced.py:311, single_main())[0m
+[32m[2025-11-19 05:29:58]    INFO >> no existing checkpoint found /home/zhaojunzhang/naturalcc/typilus/experiments/exp_hidden_128/checkpoints/checkpoint_last.pt (ncc_trainers.py:299, load_checkpoint())[0m
+[32m[2025-11-19 05:29:58]    INFO >> loading train data for epoch 1 (ncc_trainers.py:314, get_train_iterator())[0m
+[32m[2025-11-19 05:30:57]    INFO >> NOTE: your device may support faster training with fp16 or --amp (ncc_trainers.py:183, _setup_optimizer())[0m
+[33m[2025-11-19 05:30:57] WARNING >> tensorboard or required dependencies not found, please see README for using tensorboard. (e.g. pip install tensorboardX) (progress_bar.py:314, __init__())[0m
+/home/zhaojunzhang/workspace/type_pred/naturalcc/ncc/tasks/ncc_task.py:348: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(enabled=(isinstance(optimizer, AMPOptimizer))):
+Traceback (most recent call last):
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools/train_enhanced.py", line 415, in <module>
+    cli_main()
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools/train_enhanced.py", line 411, in cli_main
+    single_main(args)
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools/train_enhanced.py", line 326, in single_main
+    train_stats = train(args, trainer, task, epoch_itr)
+  File "/mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/lib/python3.8/contextlib.py", line 75, in inner
+    return func(*args, **kwds)
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools/train_enhanced.py", line 162, in train
+    log_output = trainer.train_step(samples)
+  File "/mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/lib/python3.8/contextlib.py", line 75, in inner
+    return func(*args, **kwds)
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/ncc/trainers/ncc_trainers.py", line 409, in train_step
+    raise e
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/ncc/trainers/ncc_trainers.py", line 377, in train_step
+    loss, sample_size_i, logging_output = self.task.train_step(
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/ncc/tasks/ncc_task.py", line 349, in train_step
+    loss, sample_size, logging_output = criterion(model, sample)
+  File "/mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/ncc/criterions/type_prediction/typilus.py", line 23, in forward
+    net_output = model(**sample['net_input'], tgt_ids=sample['target'])
+  File "/mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/ncc/models/type_prediction/typilus.py", line 165, in forward
+    encoder_out = self.encoder(src_graphs, **kwargs)
+  File "/mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/ncc/models/type_prediction/typilus.py", line 111, in forward
+    graphs.ndata[idx] = ggnn(graphs, prev_key=idx - 1, residual_state=residual_state)
+  File "/mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/ncc/models/type_prediction/typilus.py", line 54, in forward
+    prev_state = self.rnn_cell(graph_feature, prev_state)
+  File "/mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/lib/python3.8/site-packages/torch/nn/modules/rnn.py", line 1477, in forward
+    ret = _VF.gru_cell(
+RuntimeError: hidden0 has inconsistent hidden_size: got 64, expected 128

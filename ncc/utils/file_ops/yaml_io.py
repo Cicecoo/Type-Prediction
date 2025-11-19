@@ -4,6 +4,7 @@ import os
 from typing import Dict
 
 import ruamel.yaml as yaml
+from ruamel.yaml import YAML
 
 from ncc import __NCC_DIR__
 from ncc.utils.path_manager import PathManager
@@ -51,6 +52,8 @@ def load_yaml(yaml_file: str) -> Dict:
     :param yaml_file:
     '''
     with open(yaml_file, 'r', encoding='utf-8') as reader:
-        args = yaml.safe_load(reader)
+        # args = yaml.safe_load(reader)
+        yaml = YAML(typ='safe', pure=True)
+        args = yaml.load(reader)
     recursive_expanduser(args)
     return args

@@ -44,11 +44,13 @@ dataset:
   fixed_validation_seed: ~ # default=None, type=int, metavar='N', help='specified random seed for validation'
   disable_validation: 0 # action='store_true',help='disable validation'
   max_tokens_valid: ~ # type=int, metavar='N', help='maximum number of tokens in a validation batch (defaults to --max-tokens)'
-  max_sentences_valid: 512 # type=int, metavar='N', help='maximum number of sentences in a validation batch (defaults to --max-sentences)'
+  max_sentences_valid: 256 # 512 # type=int, metavar='N', help='maximum number of sentences in a validation batch (defaults to --max-sentences)'
   curriculum: 0 # default=0, type=int, metavar='N', help='don\'t shuffle batches for first N epochs'
   gen_subset: test # default='test', metavar='SPLIT', help='data subset to generate (train, valid, test)'
   num_shards: 1 # default=1, type=int, metavar='N', help='shard generation over N shards'
   shard_id: 0 # default=0, type=int, metavar='ID', help='id of the shard to generate (id < num_shards)'
+
+  test_subset: test 
 
 distributed_training:
   distributed_world_size: 1 # default=max(1, torch.cuda.device_count()
@@ -56,7 +58,7 @@ distributed_training:
   distributed_backend: nccl # default='nccl', type=str, help='distributed backend'
   distributed_init_method: ~ # default=None, type=str,help='typically tcp://hostname:port that will be used to establish initial connetion'
   distributed_port: -1 # default=-1, type=int, help='port number (not required if using --distributed-init-method)'
-  device_id: 0 # '--local_rank', default=0, type=int, help='which GPU to use (usually configured automatically)'
+  device_id: 3 # 0 # '--local_rank', default=0, type=int, help='which GPU to use (usually configured automatically)'
   distributed_no_spawn: 0 # action='store_true', help='do not spawn multiple processes even if multiple GPUs are visible'
   ddp_backend: c10d # default='c10d', type=str, choices=['c10d', 'no_c10d'], help='DistributedDataParallel backend'
   bucket_cap_mb: 25 # default=25, type=int, metavar='MB', help='bucket size for reduction'
@@ -177,7 +179,7 @@ checkpoint:
   best_checkpoint_metric: loss # bleu # type=str, default='loss', help='metric to use for saving "best" checkpoints'
   maximize_best_checkpoint_metric: 1 # action='store_true', help='select the largest metric value for saving "best" checkpoints'
   patience: 10 # type=int, default=-1, metavar='N', help=('early stop training if valid performance doesn\'t improve for N consecutive validation runs; note that this is influenced by --validate-interval')
-  save_dir: ~/.ncc/stack_overflow/summarization/csharp/data-mmap/seq2seq/checkpoints # type=str, required=True, help="The output directory where the model predictions and checkpoints will be written.",
+  save_dir: ~/naturalcc/typilus/checkpoints/base # type=str, required=True, help="The output directory where the model predictions and checkpoints will be written.",
   should_continue: 0 # action="store_true", help="Whether to continue from latest checkpoint in output_dir"
   model_name_or_path: ~ # default=None, type=str, help="The model checkpoint for weights initialization. Leave None if you want to train a model from scratch.",
   cache_dir: ~ # default=None, type=str, help="Optional directory to store the pre-trained models downloaded from s3 (instead of the default one)",
@@ -189,7 +191,7 @@ checkpoint:
 
 
 eval:
-  path: ~/.ncc/stack_overflow/summarization/csharp/data-mmap/seq2seq/checkpoints/checkpoint_best.pt # , metavar='FILE', help='path(s) to model file(s), colon separated'
+  path: ~/naturalcc/typilus/checkpoints/base/checkpoint_best.pt # , metavar='FILE', help='path(s) to model file(s), colon separated'
   result_path: ~
   remove_bpe: ~ # ', nargs='?', const='@@ ', default=None, help='remove BPE tokens before scoring (can be set to sentencepiece)'
   quiet: 0 # ', action='store_true', help='only print final scores'
