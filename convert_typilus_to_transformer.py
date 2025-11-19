@@ -175,7 +175,7 @@ def convert_attributes_to_transformer(attributes_dir, dict_file, output_dir, spl
                 # 初始化类型序列（全部为O）- 长度必须与tokens一致
                 types = ['O'] * len(tokens)
                 
-                # 填充类型标注
+                # 先填充类型标注（在清理之前，使用原始索引）
                 # supernodes格式: {"18": {"name": "T", "annotation": "str", ...}, ...}
                 if supernodes:
                     for node_id, node_info in supernodes.items():
@@ -189,25 +189,46 @@ def convert_attributes_to_transformer(attributes_dir, dict_file, output_dir, spl
                         if '[' in annotation:
                             annotation = annotation.split('[')[0]
                         
-                        # node_id是字符串格式的索引
+                        # node_id是字符串格式的索引（对应原始tokens数组）
                         try:
                             idx = int(node_id)
-                            # 重要：确保索引在有效范围内
+                            # 确保索引在有效范围内
                             if 0 <= idx < len(types):
                                 types[idx] = annotation
-                            else:
-                                # 索引超出范围，跳过但记录警告
-                                pass  # 可以添加调试信息
                         except (ValueError, IndexError):
                             continue
                 
+                # 然后清理tokens和types：移除空字符串，替换包含空格的token
+                cleaned_tokens = []
+                cleaned_types = []
+                for token, type_label in zip(tokens, types):
+                    # 跳过空token
+                    if not token or token.strip() == '':
+                        continue
+                    # 替换空格为下划线，避免split问题
+                    token = token.replace(' ', '_').replace('\t', '_').replace('\n', '_')
+                    cleaned_tokens.append(token)
+                    cleaned_types.append(type_label)
+                
+                tokens = cleaned_tokens
+                types = cleaned_types
+                
                 # 验证：确保 tokens 和 types 长度完全一致
-                assert len(tokens) == len(types), \
-                    f"Length mismatch: {len(tokens)} tokens vs {len(types)} types at line {lines_processed}"
+                if len(tokens) != len(types):
+                    print(f"Warning: line {lines_processed} - tokens length {len(tokens)} != types length {len(types)}, skipping")
+                    continue
                 
                 # 格式化输出（添加<s>和</s>）
                 code_line = '<s> ' + ' '.join(tokens) + ' </s>'
                 type_line = 'O ' + ' '.join(types) + ' O'
+                
+                # 双重验证：确保输出的token数量匹配
+                code_tokens_count = len(code_line.split())
+                type_tokens_count = len(type_line.split())
+                if code_tokens_count != type_tokens_count:
+                    print(f"ERROR: line {lines_processed} output mismatch - code={code_tokens_count}, type={type_tokens_count}")
+                    print(f"  Original: tokens={len(tokens)}, types={len(types)}")
+                    continue
                 
                 f_code.write(code_line + '\n')
                 f_type.write(type_line + '\n')
