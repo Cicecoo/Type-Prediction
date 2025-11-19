@@ -140,6 +140,33 @@ class CodeEncoderLSTM(nn.Module):
     def forward(self, x, lengths, no_project_override=False):
         self.encoder.flatten_parameters()
         # B, T = x.size(0), x.size(1)
+        
+        # Debug: 检查输入的token ID范围
+        vocab_size = self.config['n_tokens']
+        max_id = x.max().item()
+        min_id = x.min().item()
+        
+        if max_id >= vocab_size or min_id < 0:
+            print(f"❌ ERROR in CodeEncoderLSTM.forward:")
+            print(f"  Input shape: {x.shape}")
+            print(f"  Token ID range: [{min_id}, {max_id}]")
+            print(f"  Vocab size: {vocab_size}")
+            print(f"  Embedding num_embeddings: {self.embedding.num_embeddings}")
+            
+            if max_id >= vocab_size:
+                print(f"  Out-of-range tokens (>= {vocab_size}):")
+                out_of_range = x[x >= vocab_size]
+                print(f"    Count: {len(out_of_range)}")
+                print(f"    Values: {out_of_range[:20].tolist()}")
+            
+            if min_id < 0:
+                print(f"  Negative tokens:")
+                negative = x[x < 0]
+                print(f"    Count: {len(negative)}")
+                print(f"    Values: {negative[:20].tolist()}")
+            
+            raise RuntimeError(f"Token IDs out of range: [{min_id}, {max_id}], vocab_size={vocab_size}")
+        
         src_emb = self.embedding(x).transpose(0, 1) * math.sqrt(self.config["d_model"])
         # src_emb = self.pos_encoder(src_emb)
         pe = self.pos_encoder(x)
