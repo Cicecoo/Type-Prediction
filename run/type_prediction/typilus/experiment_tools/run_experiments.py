@@ -41,7 +41,14 @@ EXPERIMENTS = [
     {
         "name": "exp_hidden_128",
         "desc": "隐藏层128",
-        "params": {"model": {"encoder_embed_dim": 128, "encoder_hidden_size": 128}}
+        "params": {
+            "model": {
+                "encoder_embed_dim": 128,
+                "encoder_hidden_size": 128,
+                "edge_in": 128,
+                "edge_out": 128
+            }
+        }
     },
     {
         "name": "exp_best",
@@ -49,7 +56,13 @@ EXPERIMENTS = [
         "params": {
             "optimization": {"lrs": [5e-4]},
             "dataset": {"max_sentences": 64},
-            "model": {"encoder_embed_dim": 128, "encoder_hidden_size": 128, "encoder_layers": 4}
+            "model": {
+                "encoder_embed_dim": 128,
+                "encoder_hidden_size": 128,
+                "edge_in": 128,
+                "edge_out": 128,
+                "encoder_layers": 4
+            }
         }
     }
 ]
@@ -143,7 +156,7 @@ def get_default_config():
         },
         
         'task': {
-            'data': '~/typilus/type_inference/data-mmap',
+            'data': '~/workspace/type_pred/typilus/type_inference/data-mmap',
             'source_langs': ['nodes', 'edges'],
             'target_langs': ['supernodes.annotation'],
             'load_alignments': 0,
@@ -226,7 +239,7 @@ def get_default_config():
             'best_checkpoint_metric': 'loss',
             'maximize_best_checkpoint_metric': 1,
             'patience': 10,
-            'save_dir': '~/naturalcc/typilus/checkpoints/base',
+            'save_dir': '~/workspace/type_pred/naturalcc/run/type_prediction/typilus/checkpoints/base',
             'should_continue': 0,
             'model_name_or_path': None,
             'cache_dir': None,
@@ -238,7 +251,7 @@ def get_default_config():
         },
         
         'eval': {
-            'path': '~/naturalcc/typilus/checkpoints/base/checkpoint_best.pt',
+            'path': '~/workspace/type_pred/naturalcc/run/type_prediction/typilus/checkpoints/base/checkpoint_best.pt',
             'result_path': None,
             'remove_bpe': None,
             'quiet': 0,
@@ -312,7 +325,7 @@ def run_single_experiment(exp_config, train_script):
     print(f"时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"{'='*60}\n")
     
-    exp_dir = Path("~/naturalcc/typilus/experiments").expanduser() / name
+    exp_dir = Path("~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments").expanduser() / name
     exp_dir.mkdir(parents=True, exist_ok=True)
     
     config_path = exp_dir / "config.yml"
@@ -530,7 +543,7 @@ def main():
     parser = argparse.ArgumentParser(description='Typilus 参数调优实验工具')
     parser.add_argument('--analyze', action='store_true', help='仅分析结果')
     parser.add_argument('--run-only', action='store_true', help='仅运行实验')
-    parser.add_argument('--exp-dir', default='~/naturalcc/typilus/experiments', help='实验目录')
+    parser.add_argument('--exp-dir', default='~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments', help='实验目录')
     args = parser.parse_args()
     
     # 找到训练脚本（不再需要base_config）
