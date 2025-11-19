@@ -214,10 +214,17 @@ class CodeTypeDataset(NccDataset):
             assert len(src_tokens) == len(tgt_tokens), \
                 f"Token count mismatch: {len(src_tokens)} vs {len(tgt_tokens)}"
             
+            # 特殊token映射：处理数据中使用的token与词典中不同的情况
+            token_mapping = {
+                '<unk>': '[UNK]',  # 数据中是小写，词典中是大写带括号
+            }
+            
             # 将 tokens 转为 IDs
             subword_ids = []
             for token in src_tokens:
-                token_id = self.src_dict.index(token) if token in self.src_dict else self.src_dict.unk()
+                # 应用映射
+                mapped_token = token_mapping.get(token, token)
+                token_id = self.src_dict.index(mapped_token) if mapped_token in self.src_dict else self.src_dict.unk()
                 subword_ids.append(token_id)
             
             # 构建 label_segments: (label_id, start, end) 元组列表
