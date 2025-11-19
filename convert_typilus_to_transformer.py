@@ -21,17 +21,27 @@ from pathlib import Path
 
 
 def load_vocab_dict(dict_file):
-    """加载词典：token -> id"""
+    """加载词典：token -> id
+    
+    词典格式：每行一个 [token, id] 的JSON数组
+    例如：["[PAD]", 2147483647]
+    """
     vocab = {}
+    id2token = {}
+    
     with open(dict_file, 'r', encoding='utf-8') as f:
-        data = json.load(f)
-        # 字典格式可能是 {"indices": {"token": id}, ...} 或直接 {"token": id}
-        if 'indices' in data:
-            vocab = data['indices']
-        else:
-            vocab = data
-    # 创建反向词典：id -> token
-    id2token = {v: k for k, v in vocab.items()}
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                token, idx = json.loads(line)
+                vocab[token] = idx
+                id2token[idx] = token
+            except json.JSONDecodeError as e:
+                print(f"Warning: Failed to parse line: {line[:50]}... Error: {e}")
+                continue
+    
     return vocab, id2token
 
 
@@ -99,9 +109,15 @@ def convert_attributes_to_transformer(attributes_dir, dict_file, output_dir, spl
     """
     print(f"Converting {split} split from attributes...")
     
-    # 加载词典
+    # 加载词典（如果存在）
     print("Loading vocabulary...")
-    vocab, id2token = load_vocab_dict(dict_file)
+    if os.path.exists(dict_file):
+        vocab, id2token = load_vocab_dict(dict_file)
+        print(f"Loaded {len(vocab)} tokens from vocabulary")
+    else:
+        print(f"Warning: Dictionary file not found: {dict_file}")
+        print("Will use node strings directly from attributes/nodes files")
+        vocab, id2token = {}, {}
     
     # 读取数据文件
     token_seq_file = os.path.join(attributes_dir, f'{split}.token-sequence')
