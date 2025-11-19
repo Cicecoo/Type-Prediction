@@ -136,28 +136,59 @@ class BatchExperimentRunner:
         """构建训练命令"""
         cmd = [
             'python', 'run_transformer_experiment.py',
-            '--language', 'python',
             '--exp-name', exp_name,
+            '--base-dir', str(self.base_dir),
+            '--data-dir', str(self.data_dir),
         ]
         
-        # 添加配置参数
-        if 'd_model' in config.get('model', {}):
-            cmd.extend(['--d-model', str(config['model']['d_model'])])
+        # 模型参数（使用训练脚本实际支持的参数）
+        model_config = config.get('model', {})
         
-        if 'n_encoder_layers' in config.get('model', {}):
-            cmd.extend(['--n-layers', str(config['model']['n_encoder_layers'])])
+        # encoder_type: lstm/transformer
+        if 'encoder_type' in model_config:
+            cmd.extend(['--encoder-type', str(model_config['encoder_type'])])
         
-        if 'lr' in config.get('optimizer', {}):
-            cmd.extend(['--lr', str(config['optimizer']['lr'])])
+        # encoder_layers: 层数
+        if 'encoder_layers' in model_config:
+            cmd.extend(['--encoder-layers', str(model_config['encoder_layers'])])
+        elif 'n_encoder_layers' in model_config:
+            cmd.extend(['--encoder-layers', str(model_config['n_encoder_layers'])])
         
-        if 'dropout' in config.get('model', {}):
-            cmd.extend(['--dropout', str(config['model']['dropout'])])
+        # encoder_embed_dim: 嵌入维度
+        if 'encoder_embed_dim' in model_config:
+            cmd.extend(['--encoder-embed-dim', str(model_config['encoder_embed_dim'])])
+        elif 'd_model' in model_config:
+            cmd.extend(['--encoder-embed-dim', str(model_config['d_model'])])
         
-        if 'batch_size' in config.get('training', {}):
+        # dropout
+        if 'dropout' in model_config:
+            cmd.extend(['--dropout', str(model_config['dropout'])])
+        
+        # 训练参数
+        optimization = config.get('optimization', {})
+        
+        # 学习率
+        if 'lr' in optimization:
+            lr_value = optimization['lr']
+            # 如果是列表，取第一个值
+            if isinstance(lr_value, list):
+                lr_value = lr_value[0]
+            cmd.extend(['--lr', str(lr_value)])
+        
+        # 最大epoch
+        if 'max_epoch' in optimization:
+            cmd.extend(['--max-epoch', str(optimization['max_epoch'])])
+        
+        # warmup
+        if 'warmup_updates' in optimization:
+            cmd.extend(['--warmup-updates', str(optimization['warmup_updates'])])
+        
+        # batch size
+        dataset_config = config.get('dataset', {})
+        if 'max_sentences' in dataset_config:
+            cmd.extend(['--batch-size', str(dataset_config['max_sentences'])])
+        elif 'batch_size' in config.get('training', {}):
             cmd.extend(['--batch-size', str(config['training']['batch_size'])])
-        
-        if 'encoder_type' in config.get('model', {}):
-            cmd.extend(['--encoder-type', config['model']['encoder_type']])
         
         return cmd
     
