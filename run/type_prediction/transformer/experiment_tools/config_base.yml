@@ -1,0 +1,186 @@
+# Transformer Type Prediction - 基础配置
+# 用于Python类型预测，使用token-sequence而非图结构
+
+criterion: cross_entropy
+optimizer: 'torch_adam'
+lr_scheduler: 'fixed'
+tokenizer: ~
+bpe: ~
+
+common:
+  no_progress_bar: 0
+  log_interval: 50
+  log_format: simple
+  tensorboard_logdir: ''
+  memory_efficient_fp16: 0
+  fp16_no_flatten_grads: 1
+  fp16_init_scale: 128
+  fp16_scale_window: ~
+  fp16_scale_tolerance: 0.0
+  min_loss_scale: 1e-4
+  threshold_loss_scale: ~
+  empty_cache_freq: 0
+  task: typetransformer
+  seed: 1
+  cpu: 0
+  fp16: 0
+  fp16_opt_level: '01'
+  server_ip: ''
+  server_port: ''
+  bf16: 0
+
+dataset:
+  num_workers: 0
+  skip_invalid_size_inputs_valid_test: 1
+  max_tokens: ~
+  max_sentences: 16
+  required_batch_size_multiple: 8
+  dataset_impl: mmap
+  train_subset: train
+  valid_subset: valid
+  validate_interval: 1
+  fixed_validation_seed: ~
+  disable_validation: 0
+  max_tokens_valid: ~
+  max_sentences_valid: 64
+  curriculum: 0
+  gen_subset: test
+  num_shards: 1
+  shard_id: 0
+
+distributed_training:
+  distributed_world_size: 1
+  distributed_rank: 0
+  distributed_backend: 'nccl'
+  distributed_init_method: ~
+  distributed_port: -1
+  device_id: 0
+  distributed_no_spawn: 0
+  ddp_backend: 'c10d'
+  bucket_cap_mb: 25
+  fix_batches_to_gpus: ~
+  find_unused_parameters: 0
+  fast_stat_sync: 0
+  broadcast_buffers: 0
+  global_sync_iter: 50
+  warmup_iterations: 500
+  local_rank: -1
+  block_momentum: 0.875
+  block_lr: 1
+  use_nbm: 0
+  average_sync: 0
+
+task:
+  data: '~/workspace/type_pred/naturalcc/data-mmap'
+  source_langs: ['token-sequence']
+  target_langs: ['supernodes']
+  load_alignments: 0
+  left_pad_source: 0
+  left_pad_target: 0
+  max_source_positions: 512
+  max_target_positions: 512
+  tokens_per_sample: 512
+  upsample_primary: 1
+  truncate_source: 1
+  truncate_target: 0
+
+model:
+  arch: 'typetransformer'
+  encoder_type: 'transformer'
+  d_model: 256
+  d_rep: 128
+  n_head: 8
+  n_encoder_layers: 4
+  d_ff: 1024
+  dropout: 0.1
+  activation: 'relu'
+  max_positions: 512
+
+optimization:
+  max_epoch: 50
+  max_update: 0
+  clip_norm: 25
+  update_freq: [1]
+  lrs: [1e-4]
+  min_lr: 1e-6
+  use_bmuf: 0
+  force_anneal: 0
+  warmup_updates: 2000
+  lr_shrink: 0.98
+  sentence_avg: 1
+  adam:
+    adam_betas: '(0.9, 0.999)'
+    adam_eps: 1e-8
+    weight_decay: 0.01
+    use_old_adam: 0
+
+checkpoint:
+  restore_file: checkpoint_last.pt
+  reset_dataloader: ~
+  reset_lr_scheduler: ~
+  reset_meters: ~
+  reset_optimizer: ~
+  optimizer_overrides: '{}'
+  save_interval: 1
+  save_interval_updates: 0
+  keep_interval_updates: 0
+  keep_last_epochs: -1
+  keep_best_checkpoints: -1
+  no_save: 0
+  no_epoch_checkpoints: 1
+  no_last_checkpoints: 0
+  no_save_optimizer_state: ~
+  best_checkpoint_metric: loss
+  maximize_best_checkpoint_metric: 0
+  patience: 3
+  save_dir: '~/workspace/type_pred/naturalcc/run/type_prediction/transformer/checkpoints/base'
+  should_continue: 0
+  model_name_or_path: ~
+  cache_dir: ~
+  logging_steps: 500
+  save_steps: 2000
+  save_total_limit: 2
+  overwrite_output_dir: 0
+  overwrite_cache: 0
+
+eval:
+  path: '~/workspace/type_pred/naturalcc/run/type_prediction/transformer/checkpoints/base/checkpoint_best.pt'
+  result_path: ~
+  remove_bpe: ~
+  quiet: 0
+  model_overrides: '{}'
+  max_sentences: 256
+  beam: 1
+  nbest: 1
+  max_len_a: 0
+  max_len_b: 512
+  min_len: 1
+  match_source_len: 0
+  no_early_stop: 0
+  unnormalized: 0
+  no_beamable_mm: 0
+  lenpen: 1
+  unkpen: 0
+  replace_unk: ~
+  sacrebleu: 0
+  score_reference: 0
+  prefix_size: 0
+  no_repeat_ngram_size: 0
+  sampling: 0
+  sampling_topk: -1
+  sampling_topp: -1
+  temperature: 1.0
+  diverse_beam_groups: -1
+  diverse_beam_strength: 0.5
+  diversity_rate: -1.0
+  print_alignment: 0
+  print_step: 0
+  iter_decode_eos_penalty: 0.0
+  iter_decode_max_iter: 10
+  iter_decode_force_max_iter: 0
+  iter_decode_with_beam: 1
+  iter_decode_with_external_reranker: 0
+  retain_iter_history: 0
+  decoding_format: ~
+  nltk_bleu: 0
+  rouge: 0

@@ -27,6 +27,199 @@ from ncc.utils.file_ops.yaml_io import load_yaml
 from ncc.utils.file_utils import remove_files
 from ncc.utils.logging import meters, metrics, progress_bar
 import torch.multiprocessing
+import torch.nn.functional as F
+
+
+# ==================== 自动测试函数 ====================
+
+def run_test_after_training(args, task, trainer):
+    """训练完成后自动运行测试"""
+    from ncc import LOGGER
+    from ncc.utils import checkpoint_utils, utils
+    from ncc.utils.logging import progress_bar
+    
+    # 设置测试配置
+    test_subset = args['dataset'].get('test_subset', 'test')
+    checkpoint_dir = Path(args['checkpoint']['save_dir'])
+    best_checkpoint = checkpoint_dir / 'checkpoint_best.pt'
+    
+    if not best_checkpoint.exists():
+        LOGGER.warning(f'找不到最佳checkpoint: {best_checkpoint}')
+        return
+    
+    LOGGER.info(f'加载最佳checkpoint: {best_checkpoint}')
+    LOGGER.info(f'测试集: {test_subset}')
+    
+    # 加载测试数据
+    task.load_dataset(test_subset)
+    
+    # 加载最佳模型
+    models, _model_args = checkpoint_utils.load_model_ensemble(
+        [str(best_checkpoint)],
+        task=task,
+    )
+    
+    model = models[0]
+    use_cuda = torch.cuda.is_available() and not args['common']['cpu']
+    if use_cuda:
+        model.cuda()
+    model.eval()
+    
+    # 获取数据迭代器
+    itr = task.get_batch_iterator(
+        dataset=task.dataset(test_subset),
+        max_tokens=args['dataset']['max_tokens'],
+        max_sentences=args['dataset']['max_sentences'],
+        max_positions=utils.resolve_max_positions(
+            task.max_positions(),
+            model.max_positions(),
+        ),
+        ignore_invalid_inputs=args['dataset']['skip_invalid_size_inputs_valid_test'],
+        required_batch_size_multiple=args['dataset']['required_batch_size_multiple'],
+        seed=args['common']['seed'],
+        num_shards=1,
+        shard_id=0,
+        num_workers=0,
+    ).next_epoch_itr(shuffle=False)
+    
+    progress = progress_bar.progress_bar(
+        itr,
+        log_format='simple',
+        log_interval=100,
+        prefix=f"测试 '{test_subset}' 集",
+        default_log_format='simple',
+    )
+    
+    # 准备评估
+    tgt_dict = task.target_dictionary(key='supernodes.annotation.type')
+    no_type_idx = tgt_dict.indices.get('O', -100)
+    any_type_idx = tgt_dict.indices.get('$any$', None)
+    
+    def accuracy(output, target, topk=(1,), ignore_idx=[]):
+        with torch.no_grad():
+            maxk = max(topk)
+            target_vocab_size = output.size(-1)
+            keep_idx = torch.tensor(
+                [i for i in range(target_vocab_size) if i not in ignore_idx],
+                device=output.device,
+            ).long()
+            _, pred = output[..., keep_idx].topk(maxk, -1, True, True)
+            pred = keep_idx[pred]
+            correct = pred.eq(target.unsqueeze(-1).expand_as(pred)).long()
+            mask = torch.ones_like(target).long()
+            for idx in ignore_idx:
+                mask = mask.long() & (~target.eq(idx)).long()
+            deno = mask.sum().item()
+            correct = correct * mask.unsqueeze(-1)
+            res = []
+            for k in topk:
+                res.append(correct[..., :k].reshape(-1).float().sum().item())
+            return res, deno
+    
+    # 运行测试
+    num1, num5, num_labels_total = 0, 0, 0
+    num1_any, num5_any, num_labels_any_total = 0, 0, 0
+    total_loss = 0
+    count = 0
+    
+    with torch.no_grad():
+        for sample in progress:
+            if use_cuda:
+                sample = utils.move_to_cuda(sample)
+            if 'net_input' not in sample:
+                continue
+            
+            net_output = model(**sample['net_input'])
+            logits = net_output[0] if isinstance(net_output, (tuple, list)) else net_output
+            
+            if 'target_ids' in sample:
+                logits = logits.index_select(0, sample['target_ids'])
+            labels = sample['target'].view(-1)
+            
+            loss = F.cross_entropy(logits, labels, ignore_index=no_type_idx)
+            total_loss += loss.item()
+            
+            logits_metric = logits.unsqueeze(0)
+            labels_metric = labels.unsqueeze(0)
+            
+            (corr1_any, corr5_any), num_labels_any = accuracy(
+                logits_metric.cpu(), labels_metric.cpu(), topk=(1, 5), ignore_idx=(no_type_idx,)
+            )
+            num1_any += corr1_any
+            num5_any += corr5_any
+            num_labels_any_total += num_labels_any
+            
+            (corr1, corr5), num_labels = accuracy(
+                logits_metric.cpu(), labels_metric.cpu(), topk=(1, 5),
+                ignore_idx=tuple(idx for idx in (no_type_idx, any_type_idx) if idx is not None),
+            )
+            num1 += corr1
+            num5 += corr5
+            num_labels_total += num_labels
+            count += 1
+    
+    # 计算结果
+    avg_loss = float(total_loss) / count
+    acc1 = float(num1) / num_labels_total * 100
+    acc5 = float(num5) / num_labels_total * 100
+    acc1_any = float(num1_any) / num_labels_any_total * 100
+    acc5_any = float(num5_any) / num_labels_any_total * 100
+    
+    LOGGER.info('\n' + '='*80)
+    LOGGER.info('测试结果:')
+    LOGGER.info('-'*80)
+    LOGGER.info(f'平均Loss:      {avg_loss:.4f}')
+    LOGGER.info(f'Acc@1:         {acc1:.2f}%')
+    LOGGER.info(f'Acc@5:         {acc5:.2f}%')
+    LOGGER.info(f'Acc@1 (含any): {acc1_any:.2f}%')
+    LOGGER.info(f'Acc@5 (含any): {acc5_any:.2f}%')
+    LOGGER.info('='*80)
+    
+    # 保存结果
+    res_file = checkpoint_dir / 'res.txt'
+    with open(res_file, 'w') as f:
+        f.write(f'avg_loss: {avg_loss}\n')
+        f.write(f'acc1: {acc1}\n')
+        f.write(f'acc5: {acc5}\n')
+        f.write(f'acc1_any: {acc1_any}\n')
+        f.write(f'acc5_any: {acc5_any}\n')
+    
+    LOGGER.info(f'测试结果已保存: {res_file}')
+    
+    # 更新日志
+    log_dir = checkpoint_dir.parent / 'logs'
+    if log_dir.exists():
+        # 更新详细日志
+        detailed_log = log_dir / 'detailed_metrics.txt'
+        with open(detailed_log, 'a', encoding='utf-8') as f:
+            f.write("\n\n")
+            f.write("="*80 + "\n")
+            f.write("TEST RESULTS\n")
+            f.write("="*80 + "\n")
+            f.write(f"avg_loss                      : {avg_loss:.4f}\n")
+            f.write(f"acc1                          : {acc1:.2f}%\n")
+            f.write(f"acc5                          : {acc5:.2f}%\n")
+            f.write(f"acc1_any                      : {acc1_any:.2f}%\n")
+            f.write(f"acc5_any                      : {acc5_any:.2f}%\n")
+        
+        # 更新 metrics.json
+        metrics_file = log_dir / 'metrics.json'
+        if metrics_file.exists():
+            with open(metrics_file, 'r') as f:
+                metrics_data = json.load(f)
+            
+            metrics_data['test_results'] = {
+                'avg_loss': avg_loss,
+                'acc1': acc1,
+                'acc5': acc5,
+                'acc1_any': acc1_any,
+                'acc5_any': acc5_any,
+            }
+            
+            with open(metrics_file, 'w', encoding='utf-8') as f:
+                json.dump(metrics_data, f, indent=2)
+        
+        LOGGER.info(f'训练日志已更新: {log_dir}')
 
 
 # ==================== 训练日志记录器 ====================
@@ -436,6 +629,18 @@ def single_main(args, init_distributed=False):
         training_logger.close()
         training_logger.plot()
         LOGGER.info(f'所有日志已保存到: {training_logger.log_dir}')
+        
+        # 自动运行测试
+        LOGGER.info('\n' + '='*80)
+        LOGGER.info('开始测试...')
+        LOGGER.info('='*80)
+        
+        try:
+            run_test_after_training(args, task, trainer)
+        except Exception as e:
+            LOGGER.warning(f'测试过程出错: {e}')
+            import traceback
+            traceback.print_exc()
 
 
 def distributed_main(i, args, start_rank=0):
