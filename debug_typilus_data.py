@@ -16,6 +16,7 @@ def debug_data_format(data_dir, split='train', num_samples=5):
     
     # 可能的路径
     possible_paths = [
+        f"{data_dir}/typilus/attributes/{split}.token-sequence",
         f"{data_dir}/attributes/{split}.token-sequence",
         f"{data_dir}/{split}.token-sequence",
         f"{data_dir}/data/{split}.token-sequence",
