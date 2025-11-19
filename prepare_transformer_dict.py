@@ -36,7 +36,18 @@ def convert_dict(input_file, output_file, default_count=1):
     # 按ID排序（保持原有顺序）
     tokens = sorted(token_dict.items(), key=lambda x: x[1])
     
-    print(f"Found {len(tokens)} unique tokens")
+    print(f"Found {len(tokens)} unique tokens from original dictionary")
+    
+    # 手动添加特殊token（如果不存在的话）
+    special_tokens = ['<pad>', '<unk>', '<s>', '</s>']
+    added_specials = []
+    for special_token in special_tokens:
+        if special_token not in token_dict:
+            tokens.append((special_token, -1))  # 使用-1作为ID标记
+            added_specials.append(special_token)
+    
+    if added_specials:
+        print(f"Added {len(added_specials)} special tokens: {added_specials}")
     
     with open(output_file, 'w', encoding='utf-8') as f:
         # NaturalCC词典格式：每行是JSON数组 ["token", count]
