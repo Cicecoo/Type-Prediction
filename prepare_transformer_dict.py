@@ -3,7 +3,7 @@
 将Typilus的词典格式转换为NaturalCC Transformer所需格式
 
 Typilus格式 (每行): ["token", id]
-Transformer格式: token count (空格分隔，每行一个token)
+NaturalCC格式 (每行): ["token", count]  (JSON格式)
 """
 import json
 import argparse
@@ -31,31 +31,16 @@ def convert_dict(input_file, output_file, default_count=1):
     
     print(f"Writing {len(tokens)} tokens to {output_file}")
     
-    # 添加特殊token（如果不存在）
-    special_tokens = ['<pad>', '<unk>', '<s>', '</s>']
-    existing_tokens = {t for t, _ in tokens}
-    
     with open(output_file, 'w', encoding='utf-8') as f:
-        # 先写入特殊token
-        for special_token in special_tokens:
-            if special_token not in existing_tokens and special_token.lower() not in existing_tokens:
-                f.write(f"{special_token} {default_count}\n")
-        
-        # 写入所有token
+        # NaturalCC词典格式：每行是JSON数组 ["token", count]
         for token, _ in tokens:
-            # 确保token不包含换行符，并且正确转义
-            token_clean = token.replace('\n', '\\n').replace('\r', '\\r').replace('\t', '\\t')
-            
-            # 检查token是否包含空格
-            if ' ' in token_clean:
-                # 如果包含空格，使用引号包裹或跳过
-                print(f"Warning: Token contains space, skipping: '{token_clean[:50]}'")
-                continue
-            
-            f.write(f"{token_clean} {default_count}\n")
+            # 写入JSON格式：["token", count]
+            json_line = json.dumps([token, default_count], ensure_ascii=False)
+            f.write(json_line + '\n')
     
     print("Conversion completed!")
-    print(f"Note: Check first few lines of {output_file} to verify format")
+    print(f"Dictionary saved in NaturalCC JSON format")
+    print(f"Format: each line is a JSON array [\"token\", count]")
 
 def main():
     parser = argparse.ArgumentParser(description='Convert Typilus dict to Transformer format')
