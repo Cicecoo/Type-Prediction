@@ -17193,4 +17193,134 @@ run_experiments.py:283: UserWarning: Glyph 20339 (\N{CJK UNIFIED IDEOGRAPH-4F73}
 对比图已保存: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/comparison.png
 报告已保存: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/report.md
 
-(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ python run_experiments.py [C[C[C[C[Ccd run/type_prediction/typilus/experiment_tools[C[C[C[C[C[21Ppython run_experiments.py [C[C[C[C[C[K[K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ 
+(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ python run_experiments.py [C[C[C[C[Ccd run/type_prediction/typilus/experiment_tools[C[C[C[C[C[21Ppython run_experiments.py [C[C[C[C[C[K[K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ python tes[K[K[Kbatch_test.py 
+错误: 找不到测试脚本 type_predict.py
+(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ python batch_test.py 
+实验目录: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments
+测试脚本: type_predict.py
+
+找到 5 个未测试的实验:
+  - lr_1.25e-3
+  - lr_1.5e-3
+  - lr_1e-3
+  - lr_5e-4
+  - lr_7.5e-4
+
+
+================================================================================
+测试实验: lr_1.25e-3
+================================================================================
+Checkpoint: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1.25e-3/checkpoints/checkpoint_best.pt
+输出目录: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1.25e-3/checkpoints
+
+命令: /mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/bin/python type_predict.py -f /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1.25e-3/checkpoints/test_config.yml
+
+测试失败: Command '['/mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/bin/python', 'type_predict.py', '-f', '/home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1.25e-3/checkpoints/test_config.yml']' returned non-zero exit status 1.
+错误输出:
+[32m[2025-11-19 13:53:50]    INFO >> Load arguments in /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1.25e-3/checkpoints/test_config.yml.yml (type_predict.py:207, cli_main())[0m
+Traceback (most recent call last):
+  File "type_predict.py", line 216, in <module>
+    cli_main()
+  File "type_predict.py", line 208, in cli_main
+    args = load_yaml(yaml_file)
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/ncc/utils/file_ops/yaml_io.py", line 54, in load_yaml
+    with open(yaml_file, 'r', encoding='utf-8') as reader:
+FileNotFoundError: [Errno 2] No such file or directory: '/home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1.25e-3/checkpoints/test_config.yml.yml'
+
+
+
+================================================================================
+测试实验: lr_1.5e-3
+================================================================================
+Checkpoint: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1.5e-3/checkpoints/checkpoint_best.pt
+输出目录: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1.5e-3/checkpoints
+
+命令: /mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/bin/python type_predict.py -f /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1.5e-3/checkpoints/test_config.yml
+
+测试失败: Command '['/mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/bin/python', 'type_predict.py', '-f', '/home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1.5e-3/checkpoints/test_config.yml']' returned non-zero exit status 1.
+错误输出:
+[32m[2025-11-19 13:53:52]    INFO >> Load arguments in /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1.5e-3/checkpoints/test_config.yml.yml (type_predict.py:207, cli_main())[0m
+Traceback (most recent call last):
+  File "type_predict.py", line 216, in <module>
+    cli_main()
+  File "type_predict.py", line 208, in cli_main
+    args = load_yaml(yaml_file)
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/ncc/utils/file_ops/yaml_io.py", line 54, in load_yaml
+    with open(yaml_file, 'r', encoding='utf-8') as reader:
+FileNotFoundError: [Errno 2] No such file or directory: '/home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1.5e-3/checkpoints/test_config.yml.yml'
+
+
+
+================================================================================
+测试实验: lr_1e-3
+================================================================================
+Checkpoint: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1e-3/checkpoints/checkpoint_best.pt
+输出目录: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1e-3/checkpoints
+
+命令: /mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/bin/python type_predict.py -f /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1e-3/checkpoints/test_config.yml
+
+测试失败: Command '['/mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/bin/python', 'type_predict.py', '-f', '/home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1e-3/checkpoints/test_config.yml']' returned non-zero exit status 1.
+错误输出:
+[32m[2025-11-19 13:53:54]    INFO >> Load arguments in /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1e-3/checkpoints/test_config.yml.yml (type_predict.py:207, cli_main())[0m
+Traceback (most recent call last):
+  File "type_predict.py", line 216, in <module>
+    cli_main()
+  File "type_predict.py", line 208, in cli_main
+    args = load_yaml(yaml_file)
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/ncc/utils/file_ops/yaml_io.py", line 54, in load_yaml
+    with open(yaml_file, 'r', encoding='utf-8') as reader:
+FileNotFoundError: [Errno 2] No such file or directory: '/home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_1e-3/checkpoints/test_config.yml.yml'
+
+
+
+================================================================================
+测试实验: lr_5e-4
+================================================================================
+Checkpoint: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_5e-4/checkpoints/checkpoint_best.pt
+输出目录: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_5e-4/checkpoints
+
+命令: /mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/bin/python type_predict.py -f /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_5e-4/checkpoints/test_config.yml
+
+测试失败: Command '['/mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/bin/python', 'type_predict.py', '-f', '/home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_5e-4/checkpoints/test_config.yml']' returned non-zero exit status 1.
+错误输出:
+[32m[2025-11-19 13:53:56]    INFO >> Load arguments in /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_5e-4/checkpoints/test_config.yml.yml (type_predict.py:207, cli_main())[0m
+Traceback (most recent call last):
+  File "type_predict.py", line 216, in <module>
+    cli_main()
+  File "type_predict.py", line 208, in cli_main
+    args = load_yaml(yaml_file)
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/ncc/utils/file_ops/yaml_io.py", line 54, in load_yaml
+    with open(yaml_file, 'r', encoding='utf-8') as reader:
+FileNotFoundError: [Errno 2] No such file or directory: '/home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_5e-4/checkpoints/test_config.yml.yml'
+
+
+
+================================================================================
+测试实验: lr_7.5e-4
+================================================================================
+Checkpoint: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_7.5e-4/checkpoints/checkpoint_best.pt
+输出目录: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_7.5e-4/checkpoints
+
+命令: /mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/bin/python type_predict.py -f /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_7.5e-4/checkpoints/test_config.yml
+
+测试失败: Command '['/mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/bin/python', 'type_predict.py', '-f', '/home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_7.5e-4/checkpoints/test_config.yml']' returned non-zero exit status 1.
+错误输出:
+[32m[2025-11-19 13:53:58]    INFO >> Load arguments in /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_7.5e-4/checkpoints/test_config.yml.yml (type_predict.py:207, cli_main())[0m
+Traceback (most recent call last):
+  File "type_predict.py", line 216, in <module>
+    cli_main()
+  File "type_predict.py", line 208, in cli_main
+    args = load_yaml(yaml_file)
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/ncc/utils/file_ops/yaml_io.py", line 54, in load_yaml
+    with open(yaml_file, 'r', encoding='utf-8') as reader:
+FileNotFoundError: [Errno 2] No such file or directory: '/home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/lr_7.5e-4/checkpoints/test_config.yml.yml'
+
+
+
+================================================================================
+测试完成汇总
+================================================================================
+成功: 0
+失败: 5
+总计: 5
+(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ python batch_test.py [C[C[C[C[C[C[C[C[C[C[C[C[5@run_experiments[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5Pbatch_test[C[C[C[C[C[C[C[C[C[K[K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ 
