@@ -26,6 +26,11 @@ def check_file(data_file, vocab, max_lines=10000):
     missing_tokens = Counter()
     total_tokens = 0
     
+    # 特殊token映射（与codetype_dataset.py保持一致）
+    token_mapping = {
+        '<unk>': '[UNK]',
+    }
+    
     with open(data_file, 'r', encoding='utf-8') as f:
         for i, line in enumerate(f):
             if i >= max_lines:
@@ -40,8 +45,10 @@ def check_file(data_file, vocab, max_lines=10000):
             
             for token in tokens:
                 total_tokens += 1
-                if token not in vocab:
-                    missing_tokens[token] += 1
+                # 应用映射
+                mapped_token = token_mapping.get(token, token)
+                if mapped_token not in vocab:
+                    missing_tokens[token] += 1  # 记录原始token便于调试
     
     return missing_tokens, total_tokens
 
