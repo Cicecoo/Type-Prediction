@@ -261,6 +261,13 @@ class TypePredictionTask(NccTask):
     # def build_dataset_for_inference(self, src_tokens, src_lengths):
     #     return LanguagePairDataset(src_tokens, src_lengths, self.source_dictionary)
 
+    def build_type_predictor(self, models, args, **extra_kwargs):
+        """Build type predictor for inference."""
+        from ncc.eval.inference.type_predictor import TypePredictor
+        return TypePredictor(
+            retain_dropout=args.get('eval', {}).get('retain_dropout_modules', False),
+        )
+
     def build_model(self, args):
         model = super().build_model(args)
         if args['task']['eval_accuracy']:
@@ -301,10 +308,11 @@ class TypePredictionTask(NccTask):
 
     def valid_step(self, sample, model, criterion):
         loss, sample_size, logging_output = super().valid_step(sample, model, criterion)
-        with torch.no_grad():
-            net_output = self.type_predictor.predict([model], sample, prefix_tokens=None)
-        print('net_output-models.type_prediction.py: ', net_output)
-        exit()
+        if hasattr(self, 'type_predictor') and self.type_predictor is not None:
+            with torch.no_grad():
+                net_output = self.type_predictor.predict([model], sample, prefix_tokens=None)
+            # 可以在这里添加额外的评估指标
+            # print('net_output during validation: ', net_output[0].shape)
         # selected = sample['node_ids']['leaf_ids']
         # max_len = sample['target'].size(-1)
         # node_ids = []

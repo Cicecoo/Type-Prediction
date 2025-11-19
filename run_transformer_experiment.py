@@ -235,8 +235,8 @@ class TransformerExperiment:
                 'no_epoch_checkpoints': 0,
                 'no_last_checkpoints': 0,
                 'no_save_optimizer_state': None,
-                'best_checkpoint_metric': 'accuracy',
-                'maximize_best_checkpoint_metric': 1,
+                'best_checkpoint_metric': 'loss',
+                'maximize_best_checkpoint_metric': 0,
                 'patience': 10,
             },
             
