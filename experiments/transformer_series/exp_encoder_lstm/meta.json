@@ -1,0 +1,11 @@
+{
+  "name": "exp_encoder_lstm",
+  "description": "Encoder type: lstm",
+  "created": "2025-11-20T00:10:39.558879",
+  "modifications": {
+    "model": {
+      "encoder_type": "lstm"
+    }
+  },
+  "status": "pending"
+}

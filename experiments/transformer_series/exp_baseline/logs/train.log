@@ -1,0 +1,13 @@
+usage: run_transformer_experiment.py [-h] --exp-name EXP_NAME
+                                     [--base-dir BASE_DIR]
+                                     [--data-dir DATA_DIR]
+                                     [--config-template CONFIG_TEMPLATE]
+                                     [--encoder-type {lstm,transformer}]
+                                     [--encoder-layers ENCODER_LAYERS]
+                                     [--encoder-embed-dim ENCODER_EMBED_DIM]
+                                     [--dropout DROPOUT] [--lr LR]
+                                     [--batch-size BATCH_SIZE]
+                                     [--max-epoch MAX_EPOCH]
+                                     [--warmup-updates WARMUP_UPDATES]
+                                     [--skip-train] [--skip-eval]
+run_transformer_experiment.py: error: unrecognized arguments: --language python --d-model 512 --n-layers 6

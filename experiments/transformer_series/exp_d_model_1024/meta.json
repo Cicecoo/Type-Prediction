@@ -1,0 +1,11 @@
+{
+  "name": "exp_d_model_1024",
+  "description": "Model dimension: 1024",
+  "created": "2025-11-20T00:10:39.548148",
+  "modifications": {
+    "model": {
+      "d_model": 1024
+    }
+  },
+  "status": "pending"
+}

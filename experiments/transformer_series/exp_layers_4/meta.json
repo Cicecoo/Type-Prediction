@@ -1,0 +1,11 @@
+{
+  "name": "exp_layers_4",
+  "description": "Number of encoder layers: 4",
+  "created": "2025-11-20T00:10:39.549103",
+  "modifications": {
+    "model": {
+      "n_encoder_layers": 4
+    }
+  },
+  "status": "pending"
+}

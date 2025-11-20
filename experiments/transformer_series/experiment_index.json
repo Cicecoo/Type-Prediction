@@ -1,0 +1,96 @@
+{
+  "created": "2025-11-20T00:10:39.561863",
+  "total_experiments": 18,
+  "experiments": [
+    {
+      "name": "exp_baseline",
+      "description": "Baseline configuration with default hyperparameters",
+      "path": "exp_baseline"
+    },
+    {
+      "name": "exp_d_model_256",
+      "description": "Model dimension: 256",
+      "path": "exp_d_model_256"
+    },
+    {
+      "name": "exp_d_model_512",
+      "description": "Model dimension: 512",
+      "path": "exp_d_model_512"
+    },
+    {
+      "name": "exp_d_model_1024",
+      "description": "Model dimension: 1024",
+      "path": "exp_d_model_1024"
+    },
+    {
+      "name": "exp_layers_4",
+      "description": "Number of encoder layers: 4",
+      "path": "exp_layers_4"
+    },
+    {
+      "name": "exp_layers_6",
+      "description": "Number of encoder layers: 6",
+      "path": "exp_layers_6"
+    },
+    {
+      "name": "exp_layers_8",
+      "description": "Number of encoder layers: 8",
+      "path": "exp_layers_8"
+    },
+    {
+      "name": "exp_lr_1e-04",
+      "description": "Learning rate: 0.0001",
+      "path": "exp_lr_1e-04"
+    },
+    {
+      "name": "exp_lr_5e-04",
+      "description": "Learning rate: 0.0005",
+      "path": "exp_lr_5e-04"
+    },
+    {
+      "name": "exp_lr_1e-03",
+      "description": "Learning rate: 0.001",
+      "path": "exp_lr_1e-03"
+    },
+    {
+      "name": "exp_dropout_0.0",
+      "description": "Dropout rate: 0.0",
+      "path": "exp_dropout_0.0"
+    },
+    {
+      "name": "exp_dropout_0.1",
+      "description": "Dropout rate: 0.1",
+      "path": "exp_dropout_0.1"
+    },
+    {
+      "name": "exp_dropout_0.2",
+      "description": "Dropout rate: 0.2",
+      "path": "exp_dropout_0.2"
+    },
+    {
+      "name": "exp_encoder_transformer",
+      "description": "Encoder type: transformer",
+      "path": "exp_encoder_transformer"
+    },
+    {
+      "name": "exp_encoder_lstm",
+      "description": "Encoder type: lstm",
+      "path": "exp_encoder_lstm"
+    },
+    {
+      "name": "exp_batch_16",
+      "description": "Batch size: 16",
+      "path": "exp_batch_16"
+    },
+    {
+      "name": "exp_batch_32",
+      "description": "Batch size: 32",
+      "path": "exp_batch_32"
+    },
+    {
+      "name": "exp_batch_64",
+      "description": "Batch size: 64",
+      "path": "exp_batch_64"
+    }
+  ]
+}

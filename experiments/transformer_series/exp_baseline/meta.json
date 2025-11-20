@@ -1,0 +1,14 @@
+{
+  "name": "exp_baseline",
+  "description": "Baseline configuration with default hyperparameters",
+  "created": "2025-11-20T00:10:39.545132",
+  "modifications": {},
+  "status": "failed",
+  "last_updated": "2025-11-20T00:11:14.802315",
+  "run_info": {
+    "start_time": "2025-11-20T00:11:14.767566",
+    "end_time": "2025-11-20T00:11:14.801864",
+    "elapsed_seconds": 0.03412795066833496,
+    "return_code": 2
+  }
+}

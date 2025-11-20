@@ -1,0 +1,11 @@
+{
+  "name": "exp_lr_1e-03",
+  "description": "Learning rate: 0.001",
+  "created": "2025-11-20T00:10:39.554060",
+  "modifications": {
+    "optimizer": {
+      "lr": 0.001
+    }
+  },
+  "status": "pending"
+}

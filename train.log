@@ -1,0 +1,119 @@
+[32m[2025-11-19 23:50:42]    INFO >> Load arguments in run/type_prediction/transformer/config/baseline.yml (train.py:300, cli_main())[0m
+[32m[2025-11-19 23:50:42]    INFO >> {'criterion': 'type_predicition_cross_entropy', 'optimizer': 'fairseq_adam', 'lr_scheduler': 'polynomial_decay', 'tokenizer': None, 'bpe': None, 'common': {'no_progress_bar': 0, 'log_interval': 100, 'log_format': 'simple', 'tensorboard_logdir': '/mnt/data1/zhaojunzhang/experiments/transformer/baseline/logs/tensorboard', 'seed': 1, 'cpu': 0, 'fp16': 0, 'bf16': 0, 'memory_efficient_fp16': 0, 'memory_efficient_bf16': 0, 'fp16_no_flatten_grads': 0, 'fp16_init_scale': 128, 'fp16_scale_window': None, 'fp16_scale_tolerance': 0.0, 'min_loss_scale': 0.0001, 'threshold_loss_scale': None, 'user_dir': None, 'empty_cache_freq': 0, 'all_gather_list_size': 16384, 'task': 'type_prediction'}, 'dataset': {'num_workers': 0, 'skip_invalid_size_inputs_valid_test': 1, 'max_tokens': None, 'max_sentences': 16, 'required_batch_size_multiple': 8, 'dataset_impl': 'raw', 'train_subset': 'train', 'valid_subset': 'valid', 'validate_interval': 1, 'fixed_validation_seed': None, 'disable_validation': 0, 'max_tokens_valid': None, 'max_sentences_valid': 16, 'curriculum': 100, 'test_subset': 'test', 'num_shards': 1, 'shard_id': 0, 'joined_dictionary': 1, 'srcdict': '/mnt/data1/zhaojunzhang/typilus-data/transformer/dict.txt', 'tgtdict': '/mnt/data1/zhaojunzhang/typilus-data/transformer/dict.txt'}, 'distributed_training': {'distributed_world_size': 1, 'distributed_rank': 0, 'distributed_backend': 'nccl', 'distributed_init_method': None, 'distributed_port': -1, 'device_id': 0, 'distributed_no_spawn': 0, 'ddp_backend': 'c10d', 'bucket_cap_mb': 25, 'fix_batches_to_gpus': None, 'find_unused_parameters': 0, 'fast_stat_sync': 0, 'broadcast_buffers': 0, 'global_sync_iter': 50, 'warmup_iterations': 500}, 'task': {'data': '/mnt/data1/zhaojunzhang/typilus-data/transformer', 'sample_break_mode': 'complete', 'tokens_per_sample': 1024, 'mask_prob': 0.15, 'leave_unmasked_prob': 0.1, 'random_token_prob': 0.1, 'freq_weighted_replacement': 0, 'mask_whole_words': 0, 'pooler_activation_fn': 'tanh', 'source_lang': 'code', 'target_lang': 'type', 'load_alignments': 0, 'left_pad_source': 1, 'left_pad_target': 0, 'max_source_positions': 2048, 'max_target_positions': 2048, 'upsample_primary': 1, 'truncate_source': 1, 'eval_accuracy': 1}, 'model': {'arch': 'typetransformer', 'pooler_dropout': 0.0, 'activation_fn': 'gelu', 'dropout': 0.1, 'attention_dropout': 0.1, 'activation_dropout': 0.0, 'relu_dropout': 0.0, 'encoder_type': 'lstm', 'encoder_positional_embeddings': 1, 'encoder_embed_path': 0, 'encoder_embed_dim': 512, 'encoder_ffn_embed_dim': 2048, 'encoder_layers': 2, 'encoder_attention_heads': 8, 'encoder_normalize_before': 0, 'encoder_learned_pos': 0, 'decoder_embed_path': '', 'decoder_embed_dim': 0, 'decoder_ffn_embed_dim': 0, 'decoder_layers': 0, 'decoder_attention_heads': 0, 'decoder_learned_pos': 0, 'decoder_normalize_before': 0, 'share_decoder_input_output_embed': 0, 'share_all_embeddings': 0, 'no_token_positional_embeddings': 0, 'adaptive_softmax_cutoff': 0, 'adaptive_softmax_dropout': 0.0, 'no_cross_attention': 0, 'cross_self_attention': 0, 'layer_wise_attention': 0, 'encoder_layerdrop': 0.0, 'decoder_layerdrop': 0.0, 'encoder_layers_to_keep': None, 'decoder_layers_to_keep': None, 'layernorm_embedding': 0, 'no_scale_embedding': 0, 'encoder_max_relative_len': 0, 'max_source_positions': 2048, 'max_target_positions': 2048}, 'optimization': {'max_epoch': 5, 'max_update': 0, 'clip_norm': 25, 'sentence_avg': None, 'update_freq': [1], 'lr': [0.0001], 'lrs': [0.0001], 'min_lr': -1, 'use_bmuf': 0, 'force_anneal': None, 'warmup_updates': 1000, 'end_learning_rate': 0.0, 'power': 1.0, 'total_num_update': 50000, 'adam': {'adam_betas': '(0.9, 0.999)', 'adam_eps': 1e-06, 'weight_decay': 0.01, 'use_old_adam': 1}, 'adagrad': {'weight_decay': 0.0}, 'binary_cross_entropy': {'infonce': 0, 'loss-weights': '', 'log-keys': ''}}, 'checkpoint': {'save_dir': '/mnt/data1/zhaojunzhang/experiments/transformer/baseline/checkpoints', 'restore_file': 'checkpoint_last.pt', 'reset_dataloader': None, 'reset_lr_scheduler': None, 'reset_meters': None, 'reset_optimizer': None, 'optimizer_overrides': '{}', 'save_interval': 1, 'save_interval_updates': 0, 'keep_interval_updates': 0, 'keep_last_epochs': 5, 'keep_best_checkpoints': 3, 'no_save': 0, 'no_epoch_checkpoints': 0, 'no_last_checkpoints': 0, 'no_save_optimizer_state': None, 'best_checkpoint_metric': 'loss', 'maximize_best_checkpoint_metric': 0, 'patience': 10}, 'eval': {'path': '/mnt/data1/zhaojunzhang/experiments/transformer/baseline/checkpoints/checkpoint_best.pt', 'remove_bpe': None, 'quiet': 0, 'results_path': None, 'model_overrides': '{}'}} (train.py:302, cli_main())[0m
+[32m[2025-11-19 23:50:42]    INFO >> single GPU training... (train.py:331, cli_main())[0m
+[32m[2025-11-19 23:50:42]    INFO >> {'criterion': 'type_predicition_cross_entropy', 'optimizer': 'fairseq_adam', 'lr_scheduler': 'polynomial_decay', 'tokenizer': None, 'bpe': None, 'common': {'no_progress_bar': 0, 'log_interval': 100, 'log_format': 'simple', 'tensorboard_logdir': '/mnt/data1/zhaojunzhang/experiments/transformer/baseline/logs/tensorboard', 'seed': 1, 'cpu': 0, 'fp16': 0, 'bf16': 0, 'memory_efficient_fp16': 0, 'memory_efficient_bf16': 0, 'fp16_no_flatten_grads': 0, 'fp16_init_scale': 128, 'fp16_scale_window': None, 'fp16_scale_tolerance': 0.0, 'min_loss_scale': 0.0001, 'threshold_loss_scale': None, 'user_dir': None, 'empty_cache_freq': 0, 'all_gather_list_size': 16384, 'task': 'type_prediction'}, 'dataset': {'num_workers': 0, 'skip_invalid_size_inputs_valid_test': 1, 'max_tokens': None, 'max_sentences': 16, 'required_batch_size_multiple': 8, 'dataset_impl': 'raw', 'train_subset': 'train', 'valid_subset': 'valid', 'validate_interval': 1, 'fixed_validation_seed': None, 'disable_validation': 0, 'max_tokens_valid': None, 'max_sentences_valid': 16, 'curriculum': 100, 'test_subset': 'test', 'num_shards': 1, 'shard_id': 0, 'joined_dictionary': 1, 'srcdict': '/mnt/data1/zhaojunzhang/typilus-data/transformer/dict.txt', 'tgtdict': '/mnt/data1/zhaojunzhang/typilus-data/transformer/dict.txt'}, 'distributed_training': {'distributed_world_size': 1, 'distributed_rank': 0, 'distributed_backend': 'nccl', 'distributed_init_method': None, 'distributed_port': -1, 'device_id': 0, 'distributed_no_spawn': 0, 'ddp_backend': 'c10d', 'bucket_cap_mb': 25, 'fix_batches_to_gpus': None, 'find_unused_parameters': 0, 'fast_stat_sync': 0, 'broadcast_buffers': 0, 'global_sync_iter': 50, 'warmup_iterations': 500}, 'task': {'data': '/mnt/data1/zhaojunzhang/typilus-data/transformer', 'sample_break_mode': 'complete', 'tokens_per_sample': 1024, 'mask_prob': 0.15, 'leave_unmasked_prob': 0.1, 'random_token_prob': 0.1, 'freq_weighted_replacement': 0, 'mask_whole_words': 0, 'pooler_activation_fn': 'tanh', 'source_lang': 'code', 'target_lang': 'type', 'load_alignments': 0, 'left_pad_source': 1, 'left_pad_target': 0, 'max_source_positions': 2048, 'max_target_positions': 2048, 'upsample_primary': 1, 'truncate_source': 1, 'eval_accuracy': 1}, 'model': {'arch': 'typetransformer', 'pooler_dropout': 0.0, 'activation_fn': 'gelu', 'dropout': 0.1, 'attention_dropout': 0.1, 'activation_dropout': 0.0, 'relu_dropout': 0.0, 'encoder_type': 'lstm', 'encoder_positional_embeddings': 1, 'encoder_embed_path': 0, 'encoder_embed_dim': 512, 'encoder_ffn_embed_dim': 2048, 'encoder_layers': 2, 'encoder_attention_heads': 8, 'encoder_normalize_before': 0, 'encoder_learned_pos': 0, 'decoder_embed_path': '', 'decoder_embed_dim': 0, 'decoder_ffn_embed_dim': 0, 'decoder_layers': 0, 'decoder_attention_heads': 0, 'decoder_learned_pos': 0, 'decoder_normalize_before': 0, 'share_decoder_input_output_embed': 0, 'share_all_embeddings': 0, 'no_token_positional_embeddings': 0, 'adaptive_softmax_cutoff': 0, 'adaptive_softmax_dropout': 0.0, 'no_cross_attention': 0, 'cross_self_attention': 0, 'layer_wise_attention': 0, 'encoder_layerdrop': 0.0, 'decoder_layerdrop': 0.0, 'encoder_layers_to_keep': None, 'decoder_layers_to_keep': None, 'layernorm_embedding': 0, 'no_scale_embedding': 0, 'encoder_max_relative_len': 0, 'max_source_positions': 2048, 'max_target_positions': 2048}, 'optimization': {'max_epoch': 5, 'max_update': 0, 'clip_norm': 25, 'sentence_avg': None, 'update_freq': [1], 'lr': [0.0001], 'lrs': [0.0001], 'min_lr': -1, 'use_bmuf': 0, 'force_anneal': None, 'warmup_updates': 1000, 'end_learning_rate': 0.0, 'power': 1.0, 'total_num_update': 50000, 'adam': {'adam_betas': '(0.9, 0.999)', 'adam_eps': 1e-06, 'weight_decay': 0.01, 'use_old_adam': 1}, 'adagrad': {'weight_decay': 0.0}, 'binary_cross_entropy': {'infonce': 0, 'loss-weights': '', 'log-keys': ''}}, 'checkpoint': {'save_dir': '/mnt/data1/zhaojunzhang/experiments/transformer/baseline/checkpoints', 'restore_file': 'checkpoint_last.pt', 'reset_dataloader': None, 'reset_lr_scheduler': None, 'reset_meters': None, 'reset_optimizer': None, 'optimizer_overrides': '{}', 'save_interval': 1, 'save_interval_updates': 0, 'keep_interval_updates': 0, 'keep_last_epochs': 5, 'keep_best_checkpoints': 3, 'no_save': 0, 'no_epoch_checkpoints': 0, 'no_last_checkpoints': 0, 'no_save_optimizer_state': None, 'best_checkpoint_metric': 'loss', 'maximize_best_checkpoint_metric': 0, 'patience': 10}, 'eval': {'path': '/mnt/data1/zhaojunzhang/experiments/transformer/baseline/checkpoints/checkpoint_best.pt', 'remove_bpe': None, 'quiet': 0, 'results_path': None, 'model_overrides': '{}'}} (train.py:208, single_main())[0m
+[32m[2025-11-19 23:50:44]    INFO >> TypeTransformer(
+  (decoder): RobertaEncoder(
+    (encoder): CodeEncoderLSTM(
+      (embedding): Embedding(10006, 512)
+      (pos_encoder): PositionalEncoding()
+      (encoder): LSTM(512, 512, num_layers=6, bidirectional=True)
+    )
+    (output): Sequential(
+      (0): Linear(in_features=1024, out_features=512, bias=True)
+      (1): ReLU()
+      (2): Linear(in_features=512, out_features=9997, bias=True)
+    )
+  )
+  (classification_heads): ModuleDict()
+) (train.py:220, single_main())[0m
+[32m[2025-11-19 23:50:44]    INFO >> model typetransformer, criterion TypePredictionCrossEntropyCriterion (train.py:221, single_main())[0m
+[32m[2025-11-19 23:50:44]    INFO >> num. model params: 46477069 (num. trained: 46477069) (train.py:222, single_main())[0m
+[32m[2025-11-19 23:50:44]    INFO >> ***********************CUDA enviroments for all 1 workers*********************** (utils.py:530, pretty_print_cuda_env_list())[0m
+[32m[2025-11-19 23:50:44]    INFO >> rank   0: capabilities =  8.0  ; total memory = 81920 MB ; free memory = 77319 MB ; used memory = 4600 MB ; name = NVIDIA A800 80GB PCIe                    (utils.py:532, pretty_print_cuda_env_list())[0m
+[32m[2025-11-19 23:50:44]    INFO >> ***********************CUDA enviroments for all 1 workers*********************** (utils.py:540, pretty_print_cuda_env_list())[0m
+[32m[2025-11-19 23:50:44]    INFO >> training on 1 GPUs (train.py:229, single_main())[0m
+[32m[2025-11-19 23:50:44]    INFO >> max tokens per GPU = None and max sentences per GPU = 16 (train.py:230, single_main())[0m
+[32m[2025-11-19 23:50:44]    INFO >> no existing checkpoint found /mnt/data1/zhaojunzhang/experiments/transformer/baseline/checkpoints/checkpoint_last.pt (ncc_trainers.py:299, load_checkpoint())[0m
+[32m[2025-11-19 23:50:44]    INFO >> loading train data for epoch 1 (ncc_trainers.py:314, get_train_iterator())[0m
+[33m[2025-11-19 23:50:55] WARNING >> 32222 samples have invalid sizes and will be skipped, max_positions=(2048, 2048), first few sample ids=[0, 1, 2, 4, 6, 7, 8, 10, 14, 19] (data_utils.py:301, filter_by_size())[0m
+[32m[2025-11-19 23:50:55]    INFO >> NOTE: your device may support faster training with fp16 or --amp (ncc_trainers.py:183, _setup_optimizer())[0m
+[33m[2025-11-19 23:50:56] WARNING >> tensorboard or required dependencies not found, please see README for using tensorboard. (e.g. pip install tensorboardX) (progress_bar.py:314, __init__())[0m
+CodeEncoderLSTM: Creating BiLSTM with 6 layers, 512 hidden and input size
+❌ ERROR in CodeEncoderLSTM.forward:
+  Input shape: torch.Size([16, 2026])
+  Token ID range: [-1, 3666]
+  Vocab size: 10006
+  Embedding num_embeddings: 10006
+  Negative tokens:
+    Count: 18945
+    Values: [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
+Traceback (most recent call last):
+  File "run/type_prediction/transformer/train.py", line 339, in <module>
+    cli_main()
+  File "run/type_prediction/transformer/train.py", line 332, in cli_main
+    single_main(args)
+  File "run/type_prediction/transformer/train.py", line 251, in single_main
+    train(args, trainer, task, epoch_itr)
+  File "/mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/lib/python3.8/contextlib.py", line 75, in inner
+    return func(*args, **kwds)
+  File "run/type_prediction/transformer/train.py", line 54, in train
+    log_output = trainer.train_step(samples)
+  File "/mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/lib/python3.8/contextlib.py", line 75, in inner
+    return func(*args, **kwds)
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/ncc/trainers/ncc_trainers.py", line 409, in train_step
+    raise e
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/ncc/trainers/ncc_trainers.py", line 377, in train_step
+    loss, sample_size_i, logging_output = self.task.train_step(
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/ncc/tasks/type_prediction/type_prediction.py", line 303, in train_step
+    loss, sample_size, logging_output = criterion(model, sample)
+  File "/mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/ncc/criterions/type_prediction/type_prediction_cross_entropy.py", line 28, in forward
+    net_output = model(**sample['net_input'])
+  File "/mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/ncc/models/type_prediction/typetransformer.py", line 44, in forward
+    x = self.decoder(src_tokens, **kwargs)
+  File "/mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/ncc/models/type_prediction/typetransformer.py", line 106, in forward
+    memory = self.encoder(src_tokens, src_length)  # LxBxD
+  File "/mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/mnt/data1/zhaojunzhang/packages/anaconda3/envs/naturalcc/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/ncc/models/type_prediction/encoder.py", line 168, in forward
+    raise RuntimeError(f"Token IDs out of range: [{min_id}, {max_id}], vocab_size={vocab_size}")
+RuntimeError: Token IDs out of range: [-1, 3666], vocab_size=10006
+
+============================================================
+Setting up experiment: baseline
+============================================================
+✓ Created directory: /mnt/data1/zhaojunzhang/experiments/transformer/baseline
+✓ Created directory: /mnt/data1/zhaojunzhang/experiments/transformer/baseline/checkpoints
+✓ Created directory: /mnt/data1/zhaojunzhang/experiments/transformer/baseline/logs
+✓ Created directory: /mnt/data1/zhaojunzhang/experiments/transformer/baseline/results
+✓ Saved config to: /mnt/data1/zhaojunzhang/experiments/transformer/baseline/config.yml
+✓ Also saved to: run/type_prediction/transformer/config/baseline.yml
+✓ Saved experiment info to: /mnt/data1/zhaojunzhang/experiments/transformer/baseline/info.txt
+
+============================================================
+Starting training...
+============================================================
+
+Command: python run/type_prediction/transformer/train.py --language baseline 2>&1 | tee /mnt/data1/zhaojunzhang/experiments/transformer/baseline/logs/train.log
+
+Note: Config file will be loaded from run/type_prediction/transformer/config/baseline.yml
+
+
+✓ Training completed successfully!
+
+============================================================
+Evaluating model on test set...
+============================================================
+
+Warning: Best checkpoint not found, using last checkpoint
+✗ No checkpoint found for evaluation
+
+============================================================
+✓ Experiment completed: baseline
+✓ Results in: /mnt/data1/zhaojunzhang/experiments/transformer/baseline
+============================================================
+

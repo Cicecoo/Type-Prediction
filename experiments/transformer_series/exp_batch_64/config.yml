@@ -1,0 +1,25 @@
+model:
+  activation: relu
+  arch: typetransformer
+  d_ff: 2048
+  d_model: 512
+  d_rep: 128
+  dropout: 0.1
+  encoder_type: lstm
+  n_encoder_layers: 6
+  n_head: 8
+optimizer:
+  adam_betas: (0.9, 0.98)
+  adam_eps: 1.0e-08
+  lr: 0.0005
+  name: fairseq_adam
+  weight_decay: 0.0001
+task:
+  max_source_positions: 512
+  max_target_positions: 512
+training:
+  batch_size: 64
+  clip_norm: 1.0
+  max_epoch: 50
+  patience: 10
+  update_freq: 1
