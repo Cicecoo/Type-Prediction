@@ -1,0 +1,11 @@
+{
+  "name": "exp_batch_16",
+  "description": "Batch size: 16",
+  "created": "2025-11-20T00:10:39.559855",
+  "modifications": {
+    "training": {
+      "batch_size": 16
+    }
+  },
+  "status": "pending"
+}

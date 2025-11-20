@@ -1,0 +1,11 @@
+{
+  "name": "exp_layers_8",
+  "description": "Number of encoder layers: 8",
+  "created": "2025-11-20T00:10:39.551142",
+  "modifications": {
+    "model": {
+      "n_encoder_layers": 8
+    }
+  },
+  "status": "pending"
+}

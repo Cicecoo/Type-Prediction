@@ -1,0 +1,11 @@
+{
+  "name": "exp_dropout_0.0",
+  "description": "Dropout rate: 0.0",
+  "created": "2025-11-20T00:10:39.555037",
+  "modifications": {
+    "model": {
+      "dropout": 0.0
+    }
+  },
+  "status": "pending"
+}

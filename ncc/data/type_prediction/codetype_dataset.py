@@ -21,7 +21,7 @@ def collate(samples, pad_idx, no_type_id):
         return {}
     
     # Debug: 检查pad_idx
-    print(f"[DEBUG] collate called with pad_idx={pad_idx}, no_type_id={no_type_id}")
+    # print(f"[DEBUG] collate called with pad_idx={pad_idx}, no_type_id={no_type_id}")
 
     def merge(key):
         tokens_list = [s[key] for s in samples]

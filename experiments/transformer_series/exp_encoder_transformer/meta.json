@@ -1,0 +1,11 @@
+{
+  "name": "exp_encoder_transformer",
+  "description": "Encoder type: transformer",
+  "created": "2025-11-20T00:10:39.557919",
+  "modifications": {
+    "model": {
+      "encoder_type": "transformer"
+    }
+  },
+  "status": "pending"
+}
