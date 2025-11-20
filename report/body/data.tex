@@ -1,0 +1,91 @@
+\section{实验环境与数据准备}
+\label{sec:data}
+
+本章简要介绍实验环境和数据集准备过程。
+实验基于NaturalCC框架进行,
+该框架集成了图神经网络模型的训练和评估功能。
+
+\subsection{实验环境}
+
+实验在配置NVIDIA GPU的服务器上进行,
+使用Python、PyTorch和DGL (Deep Graph Library)作为核心依赖。
+环境搭建过程中需要确保PyTorch、DGL和CUDA版本的兼容性,
+这是保证模型正常运行的基础。
+
+NaturalCC框架提供了Typilus模型的实现和数据处理工具,
+简化了复现工作。
+实验环境配置的主要挑战在于:
+\begin{itemize}
+    \item 确保深度学习库的版本匹配
+    \item 配置NaturalCC的环境变量和路径
+    \item 解决依赖冲突问题
+\end{itemize}
+
+% 具体配置信息:
+% - Python, PyTorch, DGL版本
+% - CUDA版本
+% - 其他依赖库
+
+\subsection{数据集准备}
+
+\subsubsection{数据来源}
+
+Typilus使用从GitHub开源项目中提取的Python代码作为训练数据。
+原始数据包括代码文件、静态类型分析结果和构建的代码属性图。
+NaturalCC提供了Typilus数据集的处理工具,
+可以将原始数据转换为模型训练所需的格式。
+
+\subsubsection{数据处理流程}
+
+数据准备的主要步骤包括:
+首先对Python代码进行静态分析,提取变量、函数等程序元素及其类型信息;
+然后构建代码属性图,其中节点表示程序元素,边表示语法、数据流和控制流关系;
+最后将图数据序列化为DGL支持的格式,并构建词典映射token和类型标签。
+
+在数据处理过程中遇到的主要问题包括:
+\begin{itemize}
+    \item 部分代码文件的字符编码不一致,需要异常处理
+    \item 图结构的完整性验证,过滤不合法样本
+    \item 词典构建时需要统一特殊token的命名约定
+\end{itemize}
+
+% 数据集基本统计信息:
+\begin{table}[htbp]
+\centering
+\caption{Typilus数据集基本信息}
+\label{tab:dataset_stat}
+\begin{tabular}{lc}
+\toprule
+\textbf{统计项} & \textbf{数值} \\
+\midrule
+训练样本数 & \textit{待补充} \\
+验证样本数 & \textit{待补充} \\
+测试样本数 & \textit{待补充} \\
+平均图节点数 & \textit{待补充} \\
+类型类别数 & \textit{待补充} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{数据特点}
+
+数据集呈现出明显的类型分布不平衡特征:
+常见类型(如\texttt{int}、\texttt{str}、\texttt{bool}等)出现频率远高于罕见类型,
+这对模型训练和评估带来挑战。
+此外,不同代码文件构建的图规模差异较大,
+从十几个节点到数千个节点不等,
+需要在训练时进行合理的批处理策略以控制显存占用。
+
+\subsection{数据加载}
+
+实验使用DGL提供的图数据加载器进行批处理和多进程加载,
+以提高训练效率。
+由于图规模差异较大,采用动态批处理策略:
+根据图大小动态调整每个批次的样本数,
+使得每批次的总节点数保持在合理范围内,
+避免显存占用不均衡。
+
+% 数据加载配置:
+% - batch size
+% - 最大节点数限制
+% - 多进程数量

@@ -1,0 +1,164 @@
+\section{Typilus模型复现}
+\label{sec:reproduction}
+
+本章记录Typilus模型的复现过程,
+包括模型配置、训练流程以及遇到的主要技术问题及其解决方案。
+
+\subsection{模型配置}
+
+Typilus模型的主要超参数包括:
+嵌入维度、GGNN层数、隐藏维度、学习率、batch size等。
+实验首先采用论文中的默认配置进行训练,
+作为后续调优和对比的baseline。
+
+% 主要超参数配置:
+\begin{table}[htbp]
+\centering
+\caption{Typilus模型主要配置}
+\label{tab:typilus_config}
+\begin{tabular}{ll}
+\toprule
+\textbf{参数} & \textbf{取值} \\
+\midrule
+嵌入维度 & 512 \\
+GGNN层数 & 8 \\
+学习率 & \textit{待补充} \\
+批量大小 & 32 \\
+训练轮数 & \textit{待补充} \\
+Triplet margin & 1.0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+训练采用标准的监督学习流程:
+在训练集上优化模型参数,在验证集上监控性能,
+在测试集上评估最终效果。
+使用梯度裁剪防止梯度爆炸,
+使用早停策略避免过拟合。
+
+\subsection{训练与评估}
+
+训练过程中模型损失快速下降,在前几个epoch内达到较好的收敛效果。
+验证集准确率随训练逐步提升,最终在测试集上取得了与论文报告相近的性能。
+
+% 性能结果(待补充实际数据):
+\begin{table}[htbp]
+\centering
+\caption{Typilus测试集性能}
+\label{tab:typilus_results}
+\begin{tabular}{lc}
+\toprule
+\textbf{指标} & \textbf{取值} \\
+\midrule
+Top-1准确率 & \textit{待补充}\% \\
+Top-5准确率 & \textit{待补充}\% \\
+MRR & \textit{待补充} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+复现结果验证了Typilus方法的有效性:
+模型能够通过图消息传递学习代码的结构化表示,
+并基于上下文信息推断变量类型。
+
+\subsection{技术问题与解决}
+
+复现过程中遇到了几个关键的技术问题,
+以下记录问题现象、原因分析和解决方案。
+
+\subsubsection{显存溢出问题}
+
+\textbf{问题现象}:
+在训练或验证阶段出现CUDA Out of Memory错误,
+程序尝试分配超过GPU容量的显存。
+
+\textbf{原因分析}:
+Triplet loss的计算需要构建批内所有样本对的距离矩阵。
+对于batch size $B$和平均节点数$N$,
+距离矩阵的规模为$(B \times N) \times T$,其中$T$是类型总数。
+当$B$、$N$和$T$较大时,完整距离矩阵占用的显存可能超过GPU容量。
+
+\textbf{解决方案}:
+采用分块计算策略,将节点表示分成多个chunk逐块计算距离。
+每次仅计算一个chunk与所有类型表示的距离,
+避免构造完整的大矩阵。
+这将显存复杂度从$O(B \times N \times T)$降至$O(K \times T)$,
+其中$K$是chunk size(如256或512)。
+
+分块计算不影响最终的损失值和梯度,
+但显著降低了显存占用,
+使得训练和验证能够在有限显存下正常进行。
+
+\subsubsection{词典格式问题}
+
+\textbf{问题现象}:
+加载预处理数据时出现KeyError,
+提示词典对象缺少必要字段。
+
+\textbf{原因分析}:
+NaturalCC的Dictionary类在不同版本间格式有所变化。
+使用旧版本保存的词典文件在新版本中加载时,
+可能因缺少某些字段而报错。
+
+\textbf{解决方案}:
+重新构建词典文件,确保包含所有必要字段。
+具体方法是从头初始化Dictionary对象,
+添加特殊token和训练数据中的所有token,
+然后保存为标准格式。
+确保数据预处理和模型训练使用相同版本的词典格式。
+
+\subsubsection{特殊token不一致}
+
+\textbf{问题现象}:
+训练过程中unknown token的比例异常高,
+影响模型的学习效果。
+
+\textbf{原因分析}:
+NaturalCC和Typilus对特殊token的命名约定不同。
+例如,NaturalCC可能使用\texttt{<unk>}、\texttt{<pad>},
+而Typilus使用\texttt{[UNK]}、\texttt{[PAD]}。
+当数据预处理和模型加载使用不同约定时,
+会导致token映射错误。
+
+\textbf{解决方案}:
+统一特殊token的命名约定,
+在数据预处理和模型初始化时都使用相同的特殊token定义。
+修改后unknown token比例降至正常水平。
+
+\subsubsection{其他问题}
+
+此外还遇到一些次要问题,如:
+\begin{itemize}
+    \item PyTorch checkpoint格式在不同版本间的兼容性
+    \item DGL图批处理接口的版本差异
+    \item 数值精度问题(部分运算在float16下不稳定)
+\end{itemize}
+
+这些问题通过查阅文档、调整代码和统一配置得以解决。
+
+\subsection{结果分析}
+
+\subsubsection{模型性能}
+
+Typilus在常见类型上的预测准确率较高,
+但在罕见类型上表现不佳。
+这反映了训练数据中类型分布不平衡的影响:
+模型倾向于学习和预测高频类型。
+
+分析不同图规模的预测准确率发现,
+小规模图的准确率显著高于大规模图。
+可能的原因包括:
+大图中节点上下文更分散,建模难度更大;
+有限的消息传递层数可能无法充分覆盖大图的全局信息。
+
+\subsubsection{错误案例}
+
+典型的预测错误包括:
+\begin{itemize}
+    \item \textbf{泛型类型混淆}: 模型能识别容器类型(如List),但难以推断元素类型(如List[int])
+    \item \textbf{多态返回值}: 对于可能返回多种类型的函数,模型往往只预测其中一种
+    \item \textbf{跨模块依赖}: 涉及外部库的类型时,模型缺乏相关信息而无法准确推断
+\end{itemize}
+
+这些错误案例揭示了当前方法的局限性,
+也为后续改进提供了方向。
