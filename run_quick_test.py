@@ -47,13 +47,20 @@ def sample_data(src_dir, dst_dir, n_samples=1000):
     # 采样数据文件（train/valid/test的所有扩展名）
     print(f"\nSampling data files ({n_samples} samples per split)...")
     splits = ['train', 'valid', 'test']
-    extensions = ['nodes', 'supernodes', 'types', 'edges']
+    
+    # 文件扩展名映射：原文件名 -> 目标文件名
+    file_mappings = [
+        ('nodes', 'code'),          # train.nodes -> train.code
+        ('types', 'type'),          # train.types -> train.type
+        ('supernodes', 'supernodes'),  # 保持不变
+        ('edges', 'edges'),         # 保持不变（如果存在）
+    ]
     
     for split in splits:
         print(f"\n{split}:")
-        for ext in extensions:
-            src_file = src_dir / f"{split}.{ext}"
-            dst_file = dst_dir / f"{split}.{ext}"
+        for src_ext, dst_ext in file_mappings:
+            src_file = src_dir / f"{split}.{src_ext}"
+            dst_file = dst_dir / f"{split}.{dst_ext}"
             
             if src_file.exists():
                 with open(src_file, 'r') as f:
@@ -62,9 +69,9 @@ def sample_data(src_dir, dst_dir, n_samples=1000):
                 with open(dst_file, 'w') as f:
                     f.writelines(lines)
                 
-                print(f"  ✓ {split}.{ext}: {len(lines)} lines")
+                print(f"  ✓ {split}.{src_ext} -> {split}.{dst_ext}: {len(lines)} lines")
             else:
-                print(f"  ⚠ {split}.{ext}: not found")
+                print(f"  ⚠ {split}.{src_ext}: not found")
     
     print(f"\n✓ Small dataset created at {dst_dir}\n")
 
