@@ -338,7 +338,7 @@ class TypePredictionTask(NccTask):
         # logging_output['accuracy'] = accuracy
         # logging_output['mrr'] = mrr
         #
-        # return loss, sample_size, logging_output
+        return loss, sample_size, logging_output
 
     def reduce_metrics(self, logging_outputs, criterion):
         super().reduce_metrics(logging_outputs, criterion)
