@@ -27,16 +27,31 @@ def sample_data(src_dir, dst_dir, n_samples=1000):
     
     dst_dir.mkdir(parents=True, exist_ok=True)
     
-    # 复制词典文件
-    for dict_file in ['nodes.dict', 'supernodes.dict', 'types.dict']:
+    # 需要复制的词典文件（完整列表）
+    dict_files = [
+        'nodes.dict',      # 源词典
+        'supernodes.dict', # 超节点词典
+        'types.dict',      # 类型词典
+        'dict.txt',        # 如果存在
+    ]
+    
+    print("Copying dictionary files...")
+    for dict_file in dict_files:
         src_file = src_dir / dict_file
         if src_file.exists():
             shutil.copy(src_file, dst_dir / dict_file)
             print(f"✓ Copied {dict_file}")
+        else:
+            print(f"⚠ Skipped {dict_file} (not found)")
     
-    # 采样train/valid/test数据
-    for split in ['train', 'valid', 'test']:
-        for ext in ['nodes', 'supernodes', 'types']:
+    # 采样数据文件（train/valid/test的所有扩展名）
+    print(f"\nSampling data files ({n_samples} samples per split)...")
+    splits = ['train', 'valid', 'test']
+    extensions = ['nodes', 'supernodes', 'types', 'edges']
+    
+    for split in splits:
+        print(f"\n{split}:")
+        for ext in extensions:
             src_file = src_dir / f"{split}.{ext}"
             dst_file = dst_dir / f"{split}.{ext}"
             
@@ -47,7 +62,9 @@ def sample_data(src_dir, dst_dir, n_samples=1000):
                 with open(dst_file, 'w') as f:
                     f.writelines(lines)
                 
-                print(f"✓ Sampled {split}.{ext}: {len(lines)} lines")
+                print(f"  ✓ {split}.{ext}: {len(lines)} lines")
+            else:
+                print(f"  ⚠ {split}.{ext}: not found")
     
     print(f"\n✓ Small dataset created at {dst_dir}\n")
 
