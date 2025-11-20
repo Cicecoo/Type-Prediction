@@ -1,0 +1,103 @@
+\renewcommand{\maketitle}{
+    \pagestyle{plain}
+    \pagenumbering{gobble}
+    \makeatletter
+    \begin{titlepage}
+        \centering
+        \IfStrEqCase{\HGP@mode}{
+            {report}{\vspace*{3cm}}  % report 模式增加顶部空白
+        }[\vspace*{-0.1cm}]  % 其他模式使用原来的间距
+         \IfStrEqCase{\HGP@mode}{
+            {translation}{
+                
+            }
+            {proposal}{
+                
+            }
+            {thesis}{
+                
+            }
+            {graduatereport}{
+                % \begin{flushright}
+                %     \begin{tabular}[c]{|p{20mm}|p{50mm}|}
+                %     \hline
+                %     分数 &    \\
+                %     \hline
+                %     评卷人 &   \\
+                %     \hline
+                %     \end{tabular} \\ [2em]
+                % \end{flushright}
+            }
+            {report}{
+                % 可以在这里添加 report 模式特有的顶部内容
+            }
+        }
+        {\color{red}\includegraphics[height=1.42cm]{template/cover/red_logo.eps}}\\[5em]
+        \IfStrEqCase{\HGP@mode}{
+            {translation}{
+                {\zihao{2}\songti\bfseries 本科生毕业设计（论文）参考文献译文}\\[6em]
+                \begin{tabular}{p{6em}p{9cm}}
+                    \zihao{3} 译文出处： & \zihao{5}\textit{\@title} \\
+                \end{tabular}\\[3em]
+            }
+            {thesis}{
+                {\zhzhongsong\fontsize{36pt}{43pt}\selectfont\bfseries 本科生毕业设计}\\[6em]
+                {\zihao{2}\heiti\bfseries \@title}\\[7em]
+            }
+            {graduatereport}{
+                % {\zihao{-0}\songti\bfseries 研究生课程报告}\\[5em]
+                % {\zihao{2}\heiti\@title}\\[6em]
+
+                {\zhzhongsong\fontsize{36pt}{43pt}\selectfont 研究生课程报告}\\[6em]
+                {\zihao{2}\heiti \@title}\\[9em] %[7em] → [8em]
+
+                % {\zihao{-0}\songti\bfseries 研究生课程报告}\\[5em]
+                % \begin{tabular}{c}
+                %     \zihao{2.5} 课程：\zihao{2.5}\@title \\ % \textit{} \\
+                % \end{tabular}\\[3em]
+            }
+            {report}{
+                {\zhzhongsong\fontsize{36pt}{43pt}\selectfont\bfseries\ziju{0.2} 图神经网络实验报告}\\[9em]
+                % report 模式在标题和表格之间增加间距
+            }
+        }
+        \zihao{4}
+        % 定义默认表格格式
+        \newcommand{\defaultinfotable}{%
+            \begin{tabular}{p{4em}p{11em}<{\centering}}
+                院\hfill 系 & \@school \\ \cline{2-2} \\[-1.2em] 
+                专业班级 & \@classnum \\ \cline{2-2} \\[-1.2em] 
+                姓\hfill 名 & \@author \\ \cline{2-2} \\[-1.2em]
+                学\hfill 号 & \@stunum \\ \cline{2-2} \\[-1.2em]
+            \end{tabular}%
+        }
+        % 定义 report 模式的表格格式
+        \newcommand{\rltable}{%
+            \renewcommand{\arraystretch}{1.07}%
+            \begin{tabular}{lc}
+                {\songti\bfseries\fontseries{b}\selectfont 专 \space \space  业：} & {\dengxian\sffamily \@major} \\
+                {\songti\bfseries\fontseries{b}\selectfont 班\hfill 级：} & {\dengxian\sffamily \@classno} \\
+                {\songti\bfseries\fontseries{b}\selectfont 学\hfill 号：} & {\dengxian\sffamily \@stunum} \\
+                {\songti\bfseries\fontseries{b}\selectfont 姓\hfill 名：} & {\dengxian\sffamily \@author} \\
+                {\songti\bfseries\fontseries{b}\selectfont 电\hfill 话：} & {\dengxian\sffamily \@phone} \\
+                {\songti\bfseries\fontseries{b}\selectfont 邮\hfill 箱：} & {\dengxian\sffamily \@email} \\
+            \end{tabular}%
+        }
+        % 根据模式选择表格
+        \IfStrEqCase{\HGP@mode}{
+            {report}{\rltable}
+        }[\defaultinfotable]
+        \\[5.5em] % [3.5em] → [4.5em]
+        \IfStrEqCase{\HGP@mode}{
+            {thesis}{\@date\\}
+            {proposal}{\number\year 年 02 月\\}
+            {translation}{\number\year 年 02 月\\}
+            {graduatereport}{\@date\\}
+            {report}{}  % report 模式日期已在表格中，这里不再显示
+        }
+    \end{titlepage}
+    %\includepdf[pages=2]{template/cover/\HGP@mode.pdf}
+    \clearpage
+    \pagestyle{fancy}
+    \pagenumbering{arabic}
+}

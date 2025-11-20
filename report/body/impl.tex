@@ -1,0 +1,129 @@
+\section{方法实现}
+
+本章介绍三种算法的具体实现细节，
+算法使用 Python 实现，基于 Gymnasium 标准接口与 Pacman 环境交互。
+
+\subsection{Pacman 环境实现}
+
+Pacman 环境基于 UC Berkeley CS188 的 Pacman 项目改编，更新为 Python3 实现并封装为符合 Gymnasium 标准接口的强化学习环境。
+环境类 \texttt{PacmanEnv} 继承自 \texttt{gymnasium.Env}，实现了标准的 \texttt{reset()}, \texttt{step(action)} 等方法。
+
+动作空间定义为离散空间 \texttt{spaces.Discrete(5)}，对应五个基本动作（North, South, East, West, Stop）。
+观测空间使用 \texttt{spaces.Dict} 定义，包含吃豆人位置、鬼的位置和状态、食物分布、胶囊位置等多个字段，
+具体维度在 \texttt{reset()} 时根据地图尺寸动态调整。
+
+训练过程中，
+每个 episode 开始时，调用 \texttt{env.reset()} 初始化环境并获取初始状态。
+在每个时间步，智能体根据当前状态选择动作，通过 \texttt{env.step(action)} 执行，
+环境返回包含下一状态、奖励、终止标志等信息的元组。
+智能体利用这些信息更新策略，重复上述过程直至 episode 结束。
+
+% 环境内部维护游戏状态对象 \texttt{game.state}，封装了完整的游戏信息。
+% 状态对象提供了若干查询方法：
+% \texttt{getPacmanPosition()} 返回吃豆人位置坐标，
+% \texttt{getGhostStates()} 返回所有鬼的状态列表（包括位置和 \texttt{scaredTimer}），
+% \texttt{getFood()} 返回食物分布的布尔矩阵，
+% \texttt{getCapsules()} 返回胶囊位置列表，
+% \texttt{getScore()} 返回当前累积分数。
+% 这些方法为算法的决策和特征提取提供了必要的信息。
+
+% 奖励信号通过相邻两步的分数差计算：\texttt{reward = current\_score - previous\_score}。
+
+\subsection{Monte Carlo Learning 实现}
+
+MC learning 的实现围绕 Q 表和 episode 缓冲区两个核心数据结构展开。
+
+\sfig{mc_agent_l}{0.8}{MC learning 流程图}
+
+Q 表使用 Python 字典实现 \texttt{Q\_values: dict[(state, action)] -> float}。
+字典的键为状态-动作对元组，值为对应的 Q 值。
+采用字典而非多维数组的原因在于状态空间极其庞大，字典的稀疏存储可避免预先分配整个空间。
+未访问过的状态-动作对通过 \texttt{get()} 方法默认返回 0.0。
+
+Episode 缓冲区实现为 Python 列表 \texttt{episode\_buffer: list[(state, action, reward)]}。
+智能体在每次状态转移后，将当前经验 \texttt{(state, action, reward)} 追加到缓冲区。
+当 episode 结束时，触发 \texttt{update\_from\_episode()} 方法进行批量更新。
+
+回报的反向计算采用递推方式实现。
+算法从缓冲区末尾开始反向遍历，维护累积回报 $G$，初始化为 0。
+对于时间步 $t$，根据 $G_t = R_{t+1} + \gamma G_{t+1}$ 更新 $G$ 值，
+然后使用式 \eqref{eq:mc_update} 更新对应的 Q 值：
+\begin{lstlisting}[language=Python, basicstyle=\small\ttfamily]
+G = 0.0
+for t in range(len(episode_buffer) - 1, -1, -1):
+    state, action, reward = episode_buffer[t]
+    G = discount * G + reward
+    old_q = Q_values.get((state, action), 0.0)
+    Q_values[(state, action)] = old_q + alpha * (G - old_q)
+\end{lstlisting}
+这一实现对应算法 \ref{alg:mc_learning} 的第 14-18 行，通过单次反向遍历完成所有 Q 值的更新。
+
+$\epsilon$-Greedy 策略在 \texttt{choose\_action()} 方法中实现。
+算法以概率 $\epsilon$ 随机选择动作，以概率 $1-\epsilon$ 选择当前 Q 值最大的动作。
+在测试阶段，设置 $\epsilon = 0$ 、$\alpha = 0$，完全利用当前 Q 表进行决策，并停止更新。
+
+\subsection{Q-Learning 实现}
+
+Q-Learning 的 Q 表结构与 MC learning 完全相同，均为字典存储。
+两者的核心区别在于更新时机，Q-Learning 在每次状态转移后立即更新，无需等待 episode 结束。
+
+\sfig{q_agent_l}{0.7}{Q-Learning 流程图}
+
+TD 更新在 \texttt{update()} 方法中实现。
+给定转移 \texttt{(state, action, next\_state, reward)}，算法首先计算 TD 目标和 TD 误差：
+\begin{lstlisting}[language=Python, basicstyle=\small\ttfamily]
+td_target = reward + discount * get_state_value(next_state)
+td_delta = td_target - get_q_value(state, action)
+\end{lstlisting}
+其中 \texttt{get\_state\_value(s)} 返回 $\max_{a'} Q(s, a')$。
+随后更新 Q 值：
+\begin{lstlisting}[language=Python, basicstyle=\small\ttfamily]
+Q_values[(state, action)] += alpha * td_delta
+\end{lstlisting}
+这一实现对应算法 \ref{alg:q_learning} 的第 10 行，直接应用式 \eqref{eq:q_learning_update}。
+
+环境在每次调用 \texttt{step()} 后会触发 \texttt{observe\_transition()} 方法，
+该方法计算奖励并调用 \texttt{update()} 完成 Q 值更新。
+这种设计使得算法能够在线学习，无需维护 episode 缓冲区。
+
+\subsection{Approximate Q-Learning 实现}
+
+Approximate Q-Learning 通过继承 Q-Learning 并重写关键方法实现。
+核心改变在于用权重向量替代 Q 表。
+
+权重向量同样使用字典实现 \texttt{weights: dict[feature\_name] -> float}。
+字典的键为特征名称（字符串），值为对应的权重，
+% 这一设计允许特征维度动态扩展，且
+未出现的特征默认权重为 0。
+
+特征提取通过 \texttt{FeatureExtractor} 类实现。
+该类的 \texttt{get\_features(state, action)} 方法返回特征字典 \texttt{dict[feature\_name] -> value}。
+特征提取器根据表 \ref{tab:features} 的设计，从状态对象中查询相关信息并计算特征值。
+例如，\texttt{closest-food} 特征通过广度优先搜索计算最短路径距离，然后归一化。
+
+Q 值计算通过特征与权重的内积实现：
+\begin{lstlisting}[language=Python, basicstyle=\small\ttfamily]
+def get_q_value(state, action):
+    features = feat_extractor.get_features(state, action)
+    return sum(weights[f] * features[f] for f in features)
+\end{lstlisting}
+这对应式 \eqref{eq:approx_q} 的线性组合 $\mathbf{w}^\top \mathbf{f}(s,a)$。
+
+权重更新在 \texttt{update()} 方法中实现。
+算法首先计算 TD 误差，然后对每个非零特征更新对应权重：
+\begin{lstlisting}[language=Python, basicstyle=\small\ttfamily]
+td_target = reward + discount * get_state_value(next_state)
+td_delta = td_target - get_q_value(state, action)
+for f in features:
+    weights[f] += alpha * td_delta * features[f]
+\end{lstlisting}
+这一实现对应算法 \ref{alg:approx_q_learning} 的第 10-11 行和式 \eqref{eq:weight_update}。
+
+相比表格式方法，函数近似方法的内存占用显著降低。
+表格式方法可能需要存储数万个状态-动作对，而函数近似仅需存储数个特征权重。
+这一优势在大规模地图上尤为明显。
+
+所有算法均实现了模型保存与加载功能，使用 \texttt{pickle} 模块序列化 Q 表或权重向量。
+训练完成后，可将模型保存为文件，测试时直接加载。
+
+

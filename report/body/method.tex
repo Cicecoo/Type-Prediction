@@ -1,0 +1,391 @@
+\section{方法原理与设计}
+
+本章首先结合 Pacman 游戏规则进行问题建模，之后逐一介绍各算法的原理和设计。
+
+\subsection{问题建模}
+
+在将强化学习算法应用于 Pacman 游戏之前，我们首先需要明确游戏的运行机制，并将问题建模为马尔可夫决策过程（Markov Decision Process, MDP）。
+
+\subsubsection{Pacman 游戏环境}
+
+本实验采用的 Pacman 游戏环境基于开源 Pacman 项目改编，并封装为符合 Gymnasium 标准的强化学习环境。
+
+\cfig{game_start}{0.6}{Pacman 游戏画面示例}
+
+游戏的基本要素包括：
+地图（Layout）由墙壁（wall）、通道、食物（food）、胶囊（capsule）以及角色初始位置组成，以文本文件形式存储，如图\ref{fig:text}所示。
+%，使用字符表示不同元素：\texttt{\%} 表示墙壁，\texttt{.} 表示食物，\texttt{o} 表示胶囊，\texttt{P} 表示吃豆人初始位置，\texttt{G} 表示鬼的初始位置。
+吃豆人由智能体控制，可以在迷宫中上下左右移动（North, South, East, West），也可以选择停留（Stop），其位置用坐标 $(x, y)$ 表示。
+食物和胶囊分布在地图的通道中，吃豆人吃掉食物可以获得分数，吃掉胶囊则会使所有鬼进入恐慌状态。
+
+% 文本表示示例：
+\cfig{text}{0.5}{地图文本表示}
+
+鬼（Ghost）是随机移动的敌对角色，通常采用随机策略选择动作，有正常状态和恐慌状态两种：正常状态下碰到吃豆人会导致游戏失败；
+而在恐慌状态下（吃豆人吃掉胶囊后的 40 个时间步内），被吃豆人吃掉后会在初始位置复活并解除恐慌。
+
+
+游戏的终止条件包括：吃豆人吃掉所有食物则游戏胜利；吃豆人碰到处于正常状态的鬼则游戏失败；以及达到最大步数限制（避免产生过长的 episode 而进行截断，设置为 1000 步）。
+
+
+\subsubsection{马尔可夫决策过程建模}
+
+强化学习算法的核心是通过与环境交互来学习最优策略，而 MDP 建模通过定义状态、动作、转移概率和奖励函数，将这一交互过程形式化为值函数的优化问题。
+MDP 的马尔可夫性质（下一状态仅依赖于当前状态和动作）使得贝尔曼方程成立，从而可以递归地求解最优值函数和策略。
+下面将 Pacman 游戏的各个要素形式化为 MDP 的组成部分。
+
+\textbf{状态空间 $\mathcal{S}$}：游戏中的完整信息构成状态。
+具体地，状态包括吃豆人的位置 $(x_p, y_p)$ 和移动方向，所有鬼的位置 $(x_g^i, y_g^i)$ 和恐慌计时器 $t_{\text{scared}}^i$（$i = 1, 2, \ldots, n_g$），
+剩余食物的分布（用布尔矩阵 $F$ 表示，$F[x][y] = 1$ 表示位置 $(x,y)$ 有食物），剩余胶囊的位置集合 $C$，以及当前累积分数 $s$。
+这些信息描述了游戏的当前局面，并满足马尔可夫性质：给定当前状态和动作，下一状态的分布与历史无关。
+
+值得注意的是，状态空间的大小随地图尺寸呈指数级增长。
+以 \texttt{smallClassic} 地图（尺寸为 $20 \times 7$）为例，假设有 2 个鬼和 30 个食物点，完整状态空间的规模约为
+$|\mathcal{S}| \approx 140 \times 140^2 \times 40^2 \times 2^{30} \approx 10^{17}$，
+庞大的状态空间给强化学习算法的设计和实现带来了挑战。
+
+\textbf{动作空间 $\mathcal{A}$}：智能体在每个时间步可以选择五个基本动作之一，即
+$\mathcal{A} = \{\text{North}, \text{South}, \text{East}, \text{West}, \text{Stop}\}$。
+在选择动作时还需考虑墙壁约束，只有合法动作（不会撞墙的动作）可被选择。
+
+\textbf{状态转移函数 $P(s'|s,a)$}：游戏规则决定了状态如何转移，这部分由开源 Pacman 项目代码实现。
+给定当前状态 $s$ 和吃豆人的动作 $a$，状态转移包括确定性和随机性：
+吃豆人根据动作 $a$ 移动到新位置、食物和胶囊在被吃掉时更新、恐慌计时器的递减等，是确定性的；
+而鬼根据其随机策略选择动作并移动，引入了转移的随机性。
+因此，虽然吃豆人的行为是确定的，但由于鬼的随机移动，整体状态转移 $P(s'|s,a)$ 是一个概率分布。
+
+\textbf{奖励函数 $R(s,a,s')$}：游戏的计分规则被形式化为奖励函数，以引导智能体的学习。
+具体地，吃掉一个食物获得 $+10$ 分，
+吃掉一个恐慌状态的鬼获得 $+200$ 分，
+吃掉所有食物（胜利）额外获得 $+500$ 分，
+碰到正常状态的鬼（失败）扣除 $500$ 分，
+每走一步扣除 $1$ 分作为时间惩罚。
+吃掉胶囊本身不直接得分，但会使鬼进入恐慌状态，间接影响后续奖励。
+
+\textbf{折扣因子 $\gamma$}：设置 $\gamma$ 用于平衡即时奖励和长期奖励。
+例如，较小的折扣因子可能使智能体更重视短期奖励，而不是过度探索。
+
+通过以上建模，Pacman 游戏被形式化为一个 MDP 五元组 $(\mathcal{S}, \mathcal{A}, P, R, \gamma)$。
+智能体的目标是学习最优策略 $\pi^*$，最大化从初始状态开始的期望累积折扣奖励：
+\begin{equation}
+    \label{eq:optimal_policy}
+    \pi^* = \arg\max_\pi \mathbb{E}_\pi \left[ \sum_{t=0}^\infty \gamma^t R_t \right]
+\end{equation}
+
+
+% Method 1
+
+\subsection{Monte Carlo Learning 原理与设计}
+
+\subsubsection{基本原理}
+
+MC learning 使用采样得到的 episode 数据来估计值函数。
+与需要环境模型的动态规划方法不同，MC learning 仅需与环境交互即可学习。
+
+动作值函数 $Q(s,a)$ 定义为从状态 $s$ 执行动作 $a$ 后，遵循策略 $\pi$ 所能获得的期望累积折扣奖励：
+\begin{equation}
+    \label{eq:q_function}
+    Q^\pi(s,a) = \mathbb{E}_\pi \left[ \sum_{t=0}^\infty \gamma^t R_{t+1} \mid S_0 = s, A_0 = a \right]
+\end{equation}
+
+% MC learning 通过实际经验来估计这一期望值。
+由于环境模型位置，期望无法直接计算。MC learning 的基本思想是用实际回报 $G_t$ 的样本平均来估计 $Q(s,a)$。
+根据大数定律，随着采样 episode 数的增加，样本平均将收敛到真实的期望值。
+
+具体而言，智能体与环境交互产生完整的 episode：
+\begin{equation}
+    \label{eq:trajectory}
+    S_0, A_0, R_1, S_1, A_1, R_2, \ldots, S_T
+\end{equation}
+其中 $S_T$ 是终止状态。对于 episode 中出现的每个状态-动作对 $(s,a)$，可以计算从该时刻开始的实际回报（return）：
+\begin{equation}
+    \label{eq:return}
+    G_t = R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \cdots + \gamma^{T-t-1} R_T
+\end{equation}
+
+通过增量式更新的方式，MC learning 可以在每个 episode 结束后，利用实际回报 $G_t$ 来逐步改进对 $Q(s,a)$ 的估计。
+
+
+在遍历 episode 的每一步时，可能重复遇到某些状态-动作对，相应地在更新值函数时有两种策略：first-visit 和 every-visit。
+first-visit 只在 episode 中首次访问 $(s,a)$ 时更新 $Q(s,a)$，而 every-visit 在每次访问时都进行更新。
+本实验采用 every-visit 策略，配合增量式更新来提高数据利用率：
+\begin{equation}
+    \label{eq:mc_update}
+    Q(s,a) \leftarrow Q(s,a) + \alpha \left( G_t - Q(s,a) \right)
+\end{equation}
+其中 $\alpha \in (0,1]$ 是学习率，控制新样本对估计值的影响程度。
+
+此外，为了在探索（exploration）和利用（exploitation）之间平衡，采用 $\epsilon$-Greedy 贪心策略选择动作：
+以概率 $1-\epsilon$ 选择当前估计下的最优动作 $\arg\max_a Q(s,a)$，并以概率 $\epsilon$ 随机选择动作（作为一种尝试）。
+
+% 可选：插入 MC 算法流程图
+% \cfig{mc_flowchart}{0.6}{蒙特卡洛学习流程}
+
+
+\subsubsection{算法设计}
+
+基于上述原理，MC learning 的训练过程可以形式化为算法 \ref{alg:mc_learning}。
+% 算法采用 every-visit 策略配合增量式更新，通过反复与环境交互来逐步改进 Q 值估计和策略。
+算法流程如 \ref{alg:mc_learning} 所示，推理时只需将 $\alpha$ 和 $\epsilon$ 设为 0 即可。
+
+\begin{algorithm}[h]
+    \caption{Monte Carlo Learning}
+    \small
+    \label{alg:mc_learning}
+    \begin{algorithmic}[1]
+        \Require 环境 $\text{env}$，最大训练 episode 数 $N$
+        \Ensure 学习得到的 Q 值函数 $Q$
+        
+        \State 初始化：$Q(s,a) \leftarrow 0$ 对所有 $s \in \mathcal{S}, a \in \mathcal{A}$
+        \State 设置超参数：$\alpha$, $\epsilon$, $\gamma$
+        
+        \For{$episode = 1$ to $N$}
+            \State $s \leftarrow \text{env.reset()}$ \Comment{初始化环境}
+            \State $\text{buffer} \leftarrow []$ \Comment{初始化 episode 缓冲区}
+            
+            \While{episode 未结束}
+                \State 以 $\epsilon$-Greedy 策略选择动作：
+                \State \quad $a \leftarrow \begin{cases} 
+                    \arg\max_{a'} Q(s, a') & \text{概率 } 1-\epsilon \\
+                    \text{random}(\mathcal{A}) & \text{概率 } \epsilon
+                \end{cases}$
+                \State $s', r \leftarrow \text{env.step}(a)$ \Comment{执行动作并观察转移}
+                \State $\text{buffer.append}((s, a, r))$ \Comment{存储经验}
+                \State $s \leftarrow s'$
+            \EndWhile
+            
+            \State $G \leftarrow 0$ \Comment{从终止状态开始反向计算回报}
+            \For{$t = |\text{buffer}| - 1$ down to $0$}
+                \State $(s_t, a_t, r_{t+1}) \leftarrow \text{buffer}[t]$
+                \State $G \leftarrow r_{t+1} + \gamma G$ \Comment{累积折扣回报}
+                \State $Q(s_t, a_t) \leftarrow Q(s_t, a_t) + \alpha (G - Q(s_t, a_t))$ \Comment{更新 Q 值}
+            \EndFor
+        \EndFor
+        
+        \Return $Q$
+    \end{algorithmic}
+\end{algorithm}
+
+每个训练轮次包括两个阶段：数据收集阶段（第 5-12 行）和值函数更新阶段（第 14-18 行）。
+在数据收集阶段，智能体使用 $\epsilon$-Greedy 策略与环境交互，生成完整的 episode 并存储在缓冲区中。
+通过 $\epsilon$ 控制在利用当前最优动作和随机探索之间的平衡，确保算法能够充分探索状态空间。
+
+episode 结束后进入更新阶段，算法从后向前遍历缓冲区中的经验。
+对于每个时间步 $t$，首先根据递推关系 $G_t = R_{t+1} + \gamma G_{t+1}$ 计算该步的累积折扣回报 $G_t$（其中 $G_T = 0$），
+然后使用式 \eqref{eq:mc_update} 更新对应状态-动作对的 Q 值。
+这一增量式更新方式使得 Q 值逐渐向真实值函数靠拢，同时学习率 $\alpha$ 控制了新样本对估计的影响程度。
+
+对于 Q 函数，这里实现为字典结构，以完整游戏状态为键，存储对应的动作值。
+状态与 MDP 建模部分定义相同，
+由于 Pacman 游戏的状态空间可能很大，字典仅存储实际访问过的状态-动作对，未访问的对其 Q 值默认为 0。
+
+经过足够多 episode 的训练，算法将收敛到最优值函数 $Q^*$，此时贪心策略 $\pi(s) = \arg\max_a Q(s,a)$ 即为最优策略。
+
+
+% Method 2
+
+\subsection{Q-Learning 原理与设计}
+
+\subsubsection{基本原理}
+
+Q-Learning 是一种时序差分（Temporal Difference, TD）学习算法，与 MC learning 的主要区别在于值函数的更新时机和方式。
+MC learning 需要等待完整 episode 结束后才能计算回报 $G_t$ 并更新 Q 值，而 Q-Learning 在每一步转移后即可进行更新，无需等待终止状态。
+
+Q-Learning 的核心更新规则基于贝尔曼最优方程，使用单步转移的即时奖励和下一状态的最优值估计来逼近真实 Q 值：
+\begin{equation}
+    \label{eq:q_learning_update}
+    Q(s,a) \leftarrow Q(s,a) + \alpha \left[ r + \gamma \max_{a'} Q(s', a') - Q(s,a) \right]
+\end{equation}
+其中 $(s, a, r, s')$ 是观察到的一步转移。
+与 MC learning 使用完整回报 $G_t$ 不同，Q-Learning 使用 TD 目标 $r + \gamma \max_{a'} Q(s', a')$ 作为 Q 值的估计。
+这一目标结合了即时奖励 $r$ 和下一状态的最优值估计 $\max_{a'} Q(s', a')$，形成了自举（bootstrapping）式的更新。
+
+
+\subsubsection{算法设计}
+
+Q-Learning 的训练过程如算法 \ref{alg:q_learning} 所示。
+相比 MC learning，该算法无需维护 episode 缓冲区，每步转移后立即更新 Q 值。
+
+\begin{algorithm}[h]
+    \caption{Q-Learning 算法}
+    \small
+    \label{alg:q_learning}
+    \begin{algorithmic}[1]
+        \Require 环境 $\text{env}$，最大训练 episode 数 $N$
+        \Ensure 学习得到的 Q 值函数 $Q$
+        
+        \State 初始化：$Q(s,a) \leftarrow 0$ 对所有 $s \in \mathcal{S}, a \in \mathcal{A}$
+        \State 设置超参数：$\alpha$, $\epsilon$, $\gamma$
+        
+        \For{$episode = 1$ to $N$}
+            \State $s \leftarrow \text{env.reset()}$
+            
+            \While{episode 未结束}
+                \State 以 $\epsilon$-Greedy 策略选择动作：
+                \State \quad $a \leftarrow \begin{cases} 
+                    \arg\max_{a'} Q(s, a') & \text{概率 } 1-\epsilon \\
+                    \text{random}(\mathcal{A}) & \text{概率 } \epsilon
+                \end{cases}$
+                \State $s', r \leftarrow \text{env.step}(a)$
+                \State $Q(s, a) \leftarrow Q(s, a) + \alpha \left[ r + \gamma \max_{a'} Q(s', a') - Q(s, a) \right]$ \Comment{TD 更新}
+                \State $s \leftarrow s'$
+            \EndWhile
+        \EndFor
+        
+        \Return $Q$
+    \end{algorithmic}
+\end{algorithm}
+
+算法在每次状态转移后（第 10 行）立即执行 TD 更新。
+更新目标 $r + \gamma \max_{a'} Q(s', a')$ 结合了当前步的即时奖励和对未来回报的估计，
+这种单步前瞻（one-step lookahead）的方式使得算法能够快速传播价值信息，加速学习过程。
+Q 函数同样实现为字典结构，存储方式与 MC learning 完全相同。
+
+% Method 3
+
+\subsection{Approximate Q-Learning 原理与设计}
+
+前述两种方法（MC learning 和 Q-Learning）在实现 Q 函数时，都是直接记录每个状态-动作对的值，
+可以视作在填一张表格：当表格填满时，意味着所有状态-动作对都被访问过，从而完整得到 Q 函数。
+智能体在决策时，通过查表得到当前状态下的最优 Q 值，进而做出最佳的动作。
+
+然而，这同时也意味着如果某个状态-动作对从未被访问过，其 Q 值就为初始值，即使见过与其相似的状态-动作对，
+智能体也无法做出合理的决策；
+此外，如前所述，Pacman 游戏的状态空间随地图尺寸呈指数级增长，当地图稍大时，
+Q 函数就变得难以学习。
+
+Approximate Q-Learning 方法通过引入线性函数逼近和状态特征设计，解决了上述问题。
+
+\subsubsection{线性函数逼近}
+
+线性函数逼近（linear function approximation）通过参数化方式表示 Q 函数，将 Q 函数从离散的查表转换为连续函数逼近。
+其核心思想是将 Q 值表示为特征的线性组合：
+\begin{equation}
+    \label{eq:approx_q}
+    Q(s,a) = \sum_{i=1}^n w_i f_i(s,a) = \mathbf{w}^\top \mathbf{f}(s,a)
+\end{equation}
+其中 $\mathbf{f}(s,a) = [f_1(s,a), f_2(s,a), \ldots, f_n(s,a)]^\top$ 是从状态-动作对提取的特征向量，
+$\mathbf{w} = [w_1, w_2, \ldots, w_n]^\top$ 是对应的权重向量。
+特征函数 $f_i(s,a)$ 将高维状态空间映射到低维特征空间，捕获对决策有用的关键信息，
+而权重 $w_i$ 则刻画了各特征对 Q 值的贡献程度。
+
+在这一表示下，Q-Learning 的更新规则转化为对权重向量的更新。
+给定一步转移 $(s, a, r, s')$，TD 误差（temporal difference error）定义为
+\begin{equation}
+    \label{eq:td_error}
+    \delta = r + \gamma \max_{a'} Q(s', a') - Q(s,a)
+\end{equation}
+该误差衡量了当前 Q 值估计与 TD 目标之间的差距。
+利用梯度下降法最小化 TD 误差的平方，可得权重更新规则：
+\begin{equation}
+    \label{eq:weight_update}
+    \mathbf{w} \leftarrow \mathbf{w} + \alpha \cdot \delta \cdot \mathbf{f}(s,a)
+\end{equation}
+该更新规则沿着减小 TD 误差的方向调整权重，其中学习率 $\alpha$ 控制更新步长。
+
+相比表格式方法，线性函数逼近具有显著优势。
+首先，参数量大幅减少，从 $|\mathcal{S}| \times |\mathcal{A}|$ 降至特征维度 $n$（通常 $n \ll |\mathcal{S}| \times |\mathcal{A}|$）。
+更重要的是，智能体通过线性函数逼近实现了泛化能力：
+类似于插值，当两个不同的状态-动作对 $(s_1, a_1)$ 和 $(s_2, a_2)$ 提取出相似的特征，即 $\mathbf{f}(s_1, a_1) \approx \mathbf{f}(s_2, a_2)$ 时，
+它们将得到相似的 Q 值估计 $\mathbf{w}^\top \mathbf{f}(s_1, a_1) \approx \mathbf{w}^\top \mathbf{f}(s_2, a_2)$。
+这意味着智能体处理未见过的新状态时，可以利用隐含在权重中的知识做出合理的决策。
+
+因此，通过线性逼近，可以对不完全匹配已知的 $(s,a)$ 估计出合理的值，从而不需要在训练中"完全覆盖表格"。
+从另一个角度看，一次权重更新会影响所有具有相似特征的状态-动作对，也可以认为是学习效率提高了。
+
+\subsubsection{特征设计}
+
+% 特征设计是线性函数逼近方法的核心，直接决定了算法的性能上限。
+% 特征应当捕获与决策相关的关键信息，同时保持维度适中以确保学习效率。
+
+特征设计对于 Approximate Q-Learning 的实现也至关重要。
+合理的特征能够有效地捕捉状态-动作对的信息，直接影响到 Q 值的估计质量和泛化能力。
+同时，特征维度过高则会使智能体难以学习。
+本实验设计的特征如表 \ref{tab:features} 所示。
+
+\begin{table}[h]
+    \renewcommand{\arraystretch}{1.5}
+    \setlength{\tabcolsep}{8pt}
+    \centering
+    \caption{Approximate Q-Learning 特征设计}
+    \small
+    \begin{tabular}{lll}
+        \toprule
+        \textbf{特征名称} & \textbf{含义} & \textbf{取值范围} \\
+        \midrule
+        \texttt{bias} & 偏置项 & 1.0 \\
+        \midrule
+        \texttt{\#-of-normal-ghosts-1-step-away} & 1 步内的普通 ghost 数量 & 整数 \\
+        \texttt{\#-of-scared-ghosts-1-step-away} & 1 步内的恐惧 ghost 数量 & 整数 \\
+        \texttt{eats-scared-ghost} & 能否 1 步吃掉恐惧 ghost & $\{0, 1\}$ \\
+        \texttt{closest-scared-ghost} & 最近恐惧 ghost 距离 & $[0, 1]$ \\
+        \texttt{scared-timer} & 恐惧状态剩余时间 & $[0, 1]$ \\
+        \midrule
+        \texttt{eats-capsule} & 能否 1 步吃到胶囊 & $\{0, 1\}$ \\
+        \texttt{closest-capsule} & 最近胶囊距离 & $[0, 1]$ \\
+        \midrule
+        \texttt{eats-food} & 能否 1 步吃到食物 & $\{0, 1\}$ \\
+        \texttt{closest-food} & 最近食物距离 & $[0, 1]$ \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:features}
+\end{table}
+
+其中，偏置项用于捕捉状态的基本特征，使得 Q 值的初始估计不为零。
+距离类特征（\texttt{closest-*}）通过除以地图宽度与高度的乘积归一化到 $[0,1]$ 区间，
+\texttt{scared-timer} 通过除以恐惧状态持续时间（40 个时间步）归一化。
+这些特征涵盖了 Pacman 游戏中与决策相关的主要信息：
+食物和胶囊的位置与可达性、普通 ghost 的威胁、恐惧 ghost 的捕获机会、以及恐惧状态的时间窗口。
+
+\subsubsection{算法设计}
+
+Approximate Q-Learning 的训练过程如算法 \ref{alg:approx_q_learning} 所示。
+
+\begin{algorithm}[h]
+    \caption{Approximate Q-Learning 算法}
+    \small
+    \label{alg:approx_q_learning}
+    \begin{algorithmic}[1]
+        \Require 环境 $\text{env}$，特征提取器 $\phi$，最大训练 episode 数 $N$
+        \Ensure 学习得到的权重向量 $\mathbf{w}$
+        
+        \State 初始化：$\mathbf{w} \leftarrow \mathbf{0}$（所有权重初始化为 0）
+        \State 设置超参数：$\alpha$, $\epsilon$, $\gamma$
+        
+        \For{$episode = 1$ to $N$}
+            \State $s \leftarrow \text{env.reset()}$
+            
+            \While{episode 未结束}
+                \State 以 $\epsilon$-Greedy 策略选择动作：
+                \State \quad $a \leftarrow \begin{cases} 
+                    \arg\max_{a'} \mathbf{w}^\top \phi(s, a') & \text{概率 } 1-\epsilon \\
+                    \text{random}(\mathcal{A}) & \text{概率 } \epsilon
+                \end{cases}$
+                \State $s', r \leftarrow \text{env.step}(a)$
+                \State $\delta \leftarrow r + \gamma \max_{a'} \mathbf{w}^\top \phi(s', a') - \mathbf{w}^\top \phi(s, a)$ \Comment{计算 TD 误差}
+                \State $\mathbf{w} \leftarrow \mathbf{w} + \alpha \cdot \delta \cdot \phi(s, a)$ \Comment{更新权重}
+                \State $s \leftarrow s'$
+            \EndWhile
+        \EndFor
+        
+        \Return $\mathbf{w}$
+    \end{algorithmic}
+\end{algorithm}
+
+算法的核心在于第 10-11 行的权重更新机制。
+首先计算 TD 误差 $\delta$（第 10 行），其衡量了当前估计 $\mathbf{w}^\top \phi(s, a)$ 与 TD 目标 $r + \gamma \max_{a'} \mathbf{w}^\top \phi(s', a')$ 之间的差距。
+随后沿着特征向量 $\phi(s, a)$ 的方向更新权重（第 11 行），更新幅度由 TD 误差 $\delta$ 和学习率 $\alpha$ 共同决定。
+
+直观地理解，若某状态-动作对的实际回报高于当前估计（$\delta > 0$），则增大与该对相关的特征权重；
+反之若实际回报低于估计（$\delta < 0$），则减小相应权重。
+通过这种方式，算法逐步调整权重向量，使得 Q 值估计 $\mathbf{w}^\top \phi(s,a)$ 逼近真实的最优 Q 函数。
+
+% 相比 Q-Learning，Approximate Q-Learning 在动作选择时（第 7 行）需要遍历所有可能动作并计算 $\mathbf{w}^\top \phi(s, a')$，
+% 这一计算复杂度为 $O(|\mathcal{A}| \cdot n)$，其中 $n$ 是特征维度。
+% 由于 Pacman 的动作空间很小（$|\mathcal{A}| = 5$）且特征维度适中（$n \approx 10$），这一开销完全可接受。
+
+% 经过充分训练，权重向量 $\mathbf{w}$ 收敛后，贪心策略 $\pi(s) = \arg\max_a \mathbf{w}^\top \phi(s,a)$ 即可在未见过的状态上进行有效的泛化决策。
+
+通过特征提取，将大量原始状态映射到少量特征组合，减小了“表格”的大小，从而易于学习；
+再结合线性逼近带来的泛化性能，Approximate Q-Learning 能够在大规模状态空间中有效完成学习。
+

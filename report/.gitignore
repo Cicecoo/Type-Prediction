@@ -1,0 +1,12 @@
+*.log
+*.aux
+*.bcf
+*.out
+*.run.xml
+*.syncctx
+*.synctex.gz
+*.toc
+images/*
+
+
+
