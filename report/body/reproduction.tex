@@ -1,164 +1,150 @@
 \section{Typilus模型复现}
 \label{sec:reproduction}
 
-本章记录Typilus模型的复现过程,
-包括模型配置、训练流程以及遇到的主要技术问题及其解决方案。
+% 本章记录Typilus模型在NaturalCC框架下的复现过程，
+% 包括复现实验设置、训练过程与结果，以及复现过程中遇到的主要技术问题和对应的解决办法。
 
-\subsection{模型配置}
+本章记录 Typilus 模型在 NaturalCC 框架下的复现过程，
+包括复现实验的基本配置、实现细节，以及过程中遇到的主要问题和解决方法。
+此外基于NaturalCC 框架实现了基于 Transformer 的类型推断，
+在后文的对比实验中，将以本章复现得到的 Typilus 结果，
+与基于 Transformer 的序列模型进行简单比较。
 
-Typilus模型的主要超参数包括:
-嵌入维度、GGNN层数、隐藏维度、学习率、batch size等。
-实验首先采用论文中的默认配置进行训练,
-作为后续调优和对比的baseline。
+% \subsection{复现实验设置}
 
-% 主要超参数配置:
-\begin{table}[htbp]
-\centering
-\caption{Typilus模型主要配置}
-\label{tab:typilus_config}
-\begin{tabular}{ll}
-\toprule
-\textbf{参数} & \textbf{取值} \\
-\midrule
-嵌入维度 & 512 \\
-GGNN层数 & 8 \\
-学习率 & \textit{待补充} \\
-批量大小 & 32 \\
-训练轮数 & \textit{待补充} \\
-Triplet margin & 1.0 \\
-\bottomrule
-\end{tabular}
-\end{table}
+% 完成环境配置和数据准备后，使用 NaturalCC 仓库中内置的 Typilus 任务配置作为起点。
+% 为避免引入额外变量，复现实验尽量沿用原实现的设置，仅在显存等资源限制下对 batch size 等少数参数做小幅调整。
 
-训练采用标准的监督学习流程:
-在训练集上优化模型参数,在验证集上监控性能,
-在测试集上评估最终效果。
-使用梯度裁剪防止梯度爆炸,
-使用早停策略避免过拟合。
+% Typilus 模型的主要超参数包括嵌入维度、GGNN 层数、隐藏维度、学习率和批量大小等。
+% 本实验采用 NaturalCC 提供的默认配置：嵌入维度 512、GGNN 层数 8、triplet margin 1.0，优化器和学习率调度保持默认。
+% 训练、验证和测试均基于前文构建的 Typilus 数据集划分。
 
-\subsection{训练与评估}
+% 训练过程中在验证集上监控 Top-$k$ 准确率和 MRR 指标，并保留若干性能较好的检查点，用于后续对比和误差分析。
 
-训练过程中模型损失快速下降,在前几个epoch内达到较好的收敛效果。
-验证集准确率随训练逐步提升,最终在测试集上取得了与论文报告相近的性能。
+\subsection{复现实验设置}
 
-% 性能结果(待补充实际数据):
-\begin{table}[htbp]
-\centering
-\caption{Typilus测试集性能}
-\label{tab:typilus_results}
-\begin{tabular}{lc}
-\toprule
-\textbf{指标} & \textbf{取值} \\
-\midrule
-Top-1准确率 & \textit{待补充}\% \\
-Top-5准确率 & \textit{待补充}\% \\
-MRR & \textit{待补充} \\
-\bottomrule
-\end{tabular}
-\end{table}
+完成环境配置和数据准备后，复现实验使用 NaturalCC 仓库中内置的 Typilus 任务配置作为起点。
+为避免引入额外变量，主要沿用原实现的设置，仅在显存等资源限制下对 batch size 等少数参数做了适当下调。
 
-复现结果验证了Typilus方法的有效性:
-模型能够通过图消息传递学习代码的结构化表示,
-并基于上下文信息推断变量类型。
+Typilus 模型的主要超参数包括嵌入维度、GGNN 层数、隐藏维度、学习率和批量大小等。
+本实验采用 NaturalCC 提供的默认配置：嵌入维度 512、GGNN 层数 8、triplet margin 1.0，
+优化器与学习率调度保持默认，训练、验证和测试均基于前文构建的 Typilus 数据集划分进行。
+
+此外实现了基于 Transformer 的类型推断模型，
+使用同一 Typilus 数据集，但将代码表示从程序图转换为 token 序列，
+基于 NaturalCC 中的代码实现。
+
+训练过程中在验证集上监控 Top-$k$ 准确率和 MRR 等指标，
+并保留若干性能较好的检查点，作为后续误差分析和对比实验的参考。
+
+
+\subsection{训练过程与结果}
+
+在解决环境与数据预处理相关问题之后，Typilus模型可以在GPU上正常训练。
+从损失变化来看，前几个epoch中训练损失较快下降，
+随后在相对稳定的区间内震荡，验证集Top-1和Top-$k$准确率随之提升并逐渐趋于平稳。
+
+受数据规模、预处理细节以及实现差异等因素影响，
+本实验复现的绝对指标与原论文报告存在一定差距，
+但整体趋势与预期一致：相较于随机预测，Typilus在验证集和测试集上显著优于简单基线，
+能够利用程序图结构和上下文信息，对常见类型给出较为可靠的预测。
+在后续章节中，Typilus复现模型作为图神经网络基线，与基于Transformer的序列模型进行对比分析。
+
+% \subsection{关键技术问题与解决}
+
+% 复现过程中遇到的主要技术问题集中在图数据格式、显存占用以及词典和特殊token的处理等方面。
 
 \subsection{技术问题与解决}
 
-复现过程中遇到了几个关键的技术问题,
-以下记录问题现象、原因分析和解决方案。
+复现 Typilus 并在此基础上加入 Transformer 序列基线的过程中，主要遇到几类问题：
+图数据字段不一致、距离计算带来的显存压力，以及在构造 Transformer 训练数据时
+代码序列与类型标签的对齐和特殊 token 处理问题。
+本节按类别对这些问题及其解决方法作简要说明。
 
-\subsubsection{显存溢出问题}
+\subsubsection{图数据与节点特征不一致}
 
-\textbf{问题现象}:
-在训练或验证阶段出现CUDA Out of Memory错误,
-程序尝试分配超过GPU容量的显存。
+在最初的 Typilus 训练尝试中，模型在前向传播阶段出现 \texttt{KeyError: 'subtoken'} 错误，
+提示 DGL 图的节点特征中缺少 \texttt{subtoken} 字段。
+排查发现，NaturalCC 某些版本对节点特征字段名有所调整，
+而预处理脚本仍按照旧字段名输出，导致模型在访问节点特征时找不到对应键。
 
-\textbf{原因分析}:
-Triplet loss的计算需要构建批内所有样本对的距离矩阵。
-对于batch size $B$和平均节点数$N$,
-距离矩阵的规模为$(B \times N) \times T$,其中$T$是类型总数。
-当$B$、$N$和$T$较大时,完整距离矩阵占用的显存可能超过GPU容量。
+为解决这一问题，在数据预处理和模型入口两侧统一了字段命名：
+一方面更新预处理脚本，保证图数据中包含模型期望的 \texttt{subtoken} 或等价字段；
+另一方面检查 NaturalCC 中 Typilus 模型的输入接口，避免重复删除或覆盖同一字段。
+修正后，图数据能够顺利加载，编码器可以正常读取节点的 token 表示。
 
-\textbf{解决方案}:
-采用分块计算策略,将节点表示分成多个chunk逐块计算距离。
-每次仅计算一个chunk与所有类型表示的距离,
-避免构造完整的大矩阵。
-这将显存复杂度从$O(B \times N \times T)$降至$O(K \times T)$,
-其中$K$是chunk size(如256或512)。
+\subsubsection{距离计算与显存占用}
 
-分块计算不影响最终的损失值和梯度,
-但显著降低了显存占用,
-使得训练和验证能够在有限显存下正常进行。
+在训练和验证阶段，Typilus 需要根据节点表示和类型标签计算相似度，
+用于 triplet 损失和 Top-$k$ 指标的统计。
+原始实现中，数据集在 \texttt{collate} 阶段为 batch 内所有目标节点构造了一个
+大小为 $B \times B$ 的稠密邻接矩阵，其中 $B$ 为该 batch 中参与监督的节点个数，
+邻接矩阵元素指示两节点类型是否相同。
+在此基础上，triplet 损失一次性构造所有节点对的距离矩阵（同为 $B \times B$），
+当 $B$ 较大时会占用大量显存，实际运行中触发 CUDA OOM 错误。
 
-\subsubsection{词典格式问题}
+为降低显存开销，一方面在数据集构建阶段不再显式构造稠密邻接矩阵，
+而是仅传递长度为 $B$ 的类型标签向量；
+另一方面在 \texttt{TripletCriterion} 中实现了基于标签的“内存友好”计算路径：
+当输入为一维标签向量时，将 batch 内的节点表示按固定大小划分为若干小块，记每块大小为 $K$。
+对于每一块，将该块中的节点表示作为 anchor，与整个 batch 的表示计算
+一个 $K \times B$ 的距离矩阵，根据标签现场生成正负样本掩码，并计算对应的 triplet 损失分量，
+再在各个块之间累加得到完整损失。
+这一改动不改变 triplet 损失的定义和数值形式，
+但将原本一次性构造的 $B \times B$ 距离矩阵拆分为多次 $K \times B$ 的小矩阵计算，
+显著降低了前向和验证阶段的显存峰值，使 Typilus 模型能够在单卡显存有限的条件下稳定完成训练和评估。
 
-\textbf{问题现象}:
-加载预处理数据时出现KeyError,
-提示词典对象缺少必要字段。
+\subsubsection{Transformer 序列数据与标签对齐}
 
-\textbf{原因分析}:
-NaturalCC的Dictionary类在不同版本间格式有所变化。
-使用旧版本保存的词典文件在新版本中加载时,
-可能因缺少某些字段而报错。
+在构造基于 Transformer 的序列模型时，需要将 Typilus 的图数据转换为
+一行一条样本的 \texttt{.code}／\texttt{.type} 文本格式。
+一开始直接将 \texttt{nodes} 数组视作 token 序列，或在写入文件时随意添加起止标记，
+在加载数据时频繁触发断言 \texttt{len(tokens) != len(labels)}。
 
-\textbf{解决方案}:
-重新构建词典文件,确保包含所有必要字段。
-具体方法是从头初始化Dictionary对象,
-添加特殊token和训练数据中的所有token,
-然后保存为标准格式。
-确保数据预处理和模型训练使用相同版本的词典格式。
+问题主要来自两方面：
+一是 Typilus 的 \texttt{token-sequence} 与 \texttt{nodes} 长度并不总是一致，
+真正的代码序列应以 \texttt{token-sequence} 中的 id 为准；
+二是某些样本在生成类型标签时存在越界或空值，或在写入文本后再次用 \texttt{split()} 解析时，
+由于 token 本身带有空白字符，导致 token 数量发生变化。
 
-\subsubsection{特殊token不一致}
+为保证对齐，在转换过程中采用了较为严格的策略：
+使用 \texttt{token-sequence} 中的 id 结合词典反查得到代码 token，
+类型标签则由 \texttt{supernodes} 中的注解生成；
+对每条样本，要求 \texttt{len(token\_ids) == len(type\_labels)} 才保留，
+不满足条件的样本直接跳过；
+在写文件前对 token 做简单清洗，去掉或替换内部空白，避免在读取阶段被错误拆分。
+经过过滤后，最终保留了约十几万条对齐良好的样本，少量异常样本被丢弃。
 
-\textbf{问题现象}:
-训练过程中unknown token的比例异常高,
-影响模型的学习效果。
+\subsubsection{CUDA 索引错误与特殊 token 处理}
 
-\textbf{原因分析}:
-NaturalCC和Typilus对特殊token的命名约定不同。
-例如,NaturalCC可能使用\texttt{<unk>}、\texttt{<pad>},
-而Typilus使用\texttt{[UNK]}、\texttt{[PAD]}。
-当数据预处理和模型加载使用不同约定时,
-会导致token映射错误。
+在 Transformer 序列模型的训练阶段，还遇到多次 \texttt{CUDA error: device-side assert triggered} 错误，
+定位到 embedding 查表时出现非法索引。
+调试发现，问题并非来自“索引大于词表大小”，而是有大量 \texttt{-1} 被当作 token id 输入模型。
 
-\textbf{解决方案}:
-统一特殊token的命名约定,
-在数据预处理和模型初始化时都使用相同的特殊token定义。
-修改后unknown token比例降至正常水平。
+进一步检查表明，这与特殊 token 的处理有关：
+Dictionary 在某些加载路径下没有正确初始化 \texttt{<pad>}、\texttt{<unk>}、\texttt{<s>}、\texttt{</s>}，
+导致 \texttt{pad\_idx} 与 \texttt{unk\_idx} 保持为 \texttt{-1}。
+当代码或类型标签中出现 OOV token 时，索引函数返回 \texttt{unk\_idx}，
+padding 时也使用 \texttt{pad\_idx}，最终将大量 \texttt{-1} 送入 embedding 层，引发设备端断言。
 
-\subsubsection{其他问题}
+为避免这一问题，在构造和加载词典时统一采用 Dictionary 的默认初始化方式，
+由其自动添加 \texttt{<pad>}、\texttt{<unk>}、\texttt{<s>}、\texttt{</s>} 四个特殊符号，
+并在数据转换脚本中只保留这一套约定，对 Typilus 中出现的 \texttt{[PAD]}、\texttt{[UNK]} 等写法显式做映射。
+同时编写简单的检查脚本，验证 \texttt{.code}／\texttt{.type} 中的 token 都能在词典中找到，
+防止再次出现 \texttt{-1} padding 的情况。
+调整后，CUDA 索引错误不再出现，Transformer 基线可以在 Typilus 数据上稳定训练。
 
-此外还遇到一些次要问题,如:
-\begin{itemize}
-    \item PyTorch checkpoint格式在不同版本间的兼容性
-    \item DGL图批处理接口的版本差异
-    \item 数值精度问题(部分运算在float16下不稳定)
-\end{itemize}
+% \subsubsection{其他技术细节}
 
-这些问题通过查阅文档、调整代码和统一配置得以解决。
+% 复现过程中还遇到若干次要问题，例如：
+% \begin{itemize}
+%     \item 不同版本 PyTorch 在 checkpoint 序列化格式上的差异，需要通过指定 \texttt{strict = False} 等方式兼容加载；
+%     \item DGL 批处理接口在版本更新后行为略有变化，需要根据最新文档调整图合并与拆分方式；
+%     \item 部分算子在低精度下数值不稳定，因此训练中统一采用单精度浮点（float32）。
+% \end{itemize}
+% 这些问题通过查阅官方文档、阅读错误堆栈并逐步修改代码得到解决。
 
-\subsection{结果分析}
+\subsection{复现小结}
 
-\subsubsection{模型性能}
-
-Typilus在常见类型上的预测准确率较高,
-但在罕见类型上表现不佳。
-这反映了训练数据中类型分布不平衡的影响:
-模型倾向于学习和预测高频类型。
-
-分析不同图规模的预测准确率发现,
-小规模图的准确率显著高于大规模图。
-可能的原因包括:
-大图中节点上下文更分散,建模难度更大;
-有限的消息传递层数可能无法充分覆盖大图的全局信息。
-
-\subsubsection{错误案例}
-
-典型的预测错误包括:
-\begin{itemize}
-    \item \textbf{泛型类型混淆}: 模型能识别容器类型(如List),但难以推断元素类型(如List[int])
-    \item \textbf{多态返回值}: 对于可能返回多种类型的函数,模型往往只预测其中一种
-    \item \textbf{跨模块依赖}: 涉及外部库的类型时,模型缺乏相关信息而无法准确推断
-\end{itemize}
-
-这些错误案例揭示了当前方法的局限性,
-也为后续改进提供了方向。
+在前述环境配置、数据准备以及关键问题修正之后，Typilus 模型和 Transformer 模型可以在 NaturalCC 框架下正常训练和验证。
+从训练日志来看，损失在若干轮迭代内持续下降并进入相对稳定区间，说明模型能够在给定数据集上收敛。

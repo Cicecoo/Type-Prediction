@@ -27,3 +27,5 @@ __pycache__/
 .venv/
 build/
 third_party/
+
+chat.json

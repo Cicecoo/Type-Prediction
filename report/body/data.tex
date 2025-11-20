@@ -1,91 +1,77 @@
 \section{实验环境与数据准备}
 \label{sec:data}
 
-本章简要介绍实验环境和数据集准备过程。
-实验基于NaturalCC框架进行,
-该框架集成了图神经网络模型的训练和评估功能。
+本章介绍实验使用的硬件和软件环境，以及 Typilus 数据集在 NaturalCC 框架中的构建过程。
 
 \subsection{实验环境}
 
-实验在配置NVIDIA GPU的服务器上进行,
-使用Python、PyTorch和DGL (Deep Graph Library)作为核心依赖。
-环境搭建过程中需要确保PyTorch、DGL和CUDA版本的兼容性,
-这是保证模型正常运行的基础。
+实验在一台运行 Linux 的 NVIDIA GPU 服务器上进行。
+通过 Conda 创建独立环境 \texttt{naturalcc}，主要依赖包括 Python、PyTorch、DGL（Deep Graph Library）和 Transformers 等深度学习与图学习库。
 
-NaturalCC框架提供了Typilus模型的实现和数据处理工具,
-简化了复现工作。
-实验环境配置的主要挑战在于:
-\begin{itemize}
-    \item 确保深度学习库的版本匹配
-    \item 配置NaturalCC的环境变量和路径
-    \item 解决依赖冲突问题
-\end{itemize}
+环境配置中遇到的关键问题主要与库版本有关：
+% \begin{itemize}
 
-% 具体配置信息:
-% - Python, PyTorch, DGL版本
-% - CUDA版本
-% - 其他依赖库
+     \textbf{PyTorch、DGL 与 CUDA 的兼容性}：
+    服务器上使用的是 PyTorch 2.4 和 CUDA 12.4，NaturalCC 默认的 DGL 版本无法正常导入，
+    需要根据官方说明安装与该版本 PyTorch 对应的 DGL 预编译包，才能解决动态链接库缺失的问题。
+    
+    \textbf{系统库与 Python 库的冲突}：
+    运行过程中出现 \texttt{libp11-kit.so.0} 依赖 \texttt{libffi} 符号缺失的错误，
+    通过在 Conda 环境中安装合适版本的 \texttt{p11-kit}、\texttt{gnutls} 和 \texttt{libffi} 进行修复；
+    对于 \texttt{ruamel.yaml} 移除 \texttt{safe\_load} 接口带来的不兼容，
+    通过修改 NaturalCC 内部的 YAML 读取函数解决。
+    此外，还根据文档要求固定了 \texttt{transformers} 和 \texttt{tokenizers} 等库的版本。
+% \end{itemize}
+
+NaturalCC 使用 \texttt{master} 分支与实验文档保持一致，
+并通过环境变量 \texttt{NCC} 指定 Typilus 数据根目录，使数据处理与训练脚本可以在固定路径下读取和保存数据。
 
 \subsection{数据集准备}
 
-\subsubsection{数据来源}
+\subsubsection{数据来源与原始流程}
 
-Typilus使用从GitHub开源项目中提取的Python代码作为训练数据。
-原始数据包括代码文件、静态类型分析结果和构建的代码属性图。
-NaturalCC提供了Typilus数据集的处理工具,
-可以将原始数据转换为模型训练所需的格式。
+Typilus 使用从 GitHub 收集的大规模开源 Python 项目作为训练数据。
+原始流程在 Docker 容器中运行官方脚本，依次完成仓库克隆、调用 \texttt{pytype} 做静态类型分析，
+并生成代码属性图及 \texttt{dataset.spec} 等元数据。
 
-\subsubsection{数据处理流程}
+在实验中，选择绕过Docker，将这套流程改写为本地脚本，方便调试和恢复。
+根据官方脚本编写了 \texttt{prepare\_data\_local.sh}，在本地完成仓库克隆、（可选的）近重复检测、
+\texttt{pytype} 分析以及数据集划分，不再依赖Docker容器。
+这样可以直接在服务器上查看日志和中间结果，长时间任务中断后也便于继续运行。
 
-数据准备的主要步骤包括:
-首先对Python代码进行静态分析,提取变量、函数等程序元素及其类型信息;
-然后构建代码属性图,其中节点表示程序元素,边表示语法、数据流和控制流关系;
-最后将图数据序列化为DGL支持的格式,并构建词典映射token和类型标签。
+\subsubsection{图数据与 NaturalCC 格式转换}
 
-在数据处理过程中遇到的主要问题包括:
-\begin{itemize}
-    \item 部分代码文件的字符编码不一致,需要异常处理
-    \item 图结构的完整性验证,过滤不合法样本
-    \item 词典构建时需要统一特殊token的命名约定
-\end{itemize}
+在获得 Typilus 原始图数据后，需要将其转换为 NaturalCC 支持的统一格式。
+先调用 \texttt{ncc\_dataset.prepare\_dataset('typilus', \dots)} 读取 Typilus 图文件和 \texttt{dataset.spec}，
+    生成按照训练集、验证集和测试集划分的属性数据集（attributes），其中包含节点特征、边关系和类型标签等信息；
+    然后根据官方提供的 \texttt{typilus.yml} 配置运行预处理脚本，将属性数据集转换为内存映射（mmap）格式，
+    构建节点、边和类型字典，并生成用于训练的二进制文件。
+% \end{itemize}
 
-% 数据集基本统计信息:
-\begin{table}[htbp]
-\centering
-\caption{Typilus数据集基本信息}
-\label{tab:dataset_stat}
-\begin{tabular}{lc}
-\toprule
-\textbf{统计项} & \textbf{数值} \\
-\midrule
-训练样本数 & \textit{待补充} \\
-验证样本数 & \textit{待补充} \\
-测试样本数 & \textit{待补充} \\
-平均图节点数 & \textit{待补充} \\
-类型类别数 & \textit{待补充} \\
-\bottomrule
-\end{tabular}
-\end{table}
+预处理过程中，一些图样本由于别名替换失败或字符编码异常，出现节点被解析为 \texttt{None} 的情况，
+会导致后续脚本报错。
+为此在数据处理代码中增加了异常捕获和完整性检查，对不合法样本进行过滤。
+% 保证整条数据管线可以在大规模数据上顺利跑完。
+
+在对比实验部分，还基于 Typilus 图数据构造了面向 Transformer 序列模型的数据集，
+将图上的类型预测任务改写为 token 序列上的标注任务，
+并重新构建词典，统一 \texttt{[PAD]}、\texttt{[UNK]}、\texttt{<s>}、\texttt{</s>} 等特殊符号的命名和映射。
+相关细节在后续章节中进一步说明。
 
 \subsubsection{数据特点}
 
-数据集呈现出明显的类型分布不平衡特征:
-常见类型(如\texttt{int}、\texttt{str}、\texttt{bool}等)出现频率远高于罕见类型,
-这对模型训练和评估带来挑战。
-此外,不同代码文件构建的图规模差异较大,
-从十几个节点到数千个节点不等,
-需要在训练时进行合理的批处理策略以控制显存占用。
+Typilus 数据集中类型分布非常不均衡：
+\texttt{int}、\texttt{str}、\texttt{bool} 等常见类型的样本远多于长尾类型，
+在训练和评估时容易造成模型偏向高频类型。
+不同代码文件生成的图规模也差异较大，从十几个节点到数千个节点不等，
+在训练时需要配合合适的批处理策略控制显存占用。
 
-\subsection{数据加载}
+\subsection{数据加载与批处理策略}
 
-实验使用DGL提供的图数据加载器进行批处理和多进程加载,
-以提高训练效率。
-由于图规模差异较大,采用动态批处理策略:
-根据图大小动态调整每个批次的样本数,
-使得每批次的总节点数保持在合理范围内,
-避免显存占用不均衡。
+训练阶段使用 DGL 提供的图数据加载器进行批处理和多进程加载，以提高数据读取效率。
+考虑到图规模差异较大，采用基于节点数量的动态批处理策略：
+为每个 mini-batch 设置节点总数上限，根据图的大小自动调整批内样本数量，
+在保证 GPU 利用率的同时避免显存占用过高或批次之间差异过大。
 
-% 数据加载配置:
-% - batch size
-% - 最大节点数限制
-% - 多进程数量
+这一数据加载和批处理方案在 Typilus 图模型和后续的 Transformer 序列模型中保持一致，
+便于在相同数据划分上比较不同模型的效果。

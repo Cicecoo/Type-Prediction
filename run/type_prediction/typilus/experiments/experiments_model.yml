@@ -1,0 +1,166 @@
+# Typilus模型结构超参数实验
+# 目标: 探索模型尺寸、Dropout、批量大小对性能的影响
+# 参考: 分析报告显示 lr=5e-4 最佳 (Acc@1=23.21%, Acc@5=53.33%)
+# 固定最优学习率，探索其他超参数
+
+base_config:
+  optimization:
+    lrs: [5e-4]  # 使用最优学习率
+  distributed_training:
+    device_id: 2  # 使用GPU 2
+  checkpoint:
+    patience: 3  # 防止过拟合
+
+experiments:
+  # 组1: 嵌入维度实验 (embedding dimension)
+  - name: embed_32
+    desc: 嵌入维度32 (减半，测试是否过拟合)
+    params:
+      model:
+        encoder_embed_dim: 32
+        encoder_hidden_size: 32
+        edge_in: 32
+        edge_out: 32
+
+  - name: embed_96
+    desc: 嵌入维度96 (增加50%，提升容量)
+    params:
+      model:
+        encoder_embed_dim: 96
+        encoder_hidden_size: 96
+        edge_in: 96
+        edge_out: 96
+
+  - name: embed_128
+    desc: 嵌入维度128 (翻倍，测试容量上限)
+    params:
+      model:
+        encoder_embed_dim: 128
+        encoder_hidden_size: 128
+        edge_in: 128
+        edge_out: 128
+
+  # 组2: 网络层数实验 (encoder layers)
+  - name: layers_1
+    desc: 单层GGNN (减少层数，测试是否过拟合)
+    params:
+      model:
+        encoder_layers: 1
+
+  - name: layers_3
+    desc: 三层GGNN (增加深度)
+    params:
+      model:
+        encoder_layers: 3
+
+  - name: layers_4
+    desc: 四层GGNN (更深网络)
+    params:
+      model:
+        encoder_layers: 4
+
+  # 组3: Dropout实验 (正则化强度)
+  - name: dropout_0
+    desc: 无Dropout (测试是否需要正则化)
+    params:
+      model:
+        encoder_dropout: 0.0
+        decoder_dropout: 0.0
+
+  - name: dropout_015
+    desc: Dropout=0.15 (适度增强)
+    params:
+      model:
+        encoder_dropout: 0.15
+        decoder_dropout: 0.15
+
+  - name: dropout_02
+    desc: Dropout=0.2 (强正则化)
+    params:
+      model:
+        encoder_dropout: 0.2
+        decoder_dropout: 0.2
+
+  - name: dropout_03
+    desc: Dropout=0.3 (极强正则化)
+    params:
+      model:
+        encoder_dropout: 0.3
+        decoder_dropout: 0.3
+
+  # 组4: 批量大小实验 (batch size)
+  - name: batch_16
+    desc: batch=16 (减半，更多更新)
+    params:
+      dataset:
+        max_sentences: 16
+        max_sentences_valid: 128
+
+  - name: batch_48
+    desc: batch=48 (增加50%)
+    params:
+      dataset:
+        max_sentences: 48
+        max_sentences_valid: 384
+
+  - name: batch_64
+    desc: batch=64 (翻倍，更稳定梯度)
+    params:
+      dataset:
+        max_sentences: 64
+        max_sentences_valid: 512
+
+  # 组5: 组合实验 (最优配置探索)
+  - name: combo_large
+    desc: 大模型配置 (embed=96, layers=3, dropout=0.15)
+    params:
+      model:
+        encoder_embed_dim: 96
+        encoder_hidden_size: 96
+        edge_in: 96
+        edge_out: 96
+        encoder_layers: 3
+        encoder_dropout: 0.15
+        decoder_dropout: 0.15
+
+  - name: combo_deep
+    desc: 深层网络 (layers=4, dropout=0.2, batch=48)
+    params:
+      model:
+        encoder_layers: 4
+        encoder_dropout: 0.2
+        decoder_dropout: 0.2
+      dataset:
+        max_sentences: 48
+        max_sentences_valid: 384
+
+  - name: combo_wide
+    desc: 宽网络 (embed=128, layers=2, dropout=0.15)
+    params:
+      model:
+        encoder_embed_dim: 128
+        encoder_hidden_size: 128
+        edge_in: 128
+        edge_out: 128
+        encoder_dropout: 0.15
+        decoder_dropout: 0.15
+
+# 实验说明:
+# 1. 嵌入维度: 测试模型容量对性能的影响 (32/64/96/128)
+# 2. 网络层数: 测试图传播深度的影响 (1/2/3/4层)
+# 3. Dropout: 测试正则化强度 (0/0.1/0.15/0.2/0.3)
+# 4. 批量大小: 测试梯度估计稳定性 (16/32/48/64)
+# 5. 组合配置: 探索最优超参数组合
+#
+# 预期结果:
+# - embed: 可能需要更大维度以捕获复杂类型关系
+# - layers: 更深网络可能提升图结构学习能力
+# - dropout: 适度dropout可能减少过拟合
+# - batch: 更大batch可能提供更稳定梯度
+#
+# 优先级:
+# 1. 高优先级: embed_96, layers_3, dropout_015, batch_48
+# 2. 中优先级: embed_128, layers_4, dropout_02, batch_64
+# 3. 低优先级: 其他单因素实验
+# 4. 最后: 组合实验 (基于前面结果)
+
