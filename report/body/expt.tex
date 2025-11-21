@@ -1,0 +1,36 @@
+\section{实验结果}
+\label{sec:results}
+
+\subsection{Typilus 学习率实验}
+
+为粗略考察 Typilus 对优化超参数的敏感性，选取学习率
+$\{1.5\times 10^{-3},\,1.25\times 10^{-3},\,1.0\times 10^{-3},\,7.5\times 10^{-4},\,5.0\times 10^{-4}\}$ 
+进行了多组训练实验，其余配置与前文复现实验保持一致。
+
+从训练和验证损失来看，学习率 $1.0\times 10^{-3}$ 在验证集上取得了最小的验证损失
+（约 $3.72$），而 $7.5\times 10^{-4}$ 的 train/valid gap 较小，泛化情况相对稳定。
+在测试集上，Top-1 和 Top-5 准确率对学习率较为敏感，
+在本次设置下，$5.0\times 10^{-4}$ 对应的测试准确率最高：
+Top-1 约为 $23.21\%$，Top-5 约为 $53.33\%$，
+相较于其他学习率有明显提升。
+
+图~\ref{fig:typilus_lr} 给出了不同学习率下 Typilus 训练/验证损失及测试准确率的对比曲线示意。
+
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=0.7\textwidth]{experiments/comparison.png} % 待根据实际路径调整
+%     \caption{不同学习率下 Typilus 的训练/验证损失与测试准确率对比（示意）。}
+%     \label{fig:typilus_lr}
+% \end{figure}
+
+整体来看，在当前数据规模和实现设置下，Typilus 的绝对指标仍有较大提升空间，
+但学习率实验至少说明模型能够稳定收敛，
+并且合理减小学习率可以在不改变模型结构的前提下带来一定的精度收益，
+为后续更系统的超参数搜索提供了参考起点。
+
+\subsection{Transformer 序列模型结果（待补充）}
+
+基于 NaturalCC 框架实现的 Transformer 序列模型目前已完成数据转换和训练流程调试，
+在 Typilus 数据集上的系统性实验仍在运行之中。
+未来计划在相同数据划分下，报出 Top-1 / Top-5 准确率以及与 Typilus 的对比结果，
+相关数值和曲线将在本节补充（\textit{待补充}）。
