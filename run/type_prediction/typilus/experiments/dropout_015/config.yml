@@ -1,0 +1,200 @@
+bpe: null
+checkpoint:
+  best_checkpoint_metric: loss
+  cache_dir: null
+  keep_best_checkpoints: -1
+  keep_interval_updates: 0
+  keep_last_epochs: -1
+  logging_steps: 500
+  maximize_best_checkpoint_metric: 1
+  model_name_or_path: null
+  no_epoch_checkpoints: 1
+  no_last_checkpoints: 0
+  no_save: 0
+  no_save_optimizer_state: null
+  optimizer_overrides: '{}'
+  overwrite_cache: 0
+  overwrite_output_dir: 0
+  patience: 10
+  reset_dataloader: null
+  reset_lr_scheduler: null
+  reset_meters: null
+  reset_optimizer: null
+  restore_file: checkpoint_last.pt
+  save_dir: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/dropout_015/checkpoints
+  save_interval: 1
+  save_interval_updates: 0
+  save_steps: 2000
+  save_total_limit: 2
+  should_continue: 0
+common:
+  bf16: 0
+  cpu: 0
+  empty_cache_freq: 0
+  fp16: 0
+  fp16_init_scale: 128
+  fp16_no_flatten_grads: 1
+  fp16_opt_level: '01'
+  fp16_scale_tolerance: 0.0
+  fp16_scale_window: null
+  log_format: simple
+  log_interval: 50
+  memory_efficient_fp16: 1
+  min_loss_scale: 1e-4
+  no_progress_bar: 0
+  seed: 1
+  server_ip: ''
+  server_port: ''
+  task: typilus
+  tensorboard_logdir: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/dropout_015/tensorboard
+  threshold_loss_scale: null
+criterion: typilus
+dataset:
+  curriculum: 0
+  dataset_impl: mmap
+  disable_validation: 0
+  fixed_validation_seed: null
+  gen_subset: test
+  max_sentences: 32
+  max_sentences_valid: 256
+  max_tokens: null
+  max_tokens_valid: null
+  num_shards: 1
+  num_workers: 0
+  required_batch_size_multiple: 8
+  shard_id: 0
+  skip_invalid_size_inputs_valid_test: 1
+  test_subset: test
+  train_subset: train
+  valid_subset: valid
+  validate_interval: 1
+distributed_training:
+  average_sync: 0
+  block_lr: 1
+  block_momentum: 0.875
+  broadcast_buffers: 0
+  bucket_cap_mb: 25
+  ddp_backend: c10d
+  device_id: 2
+  distributed_backend: nccl
+  distributed_init_method: null
+  distributed_no_spawn: 0
+  distributed_port: -1
+  distributed_rank: 0
+  distributed_world_size: 1
+  fast_stat_sync: 0
+  find_unused_parameters: 0
+  fix_batches_to_gpus: null
+  global_sync_iter: 50
+  local_rank: -1
+  use_nbm: 0
+  warmup_iterations: 500
+eval:
+  beam: 1
+  decoding_format: null
+  diverse_beam_groups: -1
+  diverse_beam_strength: 0.5
+  diversity_rate: -1.0
+  iter_decode_eos_penalty: 0.0
+  iter_decode_force_max_iter: 0
+  iter_decode_max_iter: 10
+  iter_decode_with_beam: 1
+  iter_decode_with_external_reranker: 0
+  lenpen: 1
+  match_source_len: 0
+  max_len_a: 0
+  max_len_b: 30
+  max_sentences: 2048
+  min_len: 1
+  model_overrides: '{}'
+  nbest: 1
+  nltk_bleu: 1
+  no_beamable_mm: 0
+  no_early_stop: 0
+  no_repeat_ngram_size: 0
+  path: ~/naturalcc/typilus/checkpoints/base/checkpoint_best.pt
+  prefix_size: 0
+  print_alignment: 0
+  print_step: 0
+  quiet: 0
+  remove_bpe: null
+  replace_unk: null
+  result_path: null
+  retain_iter_history: 0
+  rouge: 1
+  sacrebleu: 0
+  sampling: 0
+  sampling_topk: -1
+  sampling_topp: -1
+  score_reference: 0
+  temperature: 1.0
+  unkpen: 0
+  unnormalized: 0
+lr_scheduler: fixed
+model:
+  arch: typilus
+  decoder_dropout: 0.15
+  edge_backward: 1
+  edge_in: 64
+  edge_out: 64
+  edge_types: 8
+  encoder_dropout: 0.15
+  encoder_embed_dim: 64
+  encoder_hidden_size: 64
+  encoder_layers: 2
+  max_subtoken_len: 5
+  timesteps:
+  - 7
+  - 1
+optimization:
+  adam:
+    adam_betas: (0.9, 0.999)
+    adam_eps: 1e-8
+    use_old_adam: 0
+    weight_decay: 0.0
+  adam_epsilon: 1e-8
+  clip_norm: 25
+  force_anneal: 0
+  gradient_accumulation_steps: 1
+  lr_shrink: 0.98
+  lrs:
+  - 4e-4
+  margin: 2
+  max_epoch: 0
+  max_grad_norm: 1.0
+  max_steps: -1
+  max_update: 0
+  min_lr: -1
+  num_train_epochs: 5
+  sentence_avg: 1
+  update_freq:
+  - 1
+  use_bmuf: 1
+  warmup_steps: 0
+  warmup_updates: 0
+  weight_decay: 0.0
+optimizer: torch_adam
+task:
+  append_eos_to_target: 1
+  data: ~/typilus/type_inference/data-mmap
+  eval_bleu: 1
+  eval_bleu_args: null
+  eval_bleu_detok: space
+  eval_bleu_detok_args: null
+  eval_bleu_print_samples: 0
+  eval_bleu_remove_bpe: null
+  eval_tokenized_bleu: 0
+  left_pad_source: 0
+  left_pad_target: 0
+  load_alignments: 0
+  max_source_positions: 512
+  max_target_positions: 30
+  source_langs:
+  - nodes
+  - edges
+  target_langs:
+  - supernodes.annotation
+  truncate_source: 1
+  truncate_target: 1
+  upsample_primary: 1
+tokenizer: null

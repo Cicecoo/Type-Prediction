@@ -12,17 +12,6 @@ base_config:
     patience: 3  # 防止过拟合
 
 experiments:
-  - name: layers_3
-    desc: 三层GGNN (增加深度)
-    params:
-      model:
-        encoder_layers: 3
-
-  - name: layers_4
-    desc: 四层GGNN (更深网络)
-    params:
-      model:
-        encoder_layers: 4
 
   # 组3: Dropout实验 (正则化强度)
   - name: dropout_0

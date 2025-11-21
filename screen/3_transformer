@@ -3424,3 +3424,433 @@ Time: 2025-11-20T22:47:03.157582
 [32m[2025-11-21 14:08:12]    INFO >> epoch 016:   3130 / 5058 loss=0.062, ups=1.83, num_updates=79000, lr=0, gnorm=0.415, clip=0, train_wall=51, gb_free=63 (progress_bar.py:258, log())[0m
 [32m[2025-11-21 14:09:05]    INFO >> epoch 016:   3230 / 5058 loss=0.347, ups=1.92, num_updates=79100, lr=0, gnorm=0.622, clip=0, train_wall=49, gb_free=67 (progress_bar.py:258, log())[0m
 [32m[2025-11-21 14:10:11]    INFO >> epoch 016:   3330 / 5058 loss=0.099, ups=1.57, num_updates=79200, lr=0, gnorm=1.447, clip=0, train_wall=59, gb_free=62.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:11:22]    INFO >> epoch 016:   3430 / 5058 loss=0.216, ups=1.47, num_updates=79300, lr=0, gnorm=2.242, clip=0, train_wall=63, gb_free=64.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:12:29]    INFO >> epoch 016:   3530 / 5058 loss=0.095, ups=1.57, num_updates=79400, lr=0, gnorm=0.63, clip=0, train_wall=60, gb_free=64.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:13:35]    INFO >> epoch 016:   3630 / 5058 loss=0.07, ups=1.58, num_updates=79500, lr=0, gnorm=0.998, clip=0, train_wall=59, gb_free=67.6 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:14:37]    INFO >> epoch 016:   3730 / 5058 loss=0.089, ups=1.68, num_updates=79600, lr=0, gnorm=1.309, clip=0, train_wall=56, gb_free=63 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:15:44]    INFO >> epoch 016:   3830 / 5058 loss=0.056, ups=1.56, num_updates=79700, lr=0, gnorm=0.422, clip=0, train_wall=60, gb_free=63.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:16:32]    INFO >> epoch 016:   3930 / 5058 loss=0.121, ups=2.21, num_updates=79800, lr=0, gnorm=0.999, clip=0, train_wall=43, gb_free=66.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:17:37]    INFO >> epoch 016:   4030 / 5058 loss=0.154, ups=1.58, num_updates=79900, lr=0, gnorm=0.663, clip=0, train_wall=59, gb_free=67.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:18:44]    INFO >> epoch 016:   4130 / 5058 loss=0.111, ups=1.55, num_updates=80000, lr=0, gnorm=0.61, clip=0, train_wall=60, gb_free=64.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:19:47]    INFO >> epoch 016:   4230 / 5058 loss=0.15, ups=1.62, num_updates=80100, lr=0, gnorm=1.838, clip=0, train_wall=58, gb_free=68.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:20:46]    INFO >> epoch 016:   4330 / 5058 loss=0.124, ups=1.81, num_updates=80200, lr=0, gnorm=0.701, clip=0, train_wall=51, gb_free=63.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:21:54]    INFO >> epoch 016:   4430 / 5058 loss=0.071, ups=1.53, num_updates=80300, lr=0, gnorm=0.864, clip=0, train_wall=60, gb_free=63.2 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:22:58]    INFO >> epoch 016:   4530 / 5058 loss=0.067, ups=1.64, num_updates=80400, lr=0, gnorm=0.712, clip=0, train_wall=57, gb_free=63.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:24:08]    INFO >> epoch 016:   4630 / 5058 loss=0.193, ups=1.48, num_updates=80500, lr=0, gnorm=1.759, clip=0, train_wall=62, gb_free=63 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:25:19]    INFO >> epoch 016:   4730 / 5058 loss=0.105, ups=1.47, num_updates=80600, lr=0, gnorm=1.865, clip=0, train_wall=62, gb_free=63.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:26:14]    INFO >> epoch 016:   4830 / 5058 loss=0.049, ups=1.86, num_updates=80700, lr=0, gnorm=0.798, clip=0, train_wall=50, gb_free=70.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:27:02]    INFO >> epoch 016:   4930 / 5058 loss=0.081, ups=2.18, num_updates=80800, lr=0, gnorm=0.485, clip=0, train_wall=43, gb_free=63.6 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:28:11]    INFO >> epoch 016:   5030 / 5058 loss=0.125, ups=1.51, num_updates=80900, lr=0, gnorm=1.921, clip=0, train_wall=61, gb_free=62.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:28:31]    INFO >> epoch 016 | loss 0.087 | ups 1.5 | num_updates 80928 | lr 0 | gnorm 0.99 | clip 0 | train_wall 2780 | gb_free 73.9 (progress_bar.py:267, print())[0m
+[33m[2025-11-21 14:28:31] WARNING >> tensorboard or required dependencies not found, please see README for using tensorboard. (e.g. pip install tensorboardX) (progress_bar.py:314, __init__())[0m
+[32m[2025-11-21 14:35:21]    INFO >> epoch 016 | valid on 'valid' subset | loss 0.112 | num_updates 80928 | best_loss 0.112 (progress_bar.py:267, print())[0m
+[32m[2025-11-21 14:35:23]    INFO >> saved checkpoint /mnt/data1/zhaojunzhang/experiments/transformer_series/exp_baseline/checkpoints/checkpoint16.pt (epoch 16 @ 80928 updates, score 0.112) (writing took 1.741945 seconds) (checkpoint_utils.py:78, save_checkpoint())[0m
+[33m[2025-11-21 14:35:23] WARNING >> tensorboard or required dependencies not found, please see README for using tensorboard. (e.g. pip install tensorboardX) (progress_bar.py:314, __init__())[0m
+[32m[2025-11-21 14:35:58]    INFO >> epoch 017:     72 / 5058 loss=0.239, ups=0.22, num_updates=81000, lr=0, gnorm=1.563, clip=0, train_wall=48, gb_free=63.2 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:36:39]    INFO >> epoch 017:    172 / 5058 loss=0.115, ups=2.43, num_updates=81100, lr=0, gnorm=0.427, clip=0, train_wall=38, gb_free=66.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:37:46]    INFO >> epoch 017:    272 / 5058 loss=0.161, ups=1.59, num_updates=81200, lr=0, gnorm=0.536, clip=0, train_wall=58, gb_free=62.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:38:50]    INFO >> epoch 017:    372 / 5058 loss=0.222, ups=1.59, num_updates=81300, lr=0, gnorm=0.78, clip=0, train_wall=58, gb_free=66.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:39:57]    INFO >> epoch 017:    472 / 5058 loss=0.223, ups=1.57, num_updates=81400, lr=0, gnorm=2.122, clip=0, train_wall=59, gb_free=64.2 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:41:02]    INFO >> epoch 017:    572 / 5058 loss=0.067, ups=1.64, num_updates=81500, lr=0, gnorm=1.292, clip=0, train_wall=56, gb_free=63.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:41:51]    INFO >> epoch 017:    672 / 5058 loss=0.077, ups=2.17, num_updates=81600, lr=0, gnorm=0.477, clip=0, train_wall=43, gb_free=78.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:42:32]    INFO >> epoch 017:    772 / 5058 loss=0.147, ups=2.46, num_updates=81700, lr=0, gnorm=1.079, clip=0, train_wall=38, gb_free=77.5 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:43:36]    INFO >> epoch 017:    872 / 5058 loss=0.155, ups=1.64, num_updates=81800, lr=0, gnorm=1.735, clip=0, train_wall=56, gb_free=64.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:44:43]    INFO >> epoch 017:    972 / 5058 loss=0.115, ups=1.57, num_updates=81900, lr=0, gnorm=0.777, clip=0, train_wall=59, gb_free=63.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:45:47]    INFO >> epoch 017:   1072 / 5058 loss=0.056, ups=1.62, num_updates=82000, lr=0, gnorm=0.649, clip=0, train_wall=57, gb_free=68.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:46:51]    INFO >> epoch 017:   1172 / 5058 loss=0.034, ups=1.63, num_updates=82100, lr=0, gnorm=0.22, clip=0, train_wall=57, gb_free=62.6 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:47:57]    INFO >> epoch 017:   1272 / 5058 loss=0.08, ups=1.58, num_updates=82200, lr=0, gnorm=0.743, clip=0, train_wall=58, gb_free=62.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:49:00]    INFO >> epoch 017:   1372 / 5058 loss=0.052, ups=1.63, num_updates=82300, lr=0, gnorm=0.811, clip=0, train_wall=57, gb_free=62.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:50:08]    INFO >> epoch 017:   1472 / 5058 loss=0.175, ups=1.54, num_updates=82400, lr=0, gnorm=0.635, clip=0, train_wall=60, gb_free=66.6 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:51:11]    INFO >> epoch 017:   1572 / 5058 loss=0.076, ups=1.65, num_updates=82500, lr=0, gnorm=0.897, clip=0, train_wall=56, gb_free=63.2 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:52:18]    INFO >> epoch 017:   1672 / 5058 loss=0.147, ups=1.55, num_updates=82600, lr=0, gnorm=1.142, clip=0, train_wall=59, gb_free=67.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:53:22]    INFO >> epoch 017:   1772 / 5058 loss=0.098, ups=1.64, num_updates=82700, lr=0, gnorm=1.116, clip=0, train_wall=56, gb_free=77.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:54:01]    INFO >> epoch 017:   1872 / 5058 loss=0.082, ups=2.62, num_updates=82800, lr=0, gnorm=0.333, clip=0, train_wall=36, gb_free=73.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:54:57]    INFO >> epoch 017:   1972 / 5058 loss=0.107, ups=1.87, num_updates=82900, lr=0, gnorm=0.924, clip=0, train_wall=50, gb_free=68 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:56:05]    INFO >> epoch 017:   2072 / 5058 loss=0.06, ups=1.55, num_updates=83000, lr=0, gnorm=0.527, clip=0, train_wall=60, gb_free=63.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:57:13]    INFO >> epoch 017:   2172 / 5058 loss=0.259, ups=1.49, num_updates=83100, lr=0, gnorm=2.529, clip=0, train_wall=62, gb_free=65.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:58:21]    INFO >> epoch 017:   2272 / 5058 loss=0.07, ups=1.55, num_updates=83200, lr=0, gnorm=0.942, clip=0, train_wall=60, gb_free=70.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 14:59:29]    INFO >> epoch 017:   2372 / 5058 loss=0.063, ups=1.55, num_updates=83300, lr=0, gnorm=0.478, clip=0, train_wall=59, gb_free=68.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:00:39]    INFO >> epoch 017:   2472 / 5058 loss=0.11, ups=1.49, num_updates=83400, lr=0, gnorm=1.061, clip=0, train_wall=61, gb_free=64.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:01:45]    INFO >> epoch 017:   2572 / 5058 loss=0.106, ups=1.59, num_updates=83500, lr=0, gnorm=1.244, clip=0, train_wall=58, gb_free=69.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:02:42]    INFO >> epoch 017:   2672 / 5058 loss=0.081, ups=1.83, num_updates=83600, lr=0, gnorm=0.737, clip=0, train_wall=51, gb_free=62.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:03:47]    INFO >> epoch 017:   2772 / 5058 loss=0.111, ups=1.58, num_updates=83700, lr=0, gnorm=0.766, clip=0, train_wall=58, gb_free=64.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:04:29]    INFO >> epoch 017:   2872 / 5058 loss=0.372, ups=2.49, num_updates=83800, lr=0, gnorm=0.326, clip=0, train_wall=37, gb_free=70.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:05:35]    INFO >> epoch 017:   2972 / 5058 loss=0.159, ups=1.59, num_updates=83900, lr=0, gnorm=1.539, clip=0, train_wall=58, gb_free=63.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:06:36]    INFO >> epoch 017:   3072 / 5058 loss=0.064, ups=1.72, num_updates=84000, lr=0, gnorm=0.427, clip=0, train_wall=54, gb_free=69.2 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:07:37]    INFO >> epoch 017:   3172 / 5058 loss=0.087, ups=1.72, num_updates=84100, lr=0, gnorm=0.69, clip=0, train_wall=54, gb_free=62.6 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:08:30]    INFO >> epoch 017:   3272 / 5058 loss=0.116, ups=1.88, num_updates=84200, lr=0, gnorm=0.536, clip=0, train_wall=49, gb_free=70.5 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:09:43]    INFO >> epoch 017:   3372 / 5058 loss=0.129, ups=1.45, num_updates=84300, lr=0, gnorm=2.287, clip=0, train_wall=63, gb_free=62.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:10:53]    INFO >> epoch 017:   3472 / 5058 loss=0.207, ups=1.48, num_updates=84400, lr=0, gnorm=1.521, clip=0, train_wall=61, gb_free=65.2 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:11:59]    INFO >> epoch 017:   3572 / 5058 loss=0.089, ups=1.56, num_updates=84500, lr=0, gnorm=1.059, clip=0, train_wall=59, gb_free=63.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:13:04]    INFO >> epoch 017:   3672 / 5058 loss=0.072, ups=1.62, num_updates=84600, lr=0, gnorm=0.966, clip=0, train_wall=57, gb_free=62.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:14:13]    INFO >> epoch 017:   3772 / 5058 loss=0.056, ups=1.5, num_updates=84700, lr=0, gnorm=0.703, clip=0, train_wall=61, gb_free=64.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:15:08]    INFO >> epoch 017:   3872 / 5058 loss=0.099, ups=1.86, num_updates=84800, lr=0, gnorm=0.698, clip=0, train_wall=49, gb_free=71.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:16:09]    INFO >> epoch 017:   3972 / 5058 loss=0.129, ups=1.77, num_updates=84900, lr=0, gnorm=1.095, clip=0, train_wall=52, gb_free=63.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:17:14]    INFO >> epoch 017:   4072 / 5058 loss=0.207, ups=1.6, num_updates=85000, lr=0, gnorm=0.445, clip=0, train_wall=57, gb_free=62.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:18:24]    INFO >> epoch 017:   4172 / 5058 loss=0.145, ups=1.49, num_updates=85100, lr=0, gnorm=1.222, clip=0, train_wall=61, gb_free=63.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:19:27]    INFO >> epoch 017:   4272 / 5058 loss=0.104, ups=1.65, num_updates=85200, lr=0, gnorm=1.104, clip=0, train_wall=56, gb_free=77.5 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:20:29]    INFO >> epoch 017:   4372 / 5058 loss=0.084, ups=1.69, num_updates=85300, lr=0, gnorm=1.065, clip=0, train_wall=54, gb_free=64 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:21:36]    INFO >> epoch 017:   4472 / 5058 loss=0.07, ups=1.57, num_updates=85400, lr=0, gnorm=0.789, clip=0, train_wall=59, gb_free=74.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:22:40]    INFO >> epoch 017:   4572 / 5058 loss=0.12, ups=1.59, num_updates=85500, lr=0, gnorm=0.643, clip=0, train_wall=58, gb_free=63.6 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:23:54]    INFO >> epoch 017:   4672 / 5058 loss=0.216, ups=1.43, num_updates=85600, lr=0, gnorm=2.392, clip=0, train_wall=64, gb_free=65.5 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:24:58]    INFO >> epoch 017:   4772 / 5058 loss=0.079, ups=1.63, num_updates=85700, lr=0, gnorm=1.17, clip=0, train_wall=56, gb_free=63.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:25:47]    INFO >> epoch 017:   4872 / 5058 loss=0.035, ups=2.08, num_updates=85800, lr=0, gnorm=0.556, clip=0, train_wall=44, gb_free=77.2 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:26:47]    INFO >> epoch 017:   4972 / 5058 loss=0.075, ups=1.76, num_updates=85900, lr=0, gnorm=0.971, clip=0, train_wall=52, gb_free=63 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:27:49]    INFO >> epoch 017 | loss 0.087 | ups 1.48 | num_updates 85986 | lr 0 | gnorm 0.99 | clip 0 | train_wall 2777 | gb_free 73.9 (progress_bar.py:267, print())[0m
+[33m[2025-11-21 15:27:49] WARNING >> tensorboard or required dependencies not found, please see README for using tensorboard. (e.g. pip install tensorboardX) (progress_bar.py:314, __init__())[0m
+[32m[2025-11-21 15:34:45]    INFO >> epoch 017 | valid on 'valid' subset | loss 0.112 | num_updates 85986 | best_loss 0.112 (progress_bar.py:267, print())[0m
+[32m[2025-11-21 15:34:47]    INFO >> saved checkpoint /mnt/data1/zhaojunzhang/experiments/transformer_series/exp_baseline/checkpoints/checkpoint17.pt (epoch 17 @ 85986 updates, score 0.112) (writing took 1.958442 seconds) (checkpoint_utils.py:78, save_checkpoint())[0m
+[33m[2025-11-21 15:34:47] WARNING >> tensorboard or required dependencies not found, please see README for using tensorboard. (e.g. pip install tensorboardX) (progress_bar.py:314, __init__())[0m
+[32m[2025-11-21 15:34:57]    INFO >> epoch 018:     14 / 5058 loss=0.175, ups=0.21, num_updates=86000, lr=0, gnorm=2.244, clip=0, train_wall=64, gb_free=63.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:35:39]    INFO >> epoch 018:    114 / 5058 loss=0.402, ups=2.55, num_updates=86100, lr=0, gnorm=0.804, clip=0, train_wall=37, gb_free=65.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:36:32]    INFO >> epoch 018:    214 / 5058 loss=0.132, ups=1.95, num_updates=86200, lr=0, gnorm=0.496, clip=0, train_wall=47, gb_free=64.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:37:36]    INFO >> epoch 018:    314 / 5058 loss=0.108, ups=1.62, num_updates=86300, lr=0, gnorm=0.368, clip=0, train_wall=58, gb_free=65.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:38:44]    INFO >> epoch 018:    414 / 5058 loss=0.264, ups=1.54, num_updates=86400, lr=0, gnorm=1.792, clip=0, train_wall=60, gb_free=62.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:39:48]    INFO >> epoch 018:    514 / 5058 loss=0.144, ups=1.64, num_updates=86500, lr=0, gnorm=1.529, clip=0, train_wall=56, gb_free=69.6 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:40:51]    INFO >> epoch 018:    614 / 5058 loss=0.064, ups=1.65, num_updates=86600, lr=0, gnorm=0.995, clip=0, train_wall=56, gb_free=64 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:41:32]    INFO >> epoch 018:    714 / 5058 loss=0.157, ups=2.51, num_updates=86700, lr=0, gnorm=1.02, clip=0, train_wall=37, gb_free=63.6 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:42:20]    INFO >> epoch 018:    814 / 5058 loss=0.109, ups=2.21, num_updates=86800, lr=0, gnorm=0.446, clip=0, train_wall=42, gb_free=62.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:43:30]    INFO >> epoch 018:    914 / 5058 loss=0.164, ups=1.49, num_updates=86900, lr=0, gnorm=2.214, clip=0, train_wall=61, gb_free=63.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:44:37]    INFO >> epoch 018:   1014 / 5058 loss=0.093, ups=1.56, num_updates=87000, lr=0, gnorm=0.211, clip=0, train_wall=59, gb_free=64.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:45:36]    INFO >> epoch 018:   1114 / 5058 loss=0.044, ups=1.74, num_updates=87100, lr=0, gnorm=0.785, clip=0, train_wall=53, gb_free=65.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:46:42]    INFO >> epoch 018:   1214 / 5058 loss=0.036, ups=1.55, num_updates=87200, lr=0, gnorm=0.274, clip=0, train_wall=59, gb_free=67 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:47:50]    INFO >> epoch 018:   1314 / 5058 loss=0.071, ups=1.54, num_updates=87300, lr=0, gnorm=0.602, clip=0, train_wall=59, gb_free=63.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:48:56]    INFO >> epoch 018:   1414 / 5058 loss=0.058, ups=1.58, num_updates=87400, lr=0, gnorm=0.896, clip=0, train_wall=58, gb_free=64 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:50:04]    INFO >> epoch 018:   1514 / 5058 loss=0.225, ups=1.54, num_updates=87500, lr=0, gnorm=0.98, clip=0, train_wall=59, gb_free=63.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:51:07]    INFO >> epoch 018:   1614 / 5058 loss=0.086, ups=1.65, num_updates=87600, lr=0, gnorm=1.06, clip=0, train_wall=55, gb_free=64.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:52:14]    INFO >> epoch 018:   1714 / 5058 loss=0.12, ups=1.56, num_updates=87700, lr=0, gnorm=0.843, clip=0, train_wall=59, gb_free=66.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:53:08]    INFO >> epoch 018:   1814 / 5058 loss=0.089, ups=1.95, num_updates=87800, lr=0, gnorm=0.811, clip=0, train_wall=47, gb_free=68 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:53:52]    INFO >> epoch 018:   1914 / 5058 loss=0.162, ups=2.32, num_updates=87900, lr=0, gnorm=1.193, clip=0, train_wall=40, gb_free=64.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:54:58]    INFO >> epoch 018:   2014 / 5058 loss=0.073, ups=1.58, num_updates=88000, lr=0, gnorm=0.285, clip=0, train_wall=58, gb_free=62.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:56:07]    INFO >> epoch 018:   2114 / 5058 loss=0.074, ups=1.5, num_updates=88100, lr=0, gnorm=1.365, clip=0, train_wall=61, gb_free=63.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:57:15]    INFO >> epoch 018:   2214 / 5058 loss=0.188, ups=1.53, num_updates=88200, lr=0, gnorm=1.794, clip=0, train_wall=60, gb_free=64.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:58:25]    INFO >> epoch 018:   2314 / 5058 loss=0.059, ups=1.5, num_updates=88300, lr=0, gnorm=0.744, clip=0, train_wall=61, gb_free=65 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 15:59:32]    INFO >> epoch 018:   2414 / 5058 loss=0.07, ups=1.56, num_updates=88400, lr=0, gnorm=0.382, clip=0, train_wall=58, gb_free=62.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:00:44]    INFO >> epoch 018:   2514 / 5058 loss=0.155, ups=1.42, num_updates=88500, lr=0, gnorm=1.784, clip=0, train_wall=64, gb_free=68.2 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:01:44]    INFO >> epoch 018:   2614 / 5058 loss=0.099, ups=1.77, num_updates=88600, lr=0, gnorm=1.024, clip=0, train_wall=52, gb_free=70 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:02:47]    INFO >> epoch 018:   2714 / 5058 loss=0.089, ups=1.65, num_updates=88700, lr=0, gnorm=0.462, clip=0, train_wall=55, gb_free=63 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:03:47]    INFO >> epoch 018:   2814 / 5058 loss=0.067, ups=1.73, num_updates=88800, lr=0, gnorm=0.472, clip=0, train_wall=53, gb_free=68.5 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:04:31]    INFO >> epoch 018:   2914 / 5058 loss=0.199, ups=2.36, num_updates=88900, lr=0, gnorm=1.128, clip=0, train_wall=39, gb_free=64.5 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:05:40]    INFO >> epoch 018:   3014 / 5058 loss=0.138, ups=1.51, num_updates=89000, lr=0, gnorm=1.048, clip=0, train_wall=61, gb_free=67.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:06:36]    INFO >> epoch 018:   3114 / 5058 loss=0.062, ups=1.86, num_updates=89100, lr=0, gnorm=0.387, clip=0, train_wall=50, gb_free=62.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:07:35]    INFO >> epoch 018:   3214 / 5058 loss=0.353, ups=1.79, num_updates=89200, lr=0, gnorm=0.708, clip=0, train_wall=51, gb_free=63.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:08:37]    INFO >> epoch 018:   3314 / 5058 loss=0.087, ups=1.64, num_updates=89300, lr=0, gnorm=0.998, clip=0, train_wall=56, gb_free=62.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:09:50]    INFO >> epoch 018:   3414 / 5058 loss=0.231, ups=1.44, num_updates=89400, lr=0, gnorm=2.479, clip=0, train_wall=63, gb_free=77.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:10:58]    INFO >> epoch 018:   3514 / 5058 loss=0.123, ups=1.53, num_updates=89500, lr=0, gnorm=0.749, clip=0, train_wall=60, gb_free=62.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:12:06]    INFO >> epoch 018:   3614 / 5058 loss=0.072, ups=1.53, num_updates=89600, lr=0, gnorm=1.058, clip=0, train_wall=60, gb_free=65 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:13:08]    INFO >> epoch 018:   3714 / 5058 loss=0.113, ups=1.69, num_updates=89700, lr=0, gnorm=1.043, clip=0, train_wall=55, gb_free=63.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:14:17]    INFO >> epoch 018:   3814 / 5058 loss=0.055, ups=1.5, num_updates=89800, lr=0, gnorm=0.64, clip=0, train_wall=61, gb_free=63.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:15:03]    INFO >> epoch 018:   3914 / 5058 loss=0.11, ups=2.26, num_updates=89900, lr=0, gnorm=1.033, clip=0, train_wall=41, gb_free=64.5 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:16:10]    INFO >> epoch 018:   4014 / 5058 loss=0.161, ups=1.55, num_updates=90000, lr=0, gnorm=0.71, clip=0, train_wall=59, gb_free=67.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:17:17]    INFO >> epoch 018:   4114 / 5058 loss=0.308, ups=1.56, num_updates=90100, lr=0, gnorm=0.55, clip=0, train_wall=59, gb_free=67.2 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:18:24]    INFO >> epoch 018:   4214 / 5058 loss=0.138, ups=1.56, num_updates=90200, lr=0, gnorm=1.697, clip=0, train_wall=59, gb_free=75.2 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:19:26]    INFO >> epoch 018:   4314 / 5058 loss=0.11, ups=1.68, num_updates=90300, lr=0, gnorm=0.771, clip=0, train_wall=55, gb_free=76.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:20:31]    INFO >> epoch 018:   4414 / 5058 loss=0.07, ups=1.61, num_updates=90400, lr=0, gnorm=0.975, clip=0, train_wall=57, gb_free=67.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:21:35]    INFO >> epoch 018:   4514 / 5058 loss=0.07, ups=1.62, num_updates=90500, lr=0, gnorm=0.731, clip=0, train_wall=57, gb_free=67.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:22:45]    INFO >> epoch 018:   4614 / 5058 loss=0.195, ups=1.48, num_updates=90600, lr=0, gnorm=1.366, clip=0, train_wall=62, gb_free=62.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:23:58]    INFO >> epoch 018:   4714 / 5058 loss=0.188, ups=1.44, num_updates=90700, lr=0, gnorm=2.179, clip=0, train_wall=63, gb_free=62.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:24:59]    INFO >> epoch 018:   4814 / 5058 loss=0.046, ups=1.69, num_updates=90800, lr=0, gnorm=0.599, clip=0, train_wall=54, gb_free=63.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:25:43]    INFO >> epoch 018:   4914 / 5058 loss=0.107, ups=2.34, num_updates=90900, lr=0, gnorm=0.681, clip=0, train_wall=39, gb_free=63.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:26:52]    INFO >> epoch 018:   5014 / 5058 loss=0.096, ups=1.52, num_updates=91000, lr=0, gnorm=1.723, clip=0, train_wall=60, gb_free=64.5 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:27:24]    INFO >> epoch 018 | loss 0.087 | ups 1.47 | num_updates 91044 | lr 0 | gnorm 0.99 | clip 0 | train_wall 2779 | gb_free 73.9 (progress_bar.py:267, print())[0m
+[33m[2025-11-21 16:27:24] WARNING >> tensorboard or required dependencies not found, please see README for using tensorboard. (e.g. pip install tensorboardX) (progress_bar.py:314, __init__())[0m
+[32m[2025-11-21 16:34:14]    INFO >> epoch 018 | valid on 'valid' subset | loss 0.112 | num_updates 91044 | best_loss 0.112 (progress_bar.py:267, print())[0m
+[32m[2025-11-21 16:34:15]    INFO >> saved checkpoint /mnt/data1/zhaojunzhang/experiments/transformer_series/exp_baseline/checkpoints/checkpoint18.pt (epoch 18 @ 91044 updates, score 0.112) (writing took 1.833469 seconds) (checkpoint_utils.py:78, save_checkpoint())[0m
+[33m[2025-11-21 16:34:16] WARNING >> tensorboard or required dependencies not found, please see README for using tensorboard. (e.g. pip install tensorboardX) (progress_bar.py:314, __init__())[0m
+[32m[2025-11-21 16:34:43]    INFO >> epoch 019:     56 / 5058 loss=0.205, ups=0.22, num_updates=91100, lr=0, gnorm=1.59, clip=0, train_wall=51, gb_free=69.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:35:29]    INFO >> epoch 019:    156 / 5058 loss=0.141, ups=2.22, num_updates=91200, lr=0, gnorm=0.623, clip=0, train_wall=42, gb_free=72.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:36:29]    INFO >> epoch 019:    256 / 5058 loss=0.196, ups=1.74, num_updates=91300, lr=0, gnorm=0.291, clip=0, train_wall=53, gb_free=66.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:37:34]    INFO >> epoch 019:    356 / 5058 loss=0.156, ups=1.6, num_updates=91400, lr=0, gnorm=0.796, clip=0, train_wall=57, gb_free=69.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:38:44]    INFO >> epoch 019:    456 / 5058 loss=0.232, ups=1.5, num_updates=91500, lr=0, gnorm=2.3, clip=0, train_wall=61, gb_free=71.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:39:48]    INFO >> epoch 019:    556 / 5058 loss=0.067, ups=1.63, num_updates=91600, lr=0, gnorm=1.09, clip=0, train_wall=56, gb_free=64.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:40:44]    INFO >> epoch 019:    656 / 5058 loss=0.08, ups=1.88, num_updates=91700, lr=0, gnorm=0.79, clip=0, train_wall=49, gb_free=66.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:41:23]    INFO >> epoch 019:    756 / 5058 loss=0.144, ups=2.66, num_updates=91800, lr=0, gnorm=0.993, clip=0, train_wall=35, gb_free=64.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:42:21]    INFO >> epoch 019:    856 / 5058 loss=0.159, ups=1.79, num_updates=91900, lr=0, gnorm=1.531, clip=0, train_wall=51, gb_free=69.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:43:30]    INFO >> epoch 019:    956 / 5058 loss=0.119, ups=1.51, num_updates=92000, lr=0, gnorm=0.949, clip=0, train_wall=60, gb_free=70.2 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:44:34]    INFO >> epoch 019:   1056 / 5058 loss=0.108, ups=1.63, num_updates=92100, lr=0, gnorm=0.751, clip=0, train_wall=56, gb_free=63.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:45:36]    INFO >> epoch 019:   1156 / 5058 loss=0.035, ups=1.66, num_updates=92200, lr=0, gnorm=0.213, clip=0, train_wall=55, gb_free=63.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:46:43]    INFO >> epoch 019:   1256 / 5058 loss=0.052, ups=1.54, num_updates=92300, lr=0, gnorm=0.571, clip=0, train_wall=59, gb_free=66.2 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:47:48]    INFO >> epoch 019:   1356 / 5058 loss=0.056, ups=1.61, num_updates=92400, lr=0, gnorm=0.817, clip=0, train_wall=57, gb_free=67.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:48:57]    INFO >> epoch 019:   1456 / 5058 loss=0.161, ups=1.51, num_updates=92500, lr=0, gnorm=0.768, clip=0, train_wall=60, gb_free=66.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:50:02]    INFO >> epoch 019:   1556 / 5058 loss=0.078, ups=1.61, num_updates=92600, lr=0, gnorm=0.951, clip=0, train_wall=57, gb_free=64.6 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:51:07]    INFO >> epoch 019:   1656 / 5058 loss=0.144, ups=1.6, num_updates=92700, lr=0, gnorm=1.096, clip=0, train_wall=57, gb_free=64.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:52:14]    INFO >> epoch 019:   1756 / 5058 loss=0.104, ups=1.55, num_updates=92800, lr=0, gnorm=0.883, clip=0, train_wall=59, gb_free=65.2 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:52:55]    INFO >> epoch 019:   1856 / 5058 loss=0.086, ups=2.56, num_updates=92900, lr=0, gnorm=0.612, clip=0, train_wall=36, gb_free=65.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:53:49]    INFO >> epoch 019:   1956 / 5058 loss=0.107, ups=1.92, num_updates=93000, lr=0, gnorm=0.924, clip=0, train_wall=48, gb_free=70.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:54:56]    INFO >> epoch 019:   2056 / 5058 loss=0.066, ups=1.55, num_updates=93100, lr=0, gnorm=0.446, clip=0, train_wall=59, gb_free=69.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:56:08]    INFO >> epoch 019:   2156 / 5058 loss=0.126, ups=1.45, num_updates=93200, lr=0, gnorm=2.288, clip=0, train_wall=62, gb_free=66.6 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:57:16]    INFO >> epoch 019:   2256 / 5058 loss=0.071, ups=1.54, num_updates=93300, lr=0, gnorm=0.964, clip=0, train_wall=59, gb_free=63.6 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:58:23]    INFO >> epoch 019:   2356 / 5058 loss=0.072, ups=1.53, num_updates=93400, lr=0, gnorm=0.779, clip=0, train_wall=60, gb_free=62.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 16:59:32]    INFO >> epoch 019:   2456 / 5058 loss=0.097, ups=1.52, num_updates=93500, lr=0, gnorm=0.849, clip=0, train_wall=60, gb_free=64.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:00:39]    INFO >> epoch 019:   2556 / 5058 loss=0.149, ups=1.52, num_updates=93600, lr=0, gnorm=1.221, clip=0, train_wall=60, gb_free=68.6 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:01:37]    INFO >> epoch 019:   2656 / 5058 loss=0.071, ups=1.85, num_updates=93700, lr=0, gnorm=0.869, clip=0, train_wall=50, gb_free=71.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:02:44]    INFO >> epoch 019:   2756 / 5058 loss=0.118, ups=1.56, num_updates=93800, lr=0, gnorm=0.869, clip=0, train_wall=59, gb_free=65.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:03:28]    INFO >> epoch 019:   2856 / 5058 loss=1.83, ups=2.33, num_updates=93900, lr=0, gnorm=0.18, clip=0, train_wall=40, gb_free=75.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:04:30]    INFO >> epoch 019:   2956 / 5058 loss=0.173, ups=1.7, num_updates=94000, lr=0, gnorm=1.517, clip=0, train_wall=54, gb_free=65.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:05:33]    INFO >> epoch 019:   3056 / 5058 loss=0.071, ups=1.64, num_updates=94100, lr=0, gnorm=0.572, clip=0, train_wall=56, gb_free=63.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:06:32]    INFO >> epoch 019:   3156 / 5058 loss=0.073, ups=1.77, num_updates=94200, lr=0, gnorm=0.713, clip=0, train_wall=52, gb_free=68.2 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:07:27]    INFO >> epoch 019:   3256 / 5058 loss=0.177, ups=1.88, num_updates=94300, lr=0, gnorm=0.457, clip=0, train_wall=49, gb_free=64.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:08:37]    INFO >> epoch 019:   3356 / 5058 loss=0.109, ups=1.5, num_updates=94400, lr=0, gnorm=2.007, clip=0, train_wall=61, gb_free=63.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:09:49]    INFO >> epoch 019:   3456 / 5058 loss=0.218, ups=1.46, num_updates=94500, lr=0, gnorm=1.881, clip=0, train_wall=62, gb_free=64.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:10:56]    INFO >> epoch 019:   3556 / 5058 loss=0.083, ups=1.56, num_updates=94600, lr=0, gnorm=0.944, clip=0, train_wall=59, gb_free=66 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:12:01]    INFO >> epoch 019:   3656 / 5058 loss=0.076, ups=1.6, num_updates=94700, lr=0, gnorm=0.714, clip=0, train_wall=57, gb_free=74.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:13:09]    INFO >> epoch 019:   3756 / 5058 loss=0.058, ups=1.53, num_updates=94800, lr=0, gnorm=0.978, clip=0, train_wall=60, gb_free=65.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:14:09]    INFO >> epoch 019:   3856 / 5058 loss=0.086, ups=1.7, num_updates=94900, lr=0, gnorm=0.75, clip=0, train_wall=54, gb_free=62.6 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:15:05]    INFO >> epoch 019:   3956 / 5058 loss=0.128, ups=1.88, num_updates=95000, lr=0, gnorm=0.929, clip=0, train_wall=49, gb_free=65.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:16:09]    INFO >> epoch 019:   4056 / 5058 loss=0.171, ups=1.64, num_updates=95100, lr=0, gnorm=0.489, clip=0, train_wall=56, gb_free=64 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:17:19]    INFO >> epoch 019:   4156 / 5058 loss=0.144, ups=1.49, num_updates=95200, lr=0, gnorm=1.053, clip=0, train_wall=61, gb_free=63.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:18:23]    INFO >> epoch 019:   4256 / 5058 loss=0.122, ups=1.63, num_updates=95300, lr=0, gnorm=1.402, clip=0, train_wall=56, gb_free=66.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:19:23]    INFO >> epoch 019:   4356 / 5058 loss=0.076, ups=1.73, num_updates=95400, lr=0, gnorm=0.907, clip=0, train_wall=53, gb_free=62.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:20:32]    INFO >> epoch 019:   4456 / 5058 loss=0.103, ups=1.52, num_updates=95500, lr=0, gnorm=0.835, clip=0, train_wall=60, gb_free=74 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:21:35]    INFO >> epoch 019:   4556 / 5058 loss=0.059, ups=1.66, num_updates=95600, lr=0, gnorm=0.418, clip=0, train_wall=56, gb_free=64.2 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:22:46]    INFO >> epoch 019:   4656 / 5058 loss=0.209, ups=1.45, num_updates=95700, lr=0, gnorm=2.337, clip=0, train_wall=64, gb_free=65.2 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:23:52]    INFO >> epoch 019:   4756 / 5058 loss=0.073, ups=1.59, num_updates=95800, lr=0, gnorm=1.406, clip=0, train_wall=59, gb_free=65.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:24:41]    INFO >> epoch 019:   4856 / 5058 loss=0.048, ups=2.11, num_updates=95900, lr=0, gnorm=0.64, clip=0, train_wall=45, gb_free=75.6 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:25:36]    INFO >> epoch 019:   4956 / 5058 loss=0.075, ups=1.89, num_updates=96000, lr=0, gnorm=0.81, clip=0, train_wall=49, gb_free=63 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:26:47]    INFO >> epoch 019:   5056 / 5058 loss=0.17, ups=1.47, num_updates=96100, lr=0, gnorm=2.343, clip=0, train_wall=63, gb_free=64.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:26:48]    INFO >> epoch 019 | loss 0.087 | ups 1.48 | num_updates 96102 | lr 0 | gnorm 0.99 | clip 0 | train_wall 2780 | gb_free 73.9 (progress_bar.py:267, print())[0m
+[33m[2025-11-21 17:26:48] WARNING >> tensorboard or required dependencies not found, please see README for using tensorboard. (e.g. pip install tensorboardX) (progress_bar.py:314, __init__())[0m
+[32m[2025-11-21 17:33:36]    INFO >> epoch 019 | valid on 'valid' subset | loss 0.112 | num_updates 96102 | best_loss 0.112 (progress_bar.py:267, print())[0m
+[32m[2025-11-21 17:33:38]    INFO >> saved checkpoint /mnt/data1/zhaojunzhang/experiments/transformer_series/exp_baseline/checkpoints/checkpoint19.pt (epoch 19 @ 96102 updates, score 0.112) (writing took 1.708493 seconds) (checkpoint_utils.py:78, save_checkpoint())[0m
+[33m[2025-11-21 17:33:38] WARNING >> tensorboard or required dependencies not found, please see README for using tensorboard. (e.g. pip install tensorboardX) (progress_bar.py:314, __init__())[0m
+[32m[2025-11-21 17:34:23]    INFO >> epoch 020:     98 / 5058 loss=0.347, ups=0.23, num_updates=96200, lr=0, gnorm=0.913, clip=0, train_wall=41, gb_free=78.2 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:35:13]    INFO >> epoch 020:    198 / 5058 loss=0.133, ups=2.11, num_updates=96300, lr=0, gnorm=0.481, clip=0, train_wall=44, gb_free=63.5 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:36:20]    INFO >> epoch 020:    298 / 5058 loss=0.151, ups=1.56, num_updates=96400, lr=0, gnorm=0.433, clip=0, train_wall=59, gb_free=62.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:37:27]    INFO >> epoch 020:    398 / 5058 loss=0.213, ups=1.54, num_updates=96500, lr=0, gnorm=1.413, clip=0, train_wall=60, gb_free=66.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:38:32]    INFO >> epoch 020:    498 / 5058 loss=0.158, ups=1.61, num_updates=96600, lr=0, gnorm=1.583, clip=0, train_wall=57, gb_free=64.5 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:39:36]    INFO >> epoch 020:    598 / 5058 loss=0.066, ups=1.64, num_updates=96700, lr=0, gnorm=1.248, clip=0, train_wall=56, gb_free=63.5 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:40:20]    INFO >> epoch 020:    698 / 5058 loss=0.142, ups=2.34, num_updates=96800, lr=0, gnorm=0.722, clip=0, train_wall=39, gb_free=64.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:41:03]    INFO >> epoch 020:    798 / 5058 loss=0.137, ups=2.37, num_updates=96900, lr=0, gnorm=0.795, clip=0, train_wall=39, gb_free=62.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:42:13]    INFO >> epoch 020:    898 / 5058 loss=0.167, ups=1.49, num_updates=97000, lr=0, gnorm=2.064, clip=0, train_wall=61, gb_free=66.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:43:20]    INFO >> epoch 020:    998 / 5058 loss=0.099, ups=1.55, num_updates=97100, lr=0, gnorm=0.39, clip=0, train_wall=59, gb_free=64.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:44:23]    INFO >> epoch 020:   1098 / 5058 loss=0.051, ups=1.68, num_updates=97200, lr=0, gnorm=0.767, clip=0, train_wall=54, gb_free=70.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:45:30]    INFO >> epoch 020:   1198 / 5058 loss=0.032, ups=1.56, num_updates=97300, lr=0, gnorm=0.2, clip=0, train_wall=58, gb_free=66.2 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:46:37]    INFO >> epoch 020:   1298 / 5058 loss=0.086, ups=1.55, num_updates=97400, lr=0, gnorm=0.686, clip=0, train_wall=59, gb_free=65.6 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:47:43]    INFO >> epoch 020:   1398 / 5058 loss=0.053, ups=1.58, num_updates=97500, lr=0, gnorm=0.787, clip=0, train_wall=58, gb_free=64.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:48:50]    INFO >> epoch 020:   1498 / 5058 loss=0.24, ups=1.54, num_updates=97600, lr=0, gnorm=0.617, clip=0, train_wall=59, gb_free=64.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:49:54]    INFO >> epoch 020:   1598 / 5058 loss=0.078, ups=1.66, num_updates=97700, lr=0, gnorm=1.308, clip=0, train_wall=55, gb_free=68.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:51:03]    INFO >> epoch 020:   1698 / 5058 loss=0.124, ups=1.51, num_updates=97800, lr=0, gnorm=0.81, clip=0, train_wall=60, gb_free=63.6 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:52:00]    INFO >> epoch 020:   1798 / 5058 loss=0.1, ups=1.83, num_updates=97900, lr=0, gnorm=1.059, clip=0, train_wall=50, gb_free=67.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:52:41]    INFO >> epoch 020:   1898 / 5058 loss=0.14, ups=2.5, num_updates=98000, lr=0, gnorm=0.697, clip=0, train_wall=37, gb_free=76.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:53:45]    INFO >> epoch 020:   1998 / 5058 loss=0.091, ups=1.63, num_updates=98100, lr=0, gnorm=0.542, clip=0, train_wall=56, gb_free=63.5 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:54:54]    INFO >> epoch 020:   2098 / 5058 loss=0.073, ups=1.5, num_updates=98200, lr=0, gnorm=1.473, clip=0, train_wall=60, gb_free=62.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:56:03]    INFO >> epoch 020:   2198 / 5058 loss=0.256, ups=1.51, num_updates=98300, lr=0, gnorm=1.789, clip=0, train_wall=60, gb_free=62.6 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:57:14]    INFO >> epoch 020:   2298 / 5058 loss=0.062, ups=1.48, num_updates=98400, lr=0, gnorm=0.896, clip=0, train_wall=61, gb_free=63.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:58:22]    INFO >> epoch 020:   2398 / 5058 loss=0.064, ups=1.54, num_updates=98500, lr=0, gnorm=0.316, clip=0, train_wall=59, gb_free=70.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 17:59:34]    INFO >> epoch 020:   2498 / 5058 loss=0.127, ups=1.43, num_updates=98600, lr=0, gnorm=1.472, clip=0, train_wall=63, gb_free=63.6 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:00:34]    INFO >> epoch 020:   2598 / 5058 loss=0.108, ups=1.74, num_updates=98700, lr=0, gnorm=1.128, clip=0, train_wall=53, gb_free=62.6 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:01:38]    INFO >> epoch 020:   2698 / 5058 loss=0.087, ups=1.65, num_updates=98800, lr=0, gnorm=0.656, clip=0, train_wall=55, gb_free=63.5 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:02:42]    INFO >> epoch 020:   2798 / 5058 loss=0.087, ups=1.61, num_updates=98900, lr=0, gnorm=0.552, clip=0, train_wall=57, gb_free=66.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:03:24]    INFO >> epoch 020:   2898 / 5058 loss=0.264, ups=2.5, num_updates=99000, lr=0, gnorm=0.774, clip=0, train_wall=37, gb_free=62.6 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:04:32]    INFO >> epoch 020:   2998 / 5058 loss=0.136, ups=1.51, num_updates=99100, lr=0, gnorm=1.402, clip=0, train_wall=60, gb_free=65 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:05:29]    INFO >> epoch 020:   3098 / 5058 loss=0.057, ups=1.85, num_updates=99200, lr=0, gnorm=0.147, clip=0, train_wall=50, gb_free=71.5 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:06:29]    INFO >> epoch 020:   3198 / 5058 loss=0.251, ups=1.74, num_updates=99300, lr=0, gnorm=0.949, clip=0, train_wall=52, gb_free=63.2 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:07:32]    INFO >> epoch 020:   3298 / 5058 loss=0.078, ups=1.66, num_updates=99400, lr=0, gnorm=0.681, clip=0, train_wall=55, gb_free=62.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:08:45]    INFO >> epoch 020:   3398 / 5058 loss=0.224, ups=1.4, num_updates=99500, lr=0, gnorm=2.545, clip=0, train_wall=64, gb_free=65.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:09:51]    INFO >> epoch 020:   3498 / 5058 loss=0.176, ups=1.53, num_updates=99600, lr=0, gnorm=0.83, clip=0, train_wall=60, gb_free=63.2 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:11:03]    INFO >> epoch 020:   3598 / 5058 loss=0.072, ups=1.52, num_updates=99700, lr=0, gnorm=1.199, clip=0, train_wall=60, gb_free=62.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:12:07]    INFO >> epoch 020:   3698 / 5058 loss=0.131, ups=1.63, num_updates=99800, lr=0, gnorm=0.936, clip=0, train_wall=56, gb_free=73 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:13:17]    INFO >> epoch 020:   3798 / 5058 loss=0.055, ups=1.5, num_updates=99900, lr=0, gnorm=0.632, clip=0, train_wall=60, gb_free=68.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:14:08]    INFO >> epoch 020:   3898 / 5058 loss=0.136, ups=2.01, num_updates=100000, lr=0, gnorm=0.997, clip=0, train_wall=46, gb_free=63.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:15:11]    INFO >> epoch 020:   3998 / 5058 loss=0.115, ups=1.65, num_updates=100100, lr=0, gnorm=0.889, clip=0, train_wall=56, gb_free=66.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:16:15]    INFO >> epoch 020:   4098 / 5058 loss=0.721, ups=1.63, num_updates=100200, lr=0, gnorm=0.459, clip=0, train_wall=57, gb_free=63.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:17:23]    INFO >> epoch 020:   4198 / 5058 loss=0.138, ups=1.53, num_updates=100300, lr=0, gnorm=1.216, clip=0, train_wall=60, gb_free=63.6 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:18:23]    INFO >> epoch 020:   4298 / 5058 loss=0.109, ups=1.71, num_updates=100400, lr=0, gnorm=1.122, clip=0, train_wall=54, gb_free=65.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:19:26]    INFO >> epoch 020:   4398 / 5058 loss=0.074, ups=1.69, num_updates=100500, lr=0, gnorm=0.906, clip=0, train_wall=55, gb_free=64 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:20:31]    INFO >> epoch 020:   4498 / 5058 loss=0.071, ups=1.63, num_updates=100600, lr=0, gnorm=0.992, clip=0, train_wall=57, gb_free=64.5 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:21:38]    INFO >> epoch 020:   4598 / 5058 loss=0.177, ups=1.55, num_updates=100700, lr=0, gnorm=0.94, clip=0, train_wall=60, gb_free=62.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:22:50]    INFO >> epoch 020:   4698 / 5058 loss=0.223, ups=1.44, num_updates=100800, lr=0, gnorm=2.398, clip=0, train_wall=64, gb_free=63.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:23:53]    INFO >> epoch 020:   4798 / 5058 loss=0.047, ups=1.66, num_updates=100900, lr=0, gnorm=0.815, clip=0, train_wall=56, gb_free=62.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:24:34]    INFO >> epoch 020:   4898 / 5058 loss=0.121, ups=2.52, num_updates=101000, lr=0, gnorm=0.47, clip=0, train_wall=37, gb_free=63 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:25:39]    INFO >> epoch 020:   4998 / 5058 loss=0.087, ups=1.59, num_updates=101100, lr=0, gnorm=1.535, clip=0, train_wall=59, gb_free=63.5 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:26:21]    INFO >> epoch 020 | loss 0.087 | ups 1.47 | num_updates 101160 | lr 0 | gnorm 0.99 | clip 0 | train_wall 2779 | gb_free 73.9 (progress_bar.py:267, print())[0m
+[33m[2025-11-21 18:26:21] WARNING >> tensorboard or required dependencies not found, please see README for using tensorboard. (e.g. pip install tensorboardX) (progress_bar.py:314, __init__())[0m
+[32m[2025-11-21 18:33:10]    INFO >> epoch 020 | valid on 'valid' subset | loss 0.112 | num_updates 101160 | best_loss 0.112 (progress_bar.py:267, print())[0m
+[32m[2025-11-21 18:33:11]    INFO >> saved checkpoint /mnt/data1/zhaojunzhang/experiments/transformer_series/exp_baseline/checkpoints/checkpoint20.pt (epoch 20 @ 101160 updates, score 0.112) (writing took 1.498556 seconds) (checkpoint_utils.py:78, save_checkpoint())[0m
+[32m[2025-11-21 18:33:11]    INFO >> early stop since valid performance hasn't improved for last 10 runs (train.py:182, should_stop_early())[0m
+[32m[2025-11-21 18:33:11]    INFO >> early stop since valid performance hasn't improved for last 10 runs (train.py:267, single_main())[0m
+[32m[2025-11-21 18:33:11]    INFO >> done training in 68305.6 seconds (train.py:279, single_main())[0m
+CodeEncoderLSTM: Creating BiLSTM with 6 layers, 512 hidden and input size
+/bin/sh: 1: ncc-eval: not found
+
+============================================================
+Setting up experiment: exp_baseline
+============================================================
+✓ Created directory: /mnt/data1/zhaojunzhang/experiments/transformer_series/exp_baseline
+✓ Created directory: /mnt/data1/zhaojunzhang/experiments/transformer_series/exp_baseline/checkpoints
+✓ Created directory: /mnt/data1/zhaojunzhang/experiments/transformer_series/exp_baseline/logs
+✓ Created directory: /mnt/data1/zhaojunzhang/experiments/transformer_series/exp_baseline/results
+✓ Saved config to: /mnt/data1/zhaojunzhang/experiments/transformer_series/exp_baseline/config.yml
+✓ Also saved to: run/type_prediction/transformer/config/exp_baseline.yml
+✓ Saved experiment info to: /mnt/data1/zhaojunzhang/experiments/transformer_series/exp_baseline/info.txt
+
+============================================================
+Starting training...
+============================================================
+
+Command: python run/type_prediction/transformer/train.py --language exp_baseline 2>&1 | tee /mnt/data1/zhaojunzhang/experiments/transformer_series/exp_baseline/logs/train.log
+
+Note: Config file will be loaded from run/type_prediction/transformer/config/exp_baseline.yml
+
+
+✓ Training completed successfully!
+
+============================================================
+Evaluating model on test set...
+============================================================
+
+Command: ncc-eval --configs /mnt/data1/zhaojunzhang/experiments/transformer_series/exp_baseline/config.yml 2>&1 | tee /mnt/data1/zhaojunzhang/experiments/transformer_series/exp_baseline/logs/eval.log
+
+
+✓ Evaluation completed!
+✓ Results saved to: /mnt/data1/zhaojunzhang/experiments/transformer_series/exp_baseline/results/test_results.txt
+
+============================================================
+✓ Experiment completed: exp_baseline
+✓ Results in: /mnt/data1/zhaojunzhang/experiments/transformer_series/exp_baseline
+============================================================
+
+
+✓ exp_baseline completed in 19.77 hours
+
+============================================================
+Running: exp_d_model_256
+GPU: 3
+Time: 2025-11-21T18:33:14.248655
+============================================================
+[32m[2025-11-21 18:33:15]    INFO >> Load arguments in run/type_prediction/transformer/config/exp_d_model_256.yml (train.py:300, cli_main())[0m
+[32m[2025-11-21 18:33:15]    INFO >> {'criterion': 'type_predicition_cross_entropy', 'optimizer': 'fairseq_adam', 'lr_scheduler': 'polynomial_decay', 'tokenizer': None, 'bpe': None, 'common': {'no_progress_bar': 0, 'log_interval': 100, 'log_format': 'simple', 'tensorboard_logdir': '/mnt/data1/zhaojunzhang/experiments/transformer_series/exp_d_model_256/logs/tensorboard', 'seed': 1, 'cpu': 0, 'fp16': 0, 'bf16': 0, 'memory_efficient_fp16': 0, 'memory_efficient_bf16': 0, 'fp16_no_flatten_grads': 0, 'fp16_init_scale': 128, 'fp16_scale_window': None, 'fp16_scale_tolerance': 0.0, 'min_loss_scale': 0.0001, 'threshold_loss_scale': None, 'user_dir': None, 'empty_cache_freq': 0, 'all_gather_list_size': 16384, 'task': 'type_prediction'}, 'dataset': {'num_workers': 0, 'skip_invalid_size_inputs_valid_test': 1, 'max_tokens': None, 'max_sentences': 32, 'required_batch_size_multiple': 8, 'dataset_impl': 'raw', 'train_subset': 'train', 'valid_subset': 'valid', 'validate_interval': 1, 'fixed_validation_seed': None, 'disable_validation': 0, 'max_tokens_valid': None, 'max_sentences_valid': 32, 'curriculum': 100, 'test_subset': 'test', 'num_shards': 1, 'shard_id': 0, 'joined_dictionary': 1, 'srcdict': '/mnt/data1/zhaojunzhang/typilus-data/transformer/dict.txt', 'tgtdict': '/mnt/data1/zhaojunzhang/typilus-data/transformer/dict.txt'}, 'distributed_training': {'distributed_world_size': 1, 'distributed_rank': 0, 'distributed_backend': 'nccl', 'distributed_init_method': None, 'distributed_port': -1, 'device_id': 0, 'distributed_no_spawn': 0, 'ddp_backend': 'c10d', 'bucket_cap_mb': 25, 'fix_batches_to_gpus': None, 'find_unused_parameters': 0, 'fast_stat_sync': 0, 'broadcast_buffers': 0, 'global_sync_iter': 50, 'warmup_iterations': 500}, 'task': {'data': '/mnt/data1/zhaojunzhang/typilus-data/transformer', 'sample_break_mode': 'complete', 'tokens_per_sample': 1024, 'mask_prob': 0.15, 'leave_unmasked_prob': 0.1, 'random_token_prob': 0.1, 'freq_weighted_replacement': 0, 'mask_whole_words': 0, 'pooler_activation_fn': 'tanh', 'source_lang': 'code', 'target_lang': 'type', 'load_alignments': 0, 'left_pad_source': 1, 'left_pad_target': 0, 'max_source_positions': 2048, 'max_target_positions': 2048, 'upsample_primary': 1, 'truncate_source': 1, 'eval_accuracy': 1}, 'model': {'arch': 'typetransformer', 'pooler_dropout': 0.0, 'activation_fn': 'gelu', 'dropout': 0.1, 'attention_dropout': 0.1, 'activation_dropout': 0.0, 'relu_dropout': 0.0, 'encoder_type': 'lstm', 'encoder_positional_embeddings': 1, 'encoder_embed_path': 0, 'encoder_embed_dim': 256, 'encoder_ffn_embed_dim': 2048, 'encoder_layers': 6, 'encoder_attention_heads': 8, 'encoder_normalize_before': 0, 'encoder_learned_pos': 0, 'decoder_embed_path': '', 'decoder_embed_dim': 0, 'decoder_ffn_embed_dim': 0, 'decoder_layers': 0, 'decoder_attention_heads': 0, 'decoder_learned_pos': 0, 'decoder_normalize_before': 0, 'share_decoder_input_output_embed': 0, 'share_all_embeddings': 0, 'no_token_positional_embeddings': 0, 'adaptive_softmax_cutoff': 0, 'adaptive_softmax_dropout': 0.0, 'no_cross_attention': 0, 'cross_self_attention': 0, 'layer_wise_attention': 0, 'encoder_layerdrop': 0.0, 'decoder_layerdrop': 0.0, 'encoder_layers_to_keep': None, 'decoder_layers_to_keep': None, 'layernorm_embedding': 0, 'no_scale_embedding': 0, 'encoder_max_relative_len': 0, 'max_source_positions': 2048, 'max_target_positions': 2048}, 'optimization': {'max_epoch': 50, 'max_update': 0, 'clip_norm': 25, 'sentence_avg': None, 'update_freq': [1], 'lr': [0.0001], 'lrs': [0.0001], 'min_lr': -1, 'use_bmuf': 0, 'force_anneal': None, 'warmup_updates': 1000, 'end_learning_rate': 0.0, 'power': 1.0, 'total_num_update': 50000, 'adam': {'adam_betas': '(0.9, 0.999)', 'adam_eps': 1e-06, 'weight_decay': 0.01, 'use_old_adam': 1}, 'adagrad': {'weight_decay': 0.0}, 'binary_cross_entropy': {'infonce': 0, 'loss-weights': '', 'log-keys': ''}}, 'checkpoint': {'save_dir': '/mnt/data1/zhaojunzhang/experiments/transformer_series/exp_d_model_256/checkpoints', 'restore_file': 'checkpoint_last.pt', 'reset_dataloader': None, 'reset_lr_scheduler': None, 'reset_meters': None, 'reset_optimizer': None, 'optimizer_overrides': '{}', 'save_interval': 1, 'save_interval_updates': 0, 'keep_interval_updates': 0, 'keep_last_epochs': 5, 'keep_best_checkpoints': 3, 'no_save': 0, 'no_epoch_checkpoints': 0, 'no_last_checkpoints': 0, 'no_save_optimizer_state': None, 'best_checkpoint_metric': 'loss', 'maximize_best_checkpoint_metric': 0, 'patience': 10}, 'eval': {'path': '/mnt/data1/zhaojunzhang/experiments/transformer_series/exp_d_model_256/checkpoints/checkpoint_best.pt', 'remove_bpe': None, 'quiet': 0, 'results_path': None, 'model_overrides': '{}'}} (train.py:302, cli_main())[0m
+[32m[2025-11-21 18:33:15]    INFO >> single GPU training... (train.py:331, cli_main())[0m
+[32m[2025-11-21 18:33:16]    INFO >> {'criterion': 'type_predicition_cross_entropy', 'optimizer': 'fairseq_adam', 'lr_scheduler': 'polynomial_decay', 'tokenizer': None, 'bpe': None, 'common': {'no_progress_bar': 0, 'log_interval': 100, 'log_format': 'simple', 'tensorboard_logdir': '/mnt/data1/zhaojunzhang/experiments/transformer_series/exp_d_model_256/logs/tensorboard', 'seed': 1, 'cpu': 0, 'fp16': 0, 'bf16': 0, 'memory_efficient_fp16': 0, 'memory_efficient_bf16': 0, 'fp16_no_flatten_grads': 0, 'fp16_init_scale': 128, 'fp16_scale_window': None, 'fp16_scale_tolerance': 0.0, 'min_loss_scale': 0.0001, 'threshold_loss_scale': None, 'user_dir': None, 'empty_cache_freq': 0, 'all_gather_list_size': 16384, 'task': 'type_prediction'}, 'dataset': {'num_workers': 0, 'skip_invalid_size_inputs_valid_test': 1, 'max_tokens': None, 'max_sentences': 32, 'required_batch_size_multiple': 8, 'dataset_impl': 'raw', 'train_subset': 'train', 'valid_subset': 'valid', 'validate_interval': 1, 'fixed_validation_seed': None, 'disable_validation': 0, 'max_tokens_valid': None, 'max_sentences_valid': 32, 'curriculum': 100, 'test_subset': 'test', 'num_shards': 1, 'shard_id': 0, 'joined_dictionary': 1, 'srcdict': '/mnt/data1/zhaojunzhang/typilus-data/transformer/dict.txt', 'tgtdict': '/mnt/data1/zhaojunzhang/typilus-data/transformer/dict.txt'}, 'distributed_training': {'distributed_world_size': 1, 'distributed_rank': 0, 'distributed_backend': 'nccl', 'distributed_init_method': None, 'distributed_port': -1, 'device_id': 0, 'distributed_no_spawn': 0, 'ddp_backend': 'c10d', 'bucket_cap_mb': 25, 'fix_batches_to_gpus': None, 'find_unused_parameters': 0, 'fast_stat_sync': 0, 'broadcast_buffers': 0, 'global_sync_iter': 50, 'warmup_iterations': 500}, 'task': {'data': '/mnt/data1/zhaojunzhang/typilus-data/transformer', 'sample_break_mode': 'complete', 'tokens_per_sample': 1024, 'mask_prob': 0.15, 'leave_unmasked_prob': 0.1, 'random_token_prob': 0.1, 'freq_weighted_replacement': 0, 'mask_whole_words': 0, 'pooler_activation_fn': 'tanh', 'source_lang': 'code', 'target_lang': 'type', 'load_alignments': 0, 'left_pad_source': 1, 'left_pad_target': 0, 'max_source_positions': 2048, 'max_target_positions': 2048, 'upsample_primary': 1, 'truncate_source': 1, 'eval_accuracy': 1}, 'model': {'arch': 'typetransformer', 'pooler_dropout': 0.0, 'activation_fn': 'gelu', 'dropout': 0.1, 'attention_dropout': 0.1, 'activation_dropout': 0.0, 'relu_dropout': 0.0, 'encoder_type': 'lstm', 'encoder_positional_embeddings': 1, 'encoder_embed_path': 0, 'encoder_embed_dim': 256, 'encoder_ffn_embed_dim': 2048, 'encoder_layers': 6, 'encoder_attention_heads': 8, 'encoder_normalize_before': 0, 'encoder_learned_pos': 0, 'decoder_embed_path': '', 'decoder_embed_dim': 0, 'decoder_ffn_embed_dim': 0, 'decoder_layers': 0, 'decoder_attention_heads': 0, 'decoder_learned_pos': 0, 'decoder_normalize_before': 0, 'share_decoder_input_output_embed': 0, 'share_all_embeddings': 0, 'no_token_positional_embeddings': 0, 'adaptive_softmax_cutoff': 0, 'adaptive_softmax_dropout': 0.0, 'no_cross_attention': 0, 'cross_self_attention': 0, 'layer_wise_attention': 0, 'encoder_layerdrop': 0.0, 'decoder_layerdrop': 0.0, 'encoder_layers_to_keep': None, 'decoder_layers_to_keep': None, 'layernorm_embedding': 0, 'no_scale_embedding': 0, 'encoder_max_relative_len': 0, 'max_source_positions': 2048, 'max_target_positions': 2048}, 'optimization': {'max_epoch': 50, 'max_update': 0, 'clip_norm': 25, 'sentence_avg': None, 'update_freq': [1], 'lr': [0.0001], 'lrs': [0.0001], 'min_lr': -1, 'use_bmuf': 0, 'force_anneal': None, 'warmup_updates': 1000, 'end_learning_rate': 0.0, 'power': 1.0, 'total_num_update': 50000, 'adam': {'adam_betas': '(0.9, 0.999)', 'adam_eps': 1e-06, 'weight_decay': 0.01, 'use_old_adam': 1}, 'adagrad': {'weight_decay': 0.0}, 'binary_cross_entropy': {'infonce': 0, 'loss-weights': '', 'log-keys': ''}}, 'checkpoint': {'save_dir': '/mnt/data1/zhaojunzhang/experiments/transformer_series/exp_d_model_256/checkpoints', 'restore_file': 'checkpoint_last.pt', 'reset_dataloader': None, 'reset_lr_scheduler': None, 'reset_meters': None, 'reset_optimizer': None, 'optimizer_overrides': '{}', 'save_interval': 1, 'save_interval_updates': 0, 'keep_interval_updates': 0, 'keep_last_epochs': 5, 'keep_best_checkpoints': 3, 'no_save': 0, 'no_epoch_checkpoints': 0, 'no_last_checkpoints': 0, 'no_save_optimizer_state': None, 'best_checkpoint_metric': 'loss', 'maximize_best_checkpoint_metric': 0, 'patience': 10}, 'eval': {'path': '/mnt/data1/zhaojunzhang/experiments/transformer_series/exp_d_model_256/checkpoints/checkpoint_best.pt', 'remove_bpe': None, 'quiet': 0, 'results_path': None, 'model_overrides': '{}'}} (train.py:208, single_main())[0m
+[32m[2025-11-21 18:33:19]    INFO >> TypeTransformer(
+  (decoder): RobertaEncoder(
+    (encoder): CodeEncoderLSTM(
+      (embedding): Embedding(10006, 512)
+      (pos_encoder): PositionalEncoding()
+      (encoder): LSTM(512, 512, num_layers=6, bidirectional=True)
+    )
+    (output): Sequential(
+      (0): Linear(in_features=1024, out_features=512, bias=True)
+      (1): ReLU()
+      (2): Linear(in_features=512, out_features=10006, bias=True)
+    )
+  )
+  (classification_heads): ModuleDict()
+) (train.py:220, single_main())[0m
+[32m[2025-11-21 18:33:19]    INFO >> model typetransformer, criterion TypePredictionCrossEntropyCriterion (train.py:221, single_main())[0m
+[32m[2025-11-21 18:33:19]    INFO >> num. model params: 46481686 (num. trained: 46481686) (train.py:222, single_main())[0m
+[32m[2025-11-21 18:33:19]    INFO >> ***********************CUDA enviroments for all 1 workers*********************** (utils.py:530, pretty_print_cuda_env_list())[0m
+[32m[2025-11-21 18:33:19]    INFO >> rank   0: capabilities =  8.0  ; total memory = 81920 MB ; free memory = 81024 MB ; used memory = 896 MB ; name = NVIDIA A800 80GB PCIe                    (utils.py:532, pretty_print_cuda_env_list())[0m
+[32m[2025-11-21 18:33:19]    INFO >> ***********************CUDA enviroments for all 1 workers*********************** (utils.py:540, pretty_print_cuda_env_list())[0m
+[32m[2025-11-21 18:33:19]    INFO >> training on 1 GPUs (train.py:229, single_main())[0m
+[32m[2025-11-21 18:33:19]    INFO >> max tokens per GPU = None and max sentences per GPU = 32 (train.py:230, single_main())[0m
+[32m[2025-11-21 18:33:19]    INFO >> no existing checkpoint found /mnt/data1/zhaojunzhang/experiments/transformer_series/exp_d_model_256/checkpoints/checkpoint_last.pt (ncc_trainers.py:299, load_checkpoint())[0m
+[32m[2025-11-21 18:33:19]    INFO >> loading train data for epoch 1 (ncc_trainers.py:314, get_train_iterator())[0m
+[33m[2025-11-21 18:33:29] WARNING >> 32222 samples have invalid sizes and will be skipped, max_positions=(2048, 2048), first few sample ids=[0, 1, 2, 4, 6, 7, 8, 10, 14, 19] (data_utils.py:301, filter_by_size())[0m
+[32m[2025-11-21 18:33:29]    INFO >> NOTE: your device may support faster training with fp16 or --amp (ncc_trainers.py:183, _setup_optimizer())[0m
+[33m[2025-11-21 18:33:29] WARNING >> tensorboard or required dependencies not found, please see README for using tensorboard. (e.g. pip install tensorboardX) (progress_bar.py:314, __init__())[0m
+/home/zhaojunzhang/workspace/type_pred/naturalcc/ncc/utils/gradient_clip/fairseq_clip.py:56: UserWarning: amp_C fused kernels unavailable, disabling multi_tensor_l2norm; you may get better performance by installing NVIDIA's apex library
+  warnings.warn(
+/home/zhaojunzhang/workspace/type_pred/naturalcc/ncc/tasks/ncc_task.py:398: UserWarning: ntokens not found in Criterion logging outputs, cannot log wpb or wps
+  warnings.warn(
+/home/zhaojunzhang/workspace/type_pred/naturalcc/ncc/tasks/ncc_task.py:407: UserWarning: nsentences not found in Criterion logging outputs, cannot log bsz
+  warnings.warn(
+[32m[2025-11-21 18:34:14]    INFO >> epoch 001:    100 / 5058 loss=1.903, ups=2.33, num_updates=100, lr=1e-05, gnorm=0.104, clip=0, train_wall=41, gb_free=66.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:35:04]    INFO >> epoch 001:    200 / 5058 loss=0.786, ups=2.13, num_updates=200, lr=2e-05, gnorm=0.068, clip=0, train_wall=44, gb_free=65.2 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:36:09]    INFO >> epoch 001:    300 / 5058 loss=0.654, ups=1.6, num_updates=300, lr=3e-05, gnorm=0.053, clip=0, train_wall=59, gb_free=65.2 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:37:16]    INFO >> epoch 001:    400 / 5058 loss=0.623, ups=1.56, num_updates=400, lr=4e-05, gnorm=2.819, clip=2, train_wall=60, gb_free=64.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:38:18]    INFO >> epoch 001:    500 / 5058 loss=0.208, ups=1.65, num_updates=500, lr=5e-05, gnorm=4.476, clip=2, train_wall=57, gb_free=65.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:39:20]    INFO >> epoch 001:    600 / 5058 loss=0.079, ups=1.68, num_updates=600, lr=6e-05, gnorm=4.788, clip=8, train_wall=56, gb_free=66.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:40:05]    INFO >> epoch 001:    700 / 5058 loss=0.174, ups=2.39, num_updates=700, lr=7e-05, gnorm=2.641, clip=4, train_wall=39, gb_free=69.6 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:40:47]    INFO >> epoch 001:    800 / 5058 loss=0.166, ups=2.43, num_updates=800, lr=8e-05, gnorm=3.325, clip=8, train_wall=39, gb_free=62.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:41:55]    INFO >> epoch 001:    900 / 5058 loss=0.216, ups=1.53, num_updates=900, lr=9e-05, gnorm=6.91, clip=8, train_wall=61, gb_free=64.5 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:43:01]    INFO >> epoch 001:   1000 / 5058 loss=0.142, ups=1.59, num_updates=1000, lr=0.0001, gnorm=1.451, clip=0, train_wall=59, gb_free=62.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:44:01]    INFO >> epoch 001:   1100 / 5058 loss=0.058, ups=1.73, num_updates=1100, lr=0.0001, gnorm=2.202, clip=2, train_wall=54, gb_free=63.5 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:45:06]    INFO >> epoch 001:   1200 / 5058 loss=0.035, ups=1.61, num_updates=1200, lr=0.0001, gnorm=0.871, clip=0, train_wall=58, gb_free=64.5 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:46:11]    INFO >> epoch 001:   1300 / 5058 loss=0.087, ups=1.59, num_updates=1300, lr=9.9e-05, gnorm=1.877, clip=2, train_wall=59, gb_free=67.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:47:14]    INFO >> epoch 001:   1400 / 5058 loss=0.059, ups=1.62, num_updates=1400, lr=9.9e-05, gnorm=2.488, clip=4, train_wall=58, gb_free=62.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:48:20]    INFO >> epoch 001:   1500 / 5058 loss=0.279, ups=1.59, num_updates=1500, lr=9.9e-05, gnorm=1.776, clip=2, train_wall=59, gb_free=63.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:49:22]    INFO >> epoch 001:   1600 / 5058 loss=0.11, ups=1.7, num_updates=1600, lr=9.9e-05, gnorm=3.243, clip=4, train_wall=55, gb_free=62.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:50:29]    INFO >> epoch 001:   1700 / 5058 loss=0.113, ups=1.56, num_updates=1700, lr=9.9e-05, gnorm=2.319, clip=2, train_wall=60, gb_free=67.6 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:51:23]    INFO >> epoch 001:   1800 / 5058 loss=0.12, ups=1.88, num_updates=1800, lr=9.8e-05, gnorm=3.115, clip=5, train_wall=50, gb_free=63.5 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:52:04]    INFO >> epoch 001:   1900 / 5058 loss=0.153, ups=2.63, num_updates=1900, lr=9.8e-05, gnorm=1.952, clip=4, train_wall=36, gb_free=67.2 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:53:06]    INFO >> epoch 001:   2000 / 5058 loss=0.089, ups=1.67, num_updates=2000, lr=9.8e-05, gnorm=1.422, clip=1, train_wall=56, gb_free=64.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:54:12]    INFO >> epoch 001:   2100 / 5058 loss=0.074, ups=1.55, num_updates=2100, lr=9.8e-05, gnorm=3.142, clip=2, train_wall=60, gb_free=63.6 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:55:21]    INFO >> epoch 001:   2200 / 5058 loss=0.279, ups=1.55, num_updates=2200, lr=9.8e-05, gnorm=5.078, clip=6, train_wall=60, gb_free=62.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:56:28]    INFO >> epoch 001:   2300 / 5058 loss=0.068, ups=1.53, num_updates=2300, lr=9.7e-05, gnorm=2.452, clip=5, train_wall=61, gb_free=66.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:57:34]    INFO >> epoch 001:   2400 / 5058 loss=0.063, ups=1.59, num_updates=2400, lr=9.7e-05, gnorm=0.773, clip=1, train_wall=59, gb_free=67.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:58:43]    INFO >> epoch 001:   2500 / 5058 loss=0.149, ups=1.47, num_updates=2500, lr=9.7e-05, gnorm=3.718, clip=1, train_wall=63, gb_free=63.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 18:59:43]    INFO >> epoch 001:   2600 / 5058 loss=0.128, ups=1.79, num_updates=2600, lr=9.7e-05, gnorm=2.608, clip=1, train_wall=53, gb_free=62.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:00:43]    INFO >> epoch 001:   2700 / 5058 loss=0.076, ups=1.71, num_updates=2700, lr=9.7e-05, gnorm=1.387, clip=1, train_wall=55, gb_free=66 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:01:46]    INFO >> epoch 001:   2800 / 5058 loss=0.081, ups=1.66, num_updates=2800, lr=9.6e-05, gnorm=1.32, clip=3, train_wall=56, gb_free=67.5 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:02:28]    INFO >> epoch 001:   2900 / 5058 loss=0.274, ups=2.57, num_updates=2900, lr=9.6e-05, gnorm=2.005, clip=3, train_wall=37, gb_free=62.6 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:03:34]    INFO >> epoch 001:   3000 / 5058 loss=0.145, ups=1.57, num_updates=3000, lr=9.6e-05, gnorm=3.103, clip=5, train_wall=60, gb_free=66.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:04:28]    INFO >> epoch 001:   3100 / 5058 loss=0.058, ups=1.91, num_updates=3100, lr=9.6e-05, gnorm=0.282, clip=0, train_wall=49, gb_free=73.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:05:27]    INFO >> epoch 001:   3200 / 5058 loss=0.282, ups=1.79, num_updates=3200, lr=9.6e-05, gnorm=2.208, clip=2, train_wall=52, gb_free=67.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:06:28]    INFO >> epoch 001:   3300 / 5058 loss=0.086, ups=1.71, num_updates=3300, lr=9.5e-05, gnorm=1.673, clip=1, train_wall=55, gb_free=63.5 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:07:40]    INFO >> epoch 001:   3400 / 5058 loss=0.225, ups=1.44, num_updates=3400, lr=9.5e-05, gnorm=5.264, clip=3, train_wall=64, gb_free=62.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:08:46]    INFO >> epoch 001:   3500 / 5058 loss=0.131, ups=1.57, num_updates=3500, lr=9.5e-05, gnorm=1.53, clip=0, train_wall=59, gb_free=63.2 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:09:53]    INFO >> epoch 001:   3600 / 5058 loss=0.095, ups=1.57, num_updates=3600, lr=9.5e-05, gnorm=2.575, clip=1, train_wall=59, gb_free=63.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:10:54]    INFO >> epoch 001:   3700 / 5058 loss=0.137, ups=1.7, num_updates=3700, lr=9.4e-05, gnorm=1.854, clip=2, train_wall=55, gb_free=66.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:12:02]    INFO >> epoch 001:   3800 / 5058 loss=0.058, ups=1.54, num_updates=3800, lr=9.4e-05, gnorm=1.191, clip=1, train_wall=60, gb_free=68.5 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:12:52]    INFO >> epoch 001:   3900 / 5058 loss=0.127, ups=2.05, num_updates=3900, lr=9.4e-05, gnorm=1.978, clip=2, train_wall=46, gb_free=63.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:13:55]    INFO >> epoch 001:   4000 / 5058 loss=0.131, ups=1.66, num_updates=4000, lr=9.4e-05, gnorm=1.731, clip=1, train_wall=56, gb_free=63 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:14:59]    INFO >> epoch 001:   4100 / 5058 loss=0.92, ups=1.64, num_updates=4100, lr=9.4e-05, gnorm=0.902, clip=1, train_wall=57, gb_free=63.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:16:06]    INFO >> epoch 001:   4200 / 5058 loss=0.149, ups=1.54, num_updates=4200, lr=9.3e-05, gnorm=1.845, clip=3, train_wall=61, gb_free=62.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:17:07]    INFO >> epoch 001:   4300 / 5058 loss=0.117, ups=1.74, num_updates=4300, lr=9.3e-05, gnorm=1.721, clip=1, train_wall=54, gb_free=73.2 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:18:07]    INFO >> epoch 001:   4400 / 5058 loss=0.082, ups=1.69, num_updates=4400, lr=9.3e-05, gnorm=1.476, clip=0, train_wall=55, gb_free=67.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:19:11]    INFO >> epoch 001:   4500 / 5058 loss=0.072, ups=1.63, num_updates=4500, lr=9.3e-05, gnorm=1.371, clip=0, train_wall=57, gb_free=66.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:20:18]    INFO >> epoch 001:   4600 / 5058 loss=0.241, ups=1.55, num_updates=4600, lr=9.3e-05, gnorm=1.805, clip=0, train_wall=60, gb_free=62.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:21:30]    INFO >> epoch 001:   4700 / 5058 loss=0.215, ups=1.45, num_updates=4700, lr=9.2e-05, gnorm=3.803, clip=2, train_wall=64, gb_free=64.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:22:32]    INFO >> epoch 001:   4800 / 5058 loss=0.056, ups=1.68, num_updates=4800, lr=9.2e-05, gnorm=1.411, clip=0, train_wall=55, gb_free=67.6 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:23:13]    INFO >> epoch 001:   4900 / 5058 loss=0.142, ups=2.5, num_updates=4900, lr=9.2e-05, gnorm=0.824, clip=0, train_wall=38, gb_free=65.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:24:20]    INFO >> epoch 001:   5000 / 5058 loss=0.09, ups=1.59, num_updates=5000, lr=9.2e-05, gnorm=2.488, clip=0, train_wall=59, gb_free=63.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:25:00]    INFO >> epoch 001 | loss 0.105 | ups 1.71 | num_updates 5058 | lr 9.2e-05 | gnorm 2.248 | clip 2.1 | train_wall 2776 | gb_free 73.9 (progress_bar.py:267, print())[0m
+[33m[2025-11-21 19:25:00] WARNING >> 4469 samples have invalid sizes and will be skipped, max_positions=(2048, 2048), first few sample ids=[2, 4, 10, 12, 13, 14, 16, 18, 19, 23] (data_utils.py:301, filter_by_size())[0m
+[33m[2025-11-21 19:25:00] WARNING >> tensorboard or required dependencies not found, please see README for using tensorboard. (e.g. pip install tensorboardX) (progress_bar.py:314, __init__())[0m
+[32m[2025-11-21 19:31:45]    INFO >> epoch 001 | valid on 'valid' subset | loss 0.138 | num_updates 5058 (progress_bar.py:267, print())[0m
+[32m[2025-11-21 19:31:46]    INFO >> saved checkpoint /mnt/data1/zhaojunzhang/experiments/transformer_series/exp_d_model_256/checkpoints/checkpoint1.pt (epoch 1 @ 5058 updates, score 0.138) (writing took 1.128643 seconds) (checkpoint_utils.py:78, save_checkpoint())[0m
+[33m[2025-11-21 19:31:46] WARNING >> tensorboard or required dependencies not found, please see README for using tensorboard. (e.g. pip install tensorboardX) (progress_bar.py:314, __init__())[0m
+[32m[2025-11-21 19:32:08]    INFO >> epoch 002:     42 / 5058 loss=0.24, ups=0.22, num_updates=5100, lr=9.2e-05, gnorm=3.337, clip=2, train_wall=56, gb_free=77.5 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:32:51]    INFO >> epoch 002:    142 / 5058 loss=0.134, ups=2.49, num_updates=5200, lr=9.1e-05, gnorm=0.773, clip=0, train_wall=38, gb_free=78.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:33:46]    INFO >> epoch 002:    242 / 5058 loss=0.233, ups=1.85, num_updates=5300, lr=9.1e-05, gnorm=0.782, clip=0, train_wall=51, gb_free=70.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:34:51]    INFO >> epoch 002:    342 / 5058 loss=0.135, ups=1.61, num_updates=5400, lr=9.1e-05, gnorm=1.255, clip=0, train_wall=58, gb_free=64.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:35:59]    INFO >> epoch 002:    442 / 5058 loss=0.248, ups=1.52, num_updates=5500, lr=9.1e-05, gnorm=3.406, clip=1, train_wall=62, gb_free=68.5 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:37:01]    INFO >> epoch 002:    542 / 5058 loss=0.08, ups=1.71, num_updates=5600, lr=9.1e-05, gnorm=1.697, clip=1, train_wall=55, gb_free=62.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:37:56]    INFO >> epoch 002:    642 / 5058 loss=0.088, ups=1.88, num_updates=5700, lr=9e-05, gnorm=1.912, clip=0, train_wall=50, gb_free=67.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:38:35]    INFO >> epoch 002:    742 / 5058 loss=0.239, ups=2.65, num_updates=5800, lr=9e-05, gnorm=2.029, clip=0, train_wall=36, gb_free=67.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:39:30]    INFO >> epoch 002:    842 / 5058 loss=0.144, ups=1.93, num_updates=5900, lr=9e-05, gnorm=1.643, clip=0, train_wall=49, gb_free=63.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:40:38]    INFO >> epoch 002:    942 / 5058 loss=0.159, ups=1.53, num_updates=6000, lr=9e-05, gnorm=2.681, clip=0, train_wall=61, gb_free=66.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:41:37]    INFO >> epoch 002:   1042 / 5058 loss=0.107, ups=1.73, num_updates=6100, lr=9e-05, gnorm=1.282, clip=0, train_wall=54, gb_free=67.5 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:42:38]    INFO >> epoch 002:   1142 / 5058 loss=0.036, ups=1.71, num_updates=6200, lr=8.9e-05, gnorm=0.293, clip=0, train_wall=55, gb_free=64.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:43:46]    INFO >> epoch 002:   1242 / 5058 loss=0.042, ups=1.54, num_updates=6300, lr=8.9e-05, gnorm=0.551, clip=0, train_wall=61, gb_free=66.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:44:50]    INFO >> epoch 002:   1342 / 5058 loss=0.054, ups=1.6, num_updates=6400, lr=8.9e-05, gnorm=0.868, clip=0, train_wall=59, gb_free=63.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:45:55]    INFO >> epoch 002:   1442 / 5058 loss=0.131, ups=1.64, num_updates=6500, lr=8.9e-05, gnorm=1.541, clip=0, train_wall=57, gb_free=62.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:46:58]    INFO >> epoch 002:   1542 / 5058 loss=0.08, ups=1.65, num_updates=6600, lr=8.9e-05, gnorm=1.148, clip=0, train_wall=57, gb_free=69.6 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:48:02]    INFO >> epoch 002:   1642 / 5058 loss=0.137, ups=1.65, num_updates=6700, lr=8.8e-05, gnorm=1.963, clip=1, train_wall=57, gb_free=63.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:49:08]    INFO >> epoch 002:   1742 / 5058 loss=0.11, ups=1.58, num_updates=6800, lr=8.8e-05, gnorm=1.674, clip=0, train_wall=59, gb_free=63.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:49:50]    INFO >> epoch 002:   1842 / 5058 loss=0.075, ups=2.44, num_updates=6900, lr=8.8e-05, gnorm=0.746, clip=0, train_wall=39, gb_free=72 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:50:43]    INFO >> epoch 002:   1942 / 5058 loss=0.116, ups=1.98, num_updates=7000, lr=8.8e-05, gnorm=1.846, clip=0, train_wall=47, gb_free=62.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:51:45]    INFO >> epoch 002:   2042 / 5058 loss=0.068, ups=1.66, num_updates=7100, lr=8.8e-05, gnorm=0.476, clip=0, train_wall=56, gb_free=63.2 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:52:56]    INFO >> epoch 002:   2142 / 5058 loss=0.103, ups=1.49, num_updates=7200, lr=8.7e-05, gnorm=3.36, clip=0, train_wall=62, gb_free=64.5 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:54:02]    INFO >> epoch 002:   2242 / 5058 loss=0.08, ups=1.58, num_updates=7300, lr=8.7e-05, gnorm=1.933, clip=0, train_wall=59, gb_free=63.6 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:55:09]    INFO >> epoch 002:   2342 / 5058 loss=0.088, ups=1.55, num_updates=7400, lr=8.7e-05, gnorm=1.022, clip=0, train_wall=60, gb_free=63 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:56:14]    INFO >> epoch 002:   2442 / 5058 loss=0.078, ups=1.57, num_updates=7500, lr=8.7e-05, gnorm=0.795, clip=0, train_wall=59, gb_free=64.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:57:24]    INFO >> epoch 002:   2542 / 5058 loss=0.225, ups=1.5, num_updates=7600, lr=8.7e-05, gnorm=2.32, clip=0, train_wall=62, gb_free=72.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:58:19]    INFO >> epoch 002:   2642 / 5058 loss=0.074, ups=1.87, num_updates=7700, lr=8.6e-05, gnorm=1.402, clip=0, train_wall=50, gb_free=69.7 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 19:59:25]    INFO >> epoch 002:   2742 / 5058 loss=0.09, ups=1.59, num_updates=7800, lr=8.6e-05, gnorm=0.648, clip=0, train_wall=59, gb_free=63.8 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 20:00:11]    INFO >> epoch 002:   2842 / 5058 loss=0.161, ups=2.28, num_updates=7900, lr=8.6e-05, gnorm=0.632, clip=0, train_wall=41, gb_free=78.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 20:01:07]    INFO >> epoch 002:   2942 / 5058 loss=0.203, ups=1.85, num_updates=8000, lr=8.6e-05, gnorm=2.179, clip=0, train_wall=51, gb_free=64.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 20:02:11]    INFO >> epoch 002:   3042 / 5058 loss=0.081, ups=1.61, num_updates=8100, lr=8.6e-05, gnorm=1.026, clip=0, train_wall=58, gb_free=72 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 20:03:09]    INFO >> epoch 002:   3142 / 5058 loss=0.066, ups=1.81, num_updates=8200, lr=8.5e-05, gnorm=0.713, clip=0, train_wall=52, gb_free=71.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 20:04:03]    INFO >> epoch 002:   3242 / 5058 loss=0.379, ups=1.93, num_updates=8300, lr=8.5e-05, gnorm=0.754, clip=0, train_wall=49, gb_free=63.2 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 20:05:10]    INFO >> epoch 002:   3342 / 5058 loss=0.104, ups=1.55, num_updates=8400, lr=8.5e-05, gnorm=2.319, clip=0, train_wall=60, gb_free=63.5 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 20:06:22]    INFO >> epoch 002:   3442 / 5058 loss=0.244, ups=1.48, num_updates=8500, lr=8.5e-05, gnorm=3.47, clip=0, train_wall=63, gb_free=66.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 20:07:28]    INFO >> epoch 002:   3542 / 5058 loss=0.085, ups=1.56, num_updates=8600, lr=8.4e-05, gnorm=0.775, clip=1, train_wall=60, gb_free=64.9 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 20:08:31]    INFO >> epoch 002:   3642 / 5058 loss=0.089, ups=1.63, num_updates=8700, lr=8.4e-05, gnorm=1.298, clip=0, train_wall=58, gb_free=64 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 20:09:35]    INFO >> epoch 002:   3742 / 5058 loss=0.065, ups=1.62, num_updates=8800, lr=8.4e-05, gnorm=1.631, clip=0, train_wall=58, gb_free=64.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 20:10:38]    INFO >> epoch 002:   3842 / 5058 loss=0.072, ups=1.66, num_updates=8900, lr=8.4e-05, gnorm=0.598, clip=0, train_wall=56, gb_free=72.4 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 20:11:30]    INFO >> epoch 002:   3942 / 5058 loss=0.154, ups=2.02, num_updates=9000, lr=8.4e-05, gnorm=1.231, clip=0, train_wall=46, gb_free=64.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 20:12:35]    INFO >> epoch 002:   4042 / 5058 loss=0.154, ups=1.62, num_updates=9100, lr=8.3e-05, gnorm=0.968, clip=0, train_wall=58, gb_free=66.3 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 20:13:41]    INFO >> epoch 002:   4142 / 5058 loss=0.141, ups=1.55, num_updates=9200, lr=8.3e-05, gnorm=1.037, clip=0, train_wall=60, gb_free=63.1 (progress_bar.py:258, log())[0m
+[32m[2025-11-21 20:14:45]    INFO >> epoch 002:   4242 / 5058 loss=0.15, ups=1.65, num_updates=9300, lr=8.3e-05, gnorm=2.156, clip=0, train_wall=57, gb_free=75.2 (progress_bar.py:258, log())[0m
