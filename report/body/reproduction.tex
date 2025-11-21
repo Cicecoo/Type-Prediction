@@ -6,9 +6,9 @@
 
 本章记录 Typilus 模型在 NaturalCC 框架下的复现过程，
 包括复现实验的基本配置、实现细节，以及过程中遇到的主要问题和解决方法。
-此外基于NaturalCC 框架实现了基于 Transformer 的类型推断，
-在后文的对比实验中，将以本章复现得到的 Typilus 结果，
-与基于 Transformer 的序列模型进行简单比较。
+% 基于 NaturalCC 框架实现基于 Transformer 的类型推断，
+% 在后文的对比实验中，将以本章复现得到的 Typilus 结果，
+% 与基于 Transformer 的序列模型进行简单比较。
 
 % \subsection{复现实验设置}
 
@@ -29,26 +29,27 @@
 Typilus 模型的主要超参数包括嵌入维度、GGNN 层数、隐藏维度、学习率和批量大小等。
 本实验采用 NaturalCC 提供的默认配置：嵌入维度 512、GGNN 层数 8、triplet margin 1.0，
 优化器与学习率调度保持默认，训练、验证和测试均基于前文构建的 Typilus 数据集划分进行。
+此外对基于 Transformer 的类型推断模型进行了尝试。
 
-此外实现了基于 Transformer 的类型推断模型，
-使用同一 Typilus 数据集，但将代码表示从程序图转换为 token 序列，
-基于 NaturalCC 中的代码实现。
+% 此外实现了基于 Transformer 的类型推断模型，
+% 使用同一 Typilus 数据集，但将代码表示从程序图转换为 token 序列，
+% 基于 NaturalCC 中的代码实现。
 
-训练过程中在验证集上监控 Top-$k$ 准确率和 MRR 等指标，
-并保留若干性能较好的检查点，作为后续误差分析和对比实验的参考。
+% 训练过程中在验证集上监控 Top-$k$ 准确率和 MRR 等指标，
+% 并保留若干性能较好的检查点，作为后续误差分析和对比实验的参考。
 
 
-\subsection{训练过程与结果}
+% \subsection{训练过程与结果}
 
-在解决环境与数据预处理相关问题之后，Typilus模型可以在GPU上正常训练。
-从损失变化来看，前几个epoch中训练损失较快下降，
-随后在相对稳定的区间内震荡，验证集Top-1和Top-$k$准确率随之提升并逐渐趋于平稳。
+% 在解决环境与数据预处理相关问题之后，Typilus模型可以在GPU上正常训练。
+% 从损失变化来看，前几个epoch中训练损失较快下降，
+% 随后在相对稳定的区间内震荡，验证集Top-1和Top-$k$准确率随之提升并逐渐趋于平稳。
 
-受数据规模、预处理细节以及实现差异等因素影响，
-本实验复现的绝对指标与原论文报告存在一定差距，
-但整体趋势与预期一致：相较于随机预测，Typilus在验证集和测试集上显著优于简单基线，
-能够利用程序图结构和上下文信息，对常见类型给出较为可靠的预测。
-在后续章节中，Typilus复现模型作为图神经网络基线，与基于Transformer的序列模型进行对比分析。
+% 受数据规模、预处理细节以及实现差异等因素影响，
+% 本实验复现的绝对指标与原论文报告存在一定差距，
+% 但整体趋势与预期一致：相较于随机预测，Typilus在验证集和测试集上显著优于简单基线，
+% 能够利用程序图结构和上下文信息，对常见类型给出较为可靠的预测。
+% 在后续章节中，Typilus复现模型作为图神经网络基线，与基于Transformer的序列模型进行对比分析。
 
 % \subsection{关键技术问题与解决}
 
@@ -56,7 +57,8 @@ Typilus 模型的主要超参数包括嵌入维度、GGNN 层数、隐藏维度�
 
 \subsection{技术问题与解决}
 
-复现 Typilus 并在此基础上加入 Transformer 序列基线的过程中，主要遇到几类问题：
+% 复现 Typilus 并在此基础上加入 Transformer 序列基线的过程中，主要遇到几类问题：
+复现 Typilus 的过程中主要遇到几类问题：
 图数据字段不一致、距离计算带来的显存压力，以及在构造 Transformer 训练数据时
 代码序列与类型标签的对齐和特殊 token 处理问题。
 本节按类别对这些问题及其解决方法作简要说明。
@@ -97,42 +99,36 @@ Typilus 模型的主要超参数包括嵌入维度、GGNN 层数、隐藏维度�
 \subsubsection{Transformer 序列数据与标签对齐}
 
 在构造基于 Transformer 的序列模型时，需要将 Typilus 的图数据转换为
-一行一条样本的 \texttt{.code}／\texttt{.type} 文本格式。
-一开始直接将 \texttt{nodes} 数组视作 token 序列，或在写入文件时随意添加起止标记，
-在加载数据时频繁触发断言 \texttt{len(tokens) != len(labels)}。
+一行一条样本的 \texttt{.code}/\texttt{.type} 文本格式。
+最初直接使用 \texttt{nodes} 数组或随意添加起止标记，加载数据时频繁触发
+\texttt{len(tokens) != len(labels)} 的断言。
 
-问题主要来自两方面：
-一是 Typilus 的 \texttt{token-sequence} 与 \texttt{nodes} 长度并不总是一致，
+问题主要在于：一方面 \texttt{token-sequence} 与 \texttt{nodes} 的长度并不总是一致，
 真正的代码序列应以 \texttt{token-sequence} 中的 id 为准；
-二是某些样本在生成类型标签时存在越界或空值，或在写入文本后再次用 \texttt{split()} 解析时，
-由于 token 本身带有空白字符，导致 token 数量发生变化。
+另一方面个别样本在生成类型标签时越界或为空，写入文本后再用 \texttt{split()} 解析时，
+token 内部的空白字符还会导致长度进一步错位。
 
-为保证对齐，在转换过程中采用了较为严格的策略：
-使用 \texttt{token-sequence} 中的 id 结合词典反查得到代码 token，
-类型标签则由 \texttt{supernodes} 中的注解生成；
-对每条样本，要求 \texttt{len(token\_ids) == len(type\_labels)} 才保留，
-不满足条件的样本直接跳过；
-在写文件前对 token 做简单清洗，去掉或替换内部空白，避免在读取阶段被错误拆分。
-经过过滤后，最终保留了约十几万条对齐良好的样本，少量异常样本被丢弃。
+为保证严格对齐，转换过程中采用 \texttt{token-sequence} + 词典反查得到代码 token，
+类型标签由 \texttt{supernodes} 注解生成，并要求每条样本满足
+\texttt{len(token\_ids) == len(type\_labels)}，否则直接丢弃；
+写文件前对 token 做简单清洗，去除或替换内部空白，避免读取阶段被拆分成多个“伪 token”。
 
 \subsubsection{CUDA 索引错误与特殊 token 处理}
 
-在 Transformer 序列模型的训练阶段，还遇到多次 \texttt{CUDA error: device-side assert triggered} 错误，
-定位到 embedding 查表时出现非法索引。
-调试发现，问题并非来自“索引大于词表大小”，而是有大量 \texttt{-1} 被当作 token id 输入模型。
+在 Transformer 训练阶段多次出现 \texttt{CUDA error: device-side assert triggered}，
+定位到 embedding 查表时输入了非法索引。
+排查发现并非 “id 超出词表大小”，而是存在大量 \texttt{-1} 被当作 token id 使用。
 
-进一步检查表明，这与特殊 token 的处理有关：
-Dictionary 在某些加载路径下没有正确初始化 \texttt{<pad>}、\texttt{<unk>}、\texttt{<s>}、\texttt{</s>}，
-导致 \texttt{pad\_idx} 与 \texttt{unk\_idx} 保持为 \texttt{-1}。
-当代码或类型标签中出现 OOV token 时，索引函数返回 \texttt{unk\_idx}，
-padding 时也使用 \texttt{pad\_idx}，最终将大量 \texttt{-1} 送入 embedding 层，引发设备端断言。
+原因与特殊 token 初始化有关：Dictionary 在某些加载路径下没有正确添加
+\texttt{<pad>}、\texttt{<unk>}、\texttt{<s>}、\texttt{</s>}，
+导致 \texttt{pad\_idx} 和 \texttt{unk\_idx} 仍为 \texttt{-1}，
+OOV token 和 padding 最终都被映射为 \texttt{-1}，从而触发设备端断言。
 
-为避免这一问题，在构造和加载词典时统一采用 Dictionary 的默认初始化方式，
-由其自动添加 \texttt{<pad>}、\texttt{<unk>}、\texttt{<s>}、\texttt{</s>} 四个特殊符号，
-并在数据转换脚本中只保留这一套约定，对 Typilus 中出现的 \texttt{[PAD]}、\texttt{[UNK]} 等写法显式做映射。
-同时编写简单的检查脚本，验证 \texttt{.code}／\texttt{.type} 中的 token 都能在词典中找到，
-防止再次出现 \texttt{-1} padding 的情况。
-调整后，CUDA 索引错误不再出现，Transformer 基线可以在 Typilus 数据上稳定训练。
+为避免这一问题，在构造和加载词典时统一采用 Dictionary 的默认初始化，
+由其自动创建上述四个特殊符号，并在数据转换脚本中只使用这一套约定，
+对 Typilus 中的 \texttt{[PAD]}、\texttt{[UNK]} 等写法显式映射到对应符号。
+同时增加简单的覆盖检查，确认 \texttt{.code}/\texttt{.type} 中的 token 均能在词典中找到，
+调整后 CUDA 索引错误不再出现，序列模型可以在 Typilus 数据上稳定训练。```
 
 % \subsubsection{其他技术细节}
 
@@ -147,4 +143,4 @@ padding 时也使用 \texttt{pad\_idx}，最终将大量 \texttt{-1} 送入 embe
 \subsection{复现小结}
 
 在前述环境配置、数据准备以及关键问题修正之后，Typilus 模型和 Transformer 模型可以在 NaturalCC 框架下正常训练和验证。
-从训练日志来看，损失在若干轮迭代内持续下降并进入相对稳定区间，说明模型能够在给定数据集上收敛。
+其中，Typilus 模型能够在给定数据集上收敛；Transformer 模型受限于时间问题，仅跑通了训练流程。

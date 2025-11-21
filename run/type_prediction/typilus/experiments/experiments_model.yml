@@ -52,14 +52,12 @@ experiments:
     params:
       model:
         encoder_layers: 3
-        timesteps: [7, 1, 1]  # 需要3个值对应3层
 
   - name: layers_4
     desc: 四层GGNN (更深网络)
     params:
       model:
         encoder_layers: 4
-        timesteps: [7, 1, 1, 1]  # 需要4个值对应4层
 
   # 组3: Dropout实验 (正则化强度)
   - name: dropout_0
