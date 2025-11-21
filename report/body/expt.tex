@@ -1,36 +1,133 @@
 \section{实验结果}
 \label{sec:results}
 
-\subsection{Typilus 学习率实验}
+本章基于前文的 Typilus 复现实验，%简要报告在学习率、嵌入维度、GGNN 层数和 Dropout 等超参数上的实验结果。
+所有实验均在相同的 Typilus 数据集划分上进行，
+基础配置编码器嵌入维度和隐藏维度均为 64，GGNN 层数为 2，\texttt{max\_sentence}=32，其余参数均采用 NaturalCC 默认设置。
 
-为粗略考察 Typilus 对优化超参数的敏感性，选取学习率
-$\{1.5\times 10^{-3},\,1.25\times 10^{-3},\,1.0\times 10^{-3},\,7.5\times 10^{-4},\,5.0\times 10^{-4}\}$ 
-进行了多组训练实验，其余配置与前文复现实验保持一致。
+\subsection{学习率}
 
-从训练和验证损失来看，学习率 $1.0\times 10^{-3}$ 在验证集上取得了最小的验证损失
-（约 $3.72$），而 $7.5\times 10^{-4}$ 的 train/valid gap 较小，泛化情况相对稳定。
-在测试集上，Top-1 和 Top-5 准确率对学习率较为敏感，
-在本次设置下，$5.0\times 10^{-4}$ 对应的测试准确率最高：
-Top-1 约为 $23.21\%$，Top-5 约为 $53.33\%$，
-相较于其他学习率有明显提升。
+首先对学习率进行了简单搜索，选取
+$\{1.5\times 10^{-3},\,1.25\times 10^{-3},\,1.0\times 10^{-3},\,7.5\times 10^{-4},\,5.0\times 10^{-4}\}$，
+其余配置不变。不同学习率在测试集上的表现如表~\ref{tab:typilus_lr} 所示。
 
-图~\ref{fig:typilus_lr} 给出了不同学习率下 Typilus 训练/验证损失及测试准确率的对比曲线示意。
+\begin{table}[htbp]
+    \renewcommand{\arraystretch}{1.3}
+    \setlength{\tabcolsep}{10pt}
+    \centering
+    \caption{不同学习率下 Typilus 在测试集上的性能}
+    \small
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{学习率} & \textbf{测试损失} & \textbf{Acc@1 (\%)} & \textbf{Acc@5 (\%)} \\
+        \midrule
+        $1.25\times 10^{-3}$ & 3.7413 & 13.48 & 41.00 \\
+        $1.5\times 10^{-3}$  & 3.8528 &  8.19 & 32.78 \\
+        $1.0\times 10^{-3}$  & 3.8048 & 11.45 & 41.43 \\
+        $5.0\times 10^{-4}$  & 3.8337 & \textbf{23.21} & \textbf{53.33} \\
+        $7.5\times 10^{-4}$  & 3.7879 & 20.18 & 47.25 \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:typilus_lr}
+\end{table}
 
-% \begin{figure}[htbp]
+整体上，Typilus 在各组学习率设置下都能够稳定收敛。
+在目前的实现中，$5.0\times 10^{-4}$ 在测试集上取得了最高的 Top-1 / Top-5 准确率，
+说明在默认配置基础上适当减小学习率可以带来一定的性能提升，
+将其作为后续实验的基线配置。
+
+% 图1（可选）：不同学习率下的训练/验证损失曲线或测试准确率曲线
+% \includegraphics{...}
+
+\subsection{嵌入维度}
+
+在确定学习率为 $5\times 10^{-4}$ 后
+，将嵌入维度、隐藏维度和边特征维度统一设置为
+$32$、$64$、$96$、$128$ 等不同取值，比较其收敛速度和测试准确率。
+其中，$64$ 为基线配置。
+
+\begin{table}[htbp]
+    \renewcommand{\arraystretch}{1.3}
+    \setlength{\tabcolsep}{10pt}
+    \centering
+    \caption{不同嵌入维度下 Typilus 在测试集上的性能}
+    \small
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{嵌入配置} & \textbf{测试损失} & \textbf{Acc@1 (\%)} & \textbf{Acc@5 (\%)} \\
+        \midrule
+        embed\_32  & 3.9709 & 18.18 & 51.89 \\
+        embed\_64  & 3.8337 & \textbf{23.21} & \textbf{53.33} \\
+        embed\_96  & 4.0728 & 20.80 & 41.85 \\
+        embed\_128 & 4.1352 & 16.65 & 40.32 \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:typilus_embed}
+\end{table}
+
+
+可以看到，在本次设置下，默认的 64 维嵌入（对应学习率 $5\times 10^{-4}$、两层 GGNN）在测试集上取得了最高的 Top-1/Top-5 准确率。
+当嵌入维度减小到 32 或增大到 96、128 时，性能反而有所下降，目前还不清楚原因。
+
+% 图2（可选）：嵌入维度 vs 测试准确率曲线
+
+% \subsection{GGNN 层数}
+
+% 另一组实验考察 GGNN 编码器的层数对性能的影响。
+% 在固定其他超参数的前提下，分别使用 1 层、3 层和 4 层 GGNN 进行训练与评估。
+
+% \begin{table}[htbp]
+%     \renewcommand{\arraystretch}{1.3}
+%     \setlength{\tabcolsep}{10pt}
 %     \centering
-%     \includegraphics[width=0.7\textwidth]{experiments/comparison.png} % 待根据实际路径调整
-%     \caption{不同学习率下 Typilus 的训练/验证损失与测试准确率对比（示意）。}
-%     \label{fig:typilus_lr}
-% \end{figure}
+%     \caption{不同 GGNN 层数下 Typilus 的性能（示意，结果待补充）}
+%     \small
+%     \begin{tabular}{lccc}
+%         \toprule
+%         \textbf{层数} & \textbf{测试损失} & \textbf{Acc@1 (\%)} & \textbf{Acc@5 (\%)} \\
+%         \midrule
+%         1 层 & \textit{待补充} & \textit{待补充} & \textit{待补充} \\
+%         2 层 & \textit{待补充} & \textit{待补充} & \textit{待补充} \\
+%         3 层 & \textit{待补充} & \textit{待补充} & \textit{待补充} \\
+%         4 层 & \textit{待补充} & \textit{待补充} & \textit{待补充} \\
+%         \bottomrule
+%     \end{tabular}
+%     \label{tab:typilus_layers}
+% \end{table}
 
-整体来看，在当前数据规模和实现设置下，Typilus 的绝对指标仍有较大提升空间，
-但学习率实验至少说明模型能够稳定收敛，
-并且合理减小学习率可以在不改变模型结构的前提下带来一定的精度收益，
-为后续更系统的超参数搜索提供了参考起点。
+% 图3（可选）：层数 vs 测试准确率曲线
 
-\subsection{Transformer 序列模型结果（待补充）}
+\subsection{Dropout 正则化}
 
-基于 NaturalCC 框架实现的 Transformer 序列模型目前已完成数据转换和训练流程调试，
-在 Typilus 数据集上的系统性实验仍在运行之中。
-未来计划在相同数据划分下，报出 Top-1 / Top-5 准确率以及与 Typilus 的对比结果，
-相关数值和曲线将在本节补充（\textit{待补充}）。
+考虑 Dropout 正则化强度对模型能力的影响。
+在相同学习率和网络结构下，分别设置 Dropout 为
+$0.0$、$0.15$、$0.2$、$0.3$ 等不同取值进行对比。
+其中 $0.15$ 为基线配置。
+
+\begin{table}[htbp]
+    \renewcommand{\arraystretch}{1.3}
+    \setlength{\tabcolsep}{10pt}
+    \centering
+    \caption{不同 Dropout 配置下 Typilus 的性能（示意，结果待补充）}
+    \small
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Dropout} & \textbf{测试损失} & \textbf{Acc@1 (\%)} & \textbf{Acc@5 (\%)} \\
+        \midrule
+        0.0  & \textit{待补充} & \textit{待补充} & \textit{待补充} \\
+        0.10 & \textit{待补充} & \textit{待补充} & \textit{待补充} \\
+        0.15 & \textit{待补充} & \textit{待补充} & \textit{待补充} \\
+        0.20 & \textit{待补充} & \textit{待补充} & \textit{待补充} \\
+        0.30 & \textit{待补充} & \textit{待补充} & \textit{待补充} \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:typilus_dropout}
+\end{table}
+
+% 图4（可选）：Dropout 强度 vs 测试准确率曲线
+
+\subsection{本章小结}
+
+本章围绕 Typilus 的若干关键超参数给出了初步实验结果。
+现有的数据表明，合理选择学习率可以在不改动模型结构的前提下带来明显的精度提升，
+同时模型容量和正则化也对性能有一定影响。

@@ -6,7 +6,9 @@
 \subsection{实验环境}
 
 实验在一台运行 Linux 的 NVIDIA GPU 服务器上进行。
-通过 Conda 创建独立环境 \texttt{naturalcc}，主要依赖包括 Python、PyTorch、DGL（Deep Graph Library）和 Transformers 等深度学习与图学习库。
+通过 Conda 创建独立环境 \texttt{naturalcc}，主要依赖包括 Python、PyTorch、DGL（Deep Graph Library）
+% 和 Transformers 
+等深度学习与图学习库。
 
 环境配置中遇到的关键问题主要与库版本有关：
 % \begin{itemize}
@@ -20,7 +22,7 @@
     通过在 Conda 环境中安装合适版本的 \texttt{p11-kit}、\texttt{gnutls} 和 \texttt{libffi} 进行修复；
     对于 \texttt{ruamel.yaml} 移除 \texttt{safe\_load} 接口带来的不兼容，
     通过修改 NaturalCC 内部的 YAML 读取函数解决。
-    此外，还根据文档要求固定了 \texttt{transformers} 和 \texttt{tokenizers} 等库的版本。
+    % 此外，还根据文档要求固定了 \texttt{transformers} 和 \texttt{tokenizers} 等库的版本。
 % \end{itemize}
 
 NaturalCC 使用 \texttt{master} 分支与实验文档保持一致，
@@ -53,10 +55,10 @@ Typilus 使用从 GitHub 收集的大规模开源 Python 项目作为训练数�
 为此在数据处理代码中增加了异常捕获和完整性检查，对不合法样本进行过滤。
 % 保证整条数据管线可以在大规模数据上顺利跑完。
 
-在对比实验部分，还基于 Typilus 图数据构造了面向 Transformer 序列模型的数据集，
-将图上的类型预测任务改写为 token 序列上的标注任务，
-并重新构建词典，统一 \texttt{[PAD]}、\texttt{[UNK]}、\texttt{<s>}、\texttt{</s>} 等特殊符号的命名和映射。
-相关细节在后续章节中进一步说明。
+% 在对比实验部分，还基于 Typilus 图数据构造了面向 Transformer 序列模型的数据集，
+% 将图上的类型预测任务改写为 token 序列上的标注任务，
+% 并重新构建词典，统一 \texttt{[PAD]}、\texttt{[UNK]}、\texttt{<s>}、\texttt{</s>} 等特殊符号的命名和映射。
+% 相关细节在后续章节中进一步说明。
 
 \subsubsection{数据特点}
 
@@ -73,5 +75,5 @@ Typilus 数据集中类型分布非常不均衡：
 为每个 mini-batch 设置节点总数上限，根据图的大小自动调整批内样本数量，
 在保证 GPU 利用率的同时避免显存占用过高或批次之间差异过大。
 
-这一数据加载和批处理方案在 Typilus 图模型和后续的 Transformer 序列模型中保持一致，
-便于在相同数据划分上比较不同模型的效果。
+% 这一数据加载和批处理方案在 Typilus 图模型和后续的 Transformer 序列模型中保持一致，
+% 便于在相同数据划分上比较不同模型的效果。
