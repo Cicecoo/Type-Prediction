@@ -29,3 +29,6 @@ build/
 third_party/
 
 chat.json
+
+
+*.pt

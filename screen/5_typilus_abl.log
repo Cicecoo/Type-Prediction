@@ -1,0 +1,115 @@
+(base) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc[00m$ exit
+exit
+(base) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc[00m$ conda aacti[K[K[K[Kactivate [1P[C[C[C[C[C[C[C[Cnai[Kturalcc
+(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc[00m$ python [K[K[K[K[K[K[Kcd onda activate naturalccd [K/home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc[00m$ [C[26Ponda activate naturalcc
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cd /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools
+(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ pytho n train_enhanced.py [K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Krun_experiments.py --g[K[K-cong[Kfig experiments_model.yml 
+============================================================
+Typilus 参数调优实验系统
+============================================================
+配置文件: experiments_model.yml
+
+共 6 个实验:
+
+1. layers_3: 三层GGNN (增加深度)
+2. layers_4: 四层GGNN (更深网络)
+3. dropout_0: 无Dropout (测试是否需要正则化)
+4. dropout_015: Dropout=0.15 (适度增强)
+5. dropout_02: Dropout=0.2 (强正则化)
+6. dropout_03: Dropout=0.3 (极强正则化)
+
+============================================================
+
+按 Enter 开始实验...
+
+进度: 1/6
+
+============================================================
+实验: layers_3 - 三层GGNN (增加深度)
+时间: 2025-11-21 12:04:22
+============================================================
+
+[32m[2025-11-21 12:04:23]    INFO >> 加载配置: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/layers_3/config.yml (train_enhanced.py:666, cli_main())[0m
+[32m[2025-11-21 12:04:23]    INFO >> 单GPU训练... (train_enhanced.py:694, cli_main())[0m
+[32m[2025-11-21 12:04:24]    INFO >> 训练日志将保存到: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/layers_3/logs (train_enhanced.py:561, single_main())[0m
+[32m[2025-11-21 12:04:24]    INFO >> [nodes] dictionary: 9999 types (typilus.py:102, setup_task())[0m
+[32m[2025-11-21 12:04:24]    INFO >> [edges] dictionary: 0 types (typilus.py:102, setup_task())[0m
+[32m[2025-11-21 12:04:24]    INFO >> [supernodes.annotation] dictionary: 99 types (typilus.py:106, setup_task())[0m
+[TrainingLogger] 日志目录: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/layers_3/logs
+[TrainingLogger] 原始输出将保存到: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/layers_3/logs/training_output.log
+Traceback (most recent call last):
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools/train_enhanced.py", line 699, in <module>
+    cli_main()
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools/train_enhanced.py", line 695, in cli_main
+    single_main(args)
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools/train_enhanced.py", line 566, in single_main
+    model = task.build_model(args)
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/ncc/tasks/ncc_task.py", line 259, in build_model
+    return models.build_model(args, config, self)
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/ncc/models/__init__.py", line 37, in build_model
+    return MODEL_REGISTRY[args['model']['arch']].build_model(args, config, task)
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/ncc/models/type_prediction/typilus.py", line 144, in build_model
+    encoder = GGNNEncoder(
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/ncc/models/type_prediction/typilus.py", line 85, in __init__
+    self.ggnns = nn.ModuleList([
+  File "/home/zhaojunzhang/workspace/type_pred/naturalcc/ncc/models/type_prediction/typilus.py", line 88, in <listcomp>
+    backward=edge_backward, timesteps=timesteps[i], dropout=dropout)
+IndexError: list index out of range
+
+✗ layers_3 失败(1)
+
+实验失败，继续? (y/n): n
+
+============================================================
+实验完成
+============================================================
+✗ layers_3
+============================================================
+
+正在分析结果...
+
+================================================================================
+实验结果对比
+================================================================================
+实验名称                      轮数       最终Loss       最佳验证Loss       
+--------------------------------------------------------------------------------
+layers_1                  11       3.4400       3.6130         
+embed_128                 11       3.3240       3.6830         
+embed_96                  11       3.3540       3.6980         
+embed_32                  11       3.6130       3.7080         
+lr_1e-3                   4        3.5320       3.7180         
+lr_1.5e-3                 4        3.5200       3.7210         
+lr_1.25e-3                4        3.5090       3.7340         
+lr_7.5e-4                 4        3.5530       3.7560         
+lr_5e-4                   4        3.6480       3.7850         
+================================================================================
+run_experiments.py:282: UserWarning: Glyph 39564 (\N{CJK UNIFIED IDEOGRAPH-9A8C}) missing from current font.
+  plt.tight_layout()
+run_experiments.py:282: UserWarning: Glyph 35777 (\N{CJK UNIFIED IDEOGRAPH-8BC1}) missing from current font.
+  plt.tight_layout()
+run_experiments.py:282: UserWarning: Glyph 23545 (\N{CJK UNIFIED IDEOGRAPH-5BF9}) missing from current font.
+  plt.tight_layout()
+run_experiments.py:282: UserWarning: Glyph 27604 (\N{CJK UNIFIED IDEOGRAPH-6BD4}) missing from current font.
+  plt.tight_layout()
+run_experiments.py:282: UserWarning: Glyph 26368 (\N{CJK UNIFIED IDEOGRAPH-6700}) missing from current font.
+  plt.tight_layout()
+run_experiments.py:282: UserWarning: Glyph 20339 (\N{CJK UNIFIED IDEOGRAPH-4F73}) missing from current font.
+  plt.tight_layout()
+run_experiments.py:283: UserWarning: Glyph 39564 (\N{CJK UNIFIED IDEOGRAPH-9A8C}) missing from current font.
+  plt.savefig(exp_base_dir / 'comparison.png', dpi=120, bbox_inches='tight')
+run_experiments.py:283: UserWarning: Glyph 35777 (\N{CJK UNIFIED IDEOGRAPH-8BC1}) missing from current font.
+  plt.savefig(exp_base_dir / 'comparison.png', dpi=120, bbox_inches='tight')
+run_experiments.py:283: UserWarning: Glyph 23545 (\N{CJK UNIFIED IDEOGRAPH-5BF9}) missing from current font.
+  plt.savefig(exp_base_dir / 'comparison.png', dpi=120, bbox_inches='tight')
+run_experiments.py:283: UserWarning: Glyph 27604 (\N{CJK UNIFIED IDEOGRAPH-6BD4}) missing from current font.
+  plt.savefig(exp_base_dir / 'comparison.png', dpi=120, bbox_inches='tight')
+run_experiments.py:283: UserWarning: Glyph 26368 (\N{CJK UNIFIED IDEOGRAPH-6700}) missing from current font.
+  plt.savefig(exp_base_dir / 'comparison.png', dpi=120, bbox_inches='tight')
+run_experiments.py:283: UserWarning: Glyph 20339 (\N{CJK UNIFIED IDEOGRAPH-4F73}) missing from current font.
+  plt.savefig(exp_base_dir / 'comparison.png', dpi=120, bbox_inches='tight')
+
+对比图已保存: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/comparison.png
+报告已保存: /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiments/report.md
+
+(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ python run_experiments.py --config experiments_model.yml [A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ cd /home/zhaojunzhang/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [Conda activate naturalcc[K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ [1Pexit
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cscreen -r lrexp [C[C[Cls[K[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ conda activate naturalcc[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ screen[2P -r transformer [A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ conda activate naturalcc[A(naturalcc) [01;32mzhaojunzhang@dlserver6-Super-Server[00m:[01;34m~/workspace/type_pred/naturalcc/run/type_prediction/typilus/experiment_tools[00m$ screen[8P -r trans 

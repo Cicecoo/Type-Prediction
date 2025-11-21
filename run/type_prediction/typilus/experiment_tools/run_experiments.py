@@ -22,7 +22,7 @@ def load_experiments(config_file=None):
     if config_file is None:
         # 默认使用学习率实验配置
         script_dir = Path(__file__).parent
-        config_file = script_dir / "experiments_lr.yml"
+        config_file = script_dir / "experiments_model.yml"
     
     config_file = Path(config_file)
     if not config_file.exists():

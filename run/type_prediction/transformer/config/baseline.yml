@@ -123,7 +123,7 @@ model:
   max_source_positions: 2048
   max_target_positions: 2048
 optimization:
-  max_epoch: 5
+  max_epoch: 25
   max_update: 0
   clip_norm: 25
   sentence_avg: null
